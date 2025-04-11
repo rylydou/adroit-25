@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://b70ku84xsxsyj"]
+
+[ext_resource type="Script" uid="uid://dtmnqath5ry0d" path="res://addons/devtools/scripts/dev_tools.gd" id="1_g6qgo"]
+[ext_resource type="PackedScene" uid="uid://dqjcq0lepie40" path="res://addons/devtools/scenes/command_palette.tscn" id="2_1wyy5"]
+
+[node name="Dev Tools" type="CanvasLayer"]
+process_mode = 3
+physics_interpolation_mode = 2
+auto_translate_mode = 2
+layer = 128
+script = ExtResource("1_g6qgo")
+
+[node name="Command Palette" parent="." instance=ExtResource("2_1wyy5")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2

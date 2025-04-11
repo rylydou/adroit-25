@@ -1,0 +1,14 @@
+# OS files
+.DS_Store
+# Temporary files
+~*
+
+# Godot 4+ specific ignores
+.godot/
+
+# Ignore project metadata
+meta/
+
+# Ignore exports
+exports/**
+!exports/.gdignore

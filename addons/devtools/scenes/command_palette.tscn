@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqjcq0lepie40"]
+
+[ext_resource type="Theme" uid="uid://btuxi35s3rpn8" path="res://addons/devtools/resources/standard.tres" id="1_uur17"]
+[ext_resource type="Script" uid="uid://bg6t86v7gmouu" path="res://addons/devtools/scripts/command_palette.gd" id="1_xxo0b"]
+[ext_resource type="Script" uid="uid://c676ebcbgoi8u" path="res://addons/devtools/scripts/ui_themer.gd" id="3_nyr8g"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_uur17"]
+device = -1
+ctrl_pressed = true
+keycode = 80
+unicode = 112
+
+[sub_resource type="InputEventKey" id="InputEventKey_nyr8g"]
+device = -1
+keycode = 96
+unicode = 96
+
+[sub_resource type="Shortcut" id="Shortcut_xu021"]
+events = [SubResource("InputEventKey_uur17"), SubResource("InputEventKey_nyr8g")]
+
+[node name="Command Palette" type="PanelContainer"]
+texture_filter = 4
+custom_minimum_size = Vector2(400, 300)
+offset_right = 400.0
+offset_bottom = 300.0
+theme = ExtResource("1_uur17")
+script = ExtResource("1_xxo0b")
+shortcut = SubResource("Shortcut_xu021")
+
+[node name="Theme" type="Node" parent="."]
+script = ExtResource("3_nyr8g")
+pixel_size = Vector2(180, 100)
+
+[node name="Free" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Right" type="Control" parent="Free"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Box" type="HBoxContainer" parent="Free/Right"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 228.0
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="Free/Right/Box"]
+layout_mode = 2
+
+[node name="Command Info Container" type="PanelContainer" parent="Free/Right/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Theme" type="Node" parent="Free/Right/Box/Command Info Container"]
+script = ExtResource("3_nyr8g")
+pixel_size = Vector2(100, 0)
+
+[node name="Command Info" type="RichTextLabel" parent="Free/Right/Box/Command Info Container"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Command description"
+fit_content = true
+shortcut_keys_enabled = false
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Command Input" type="LineEdit" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search for commands..."
+
+[node name="Command List" type="ItemList" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+allow_search = false
+item_count = 1
+item_0/text = "No recent commands..."
+item_0/disabled = true
+
+[node name="Margin" type="MarginContainer" parent="Box/Command List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Status Label" type="Label" parent="Box/Command List/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 2
+text = "10 total commands"
+horizontal_alignment = 2
+vertical_alignment = 2

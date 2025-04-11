@@ -1,0 +1,65 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[Fmod]
+
+General/auto_initialize=true
+General/channel_count=1024
+General/is_live_update_enabled=true
+General/is_memory_tracking_enabled=false
+"Software Format/sample_rate"=48000
+"Software Format/speaker_mode"=3
+"Software Format/raw_speaker_count"=0
+General/default_listener_count=1
+General/banks_path="res://content/soundbank/default"
+General/should_load_by_name=false
+DSP/dsp_buffer_size=512
+DSP/dsp_buffer_count=4
+"3D Settings/doppler_scale"=1.0
+"3D Settings/distance_factor"=1.0
+"3D Settings/rolloff_scale"=1.0
+
+[application]
+
+config/name="Adroit 25"
+config/features=PackedStringArray("4.4")
+config/icon="res://icon.svg"
+
+[autoload]
+
+FmodManager="*res://addons/fmod/FmodManager.gd"
+DevTools="*res://addons/devtools/autoload.tscn"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/devtools/plugin.cfg", "res://addons/fmod/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://content/": "red",
+"res://resources/": "blue",
+"res://scenes/": "yellow",
+"res://scripts/": "green"
+}
+
+[rendering]
+
+renderer/rendering_method="mobile"
