@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://udll2lwgyg4o"]
+
+[node name="PlayerAnim" type="Node2D"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="Bone2D" type="Bone2D" parent="Skeleton2D"]
+
+[node name="Bone2D" type="Bone2D" parent="Skeleton2D/Bone2D"]
+position = Vector2(0, -36)

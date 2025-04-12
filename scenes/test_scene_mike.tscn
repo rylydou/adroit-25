@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://barqtdabrst4p"]
+
+[ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_qoii8"]
+[ext_resource type="PackedScene" uid="uid://c2d1jfrmr0q67" path="res://scenes/Parallax.tscn" id="2_u683u"]
+
+[node name="test scene" type="Node2D"]
+
+[node name="Player Character" parent="." instance=ExtResource("1_qoii8")]
+
+[node name="Node2D" parent="." instance=ExtResource("2_u683u")]
