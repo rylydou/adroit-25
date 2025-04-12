@@ -1,4 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2d1jfrmr0q67"]
+[gd_scene load_steps=6 format=3 uid="uid://c2d1jfrmr0q67"]
+
+[ext_resource type="Texture2D" uid="uid://la4mmx5a5xmw" path="res://content/art/caves.png" id="1_vlveh"]
+[ext_resource type="Texture2D" uid="uid://cnndfsi7k5y8m" path="res://content/art/cavesb1.png" id="2_8rxox"]
+[ext_resource type="Texture2D" uid="uid://0rku6a58v11h" path="res://content/art/cavesb2.png" id="3_euy61"]
 
 [sub_resource type="Gradient" id="Gradient_rf3rd"]
 
@@ -8,36 +12,37 @@ gradient = SubResource("Gradient_rf3rd")
 [node name="Paralax" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 100
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(1440, 0)
+motion_scale = Vector2(0.9, 0.9)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-scale = Vector2(4.88, 130.198)
-texture = SubResource("GradientTexture1D_6e84v")
+texture = ExtResource("1_vlveh")
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
-motion_scale = Vector2(0.3, 0.3)
+position = Vector2(3, 48)
+motion_scale = Vector2(0.8, 0.8)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer"]
-scale = Vector2(2.52, 67.2336)
-texture = SubResource("GradientTexture1D_6e84v")
+texture = ExtResource("2_8rxox")
 
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+layer = -101
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground3"]
-motion_scale = Vector2(0.2, 0.2)
+motion_scale = Vector2(0.7, 0.7)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground3/ParallaxLayer"]
-scale = Vector2(1.44, 38.4192)
-texture = SubResource("GradientTexture1D_6e84v")
+position = Vector2(-346, -1)
+texture = ExtResource("3_euy61")
 
 [node name="ParallaxBackground4" type="ParallaxBackground" parent="."]
+layer = -112
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground4"]
 motion_scale = Vector2(0.1, 0.1)
