@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ces0gfvlamphi"]
+
+[ext_resource type="Texture2D" uid="uid://c63x7loaym3i7" path="res://icon.svg" id="1_cmano"]
+[ext_resource type="Script" uid="uid://cdblmfjwdfte5" path="res://scripts/nodes/weak_block.gd" id="1_hlcya"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlcya"]
+size = Vector2(24, 24)
+
+[node name="Weak Block" type="StaticBody2D"]
+collision_layer = 4611
+collision_mask = 0
+script = ExtResource("1_hlcya")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_cmano")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_hlcya")
+debug_color = Color(0, 1, 0, 0)

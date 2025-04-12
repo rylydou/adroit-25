@@ -82,6 +82,7 @@ var water_surface_jump_vel := 0.0
 @onready var flip_node: Node2D = %"Flip"
 @onready var sprite: Sprite2D = %"Sprite"
 @onready var water_area: Area2D = %"Water Area"
+@onready var punch_area: Area2D = %"Punch Area"
 
 ## Temporary
 @onready var og_spawn_position := global_position
@@ -143,7 +144,7 @@ func _process_physics(delta: float) -> void:
 		jump_buffer_timer = jump_buffer_ticks / Global.TPS
 	
 	action_buffer_timer -= delta
-	if gamepad.action.pressed:
+	if gamepad.punch.pressed:
 		action_buffer_timer = action_buffer_ticks / Global.TPS
 	
 	if wallslide_norm != 0 and coyote_timer > 0.0:
@@ -168,6 +169,16 @@ func _process_physics(delta: float) -> void:
 		process_state_platformer(delta)
 	
 	fallthrough_ignore_timer -= delta
+	
+	if gamepad.punch.pressed:
+		var things := punch_area.get_overlapping_bodies()
+		things.append(punch_area.get_overlapping_areas())
+		
+		for thing in things:
+			# if thing.owner:
+				# thing = thing.owner
+			
+			thing.propagate_call(&"receive_punch", [0])
 
 
 func process_state_platformer(delta: float) -> void:

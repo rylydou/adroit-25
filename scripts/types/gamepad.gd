@@ -91,9 +91,9 @@ var aim := Vector2.ZERO
 var jump := Btn.new()
 var crouch := Btn.new()
 
-var action := Btn.new()
-var pickup := Btn.new()
-var switch := Btn.new()
+var punch := Btn.new()
+var dash := Btn.new()
+var grapple := Btn.new()
 
 var self_destruct := Btn.new()
 
@@ -203,18 +203,14 @@ func poll_gamepad(delta: float) -> void:
 			or Input.get_joy_axis(device, JOY_AXIS_LEFT_Y) > crouch_threshold
 	), delta)
 	
-	action.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_X)
-			or Input.get_joy_axis(device, JOY_AXIS_TRIGGER_LEFT) >= trigger_deadzone
-			or Input.get_joy_axis(device, JOY_AXIS_TRIGGER_RIGHT) >= trigger_deadzone
-	), delta)
-	pickup.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_B)
-	), delta)
-	switch.track((
+	punch.track((
 			Input.is_joy_button_pressed(device, JOY_BUTTON_Y)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_LEFT_SHOULDER)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_RIGHT_SHOULDER)
+	), delta)
+	dash.track((
+			Input.is_joy_button_pressed(device, JOY_BUTTON_X)
+	), delta)
+	grapple.track((
+			Input.is_joy_button_pressed(device, JOY_BUTTON_B)
 	), delta)
 	
 	self_destruct.track(Input.is_joy_button_pressed(device, JOY_BUTTON_BACK), delta)
@@ -278,27 +274,25 @@ func poll_keyboard(delta: float) -> void:
 	
 	jump.track((
 			Input.is_physical_key_pressed(KEY_Z)
-			or Input.is_physical_key_pressed(KEY_SPACE)
+			# or Input.is_physical_key_pressed(KEY_SPACE)
 	), delta)
 	crouch.track((
-			Input.is_physical_key_pressed(KEY_S)
-			or Input.is_physical_key_pressed(KEY_DOWN)
+			Input.is_physical_key_pressed(KEY_DOWN)
+			# or Input.is_physical_key_pressed(KEY_S)
 	), delta)
 	
-	action.track(
+	punch.track(
+			Input.is_physical_key_pressed(KEY_SPACE)
+	, delta)
+	dash.track(
 			Input.is_physical_key_pressed(KEY_X)
-			or Input.is_physical_key_pressed(KEY_E)
+			# or Input.is_physical_key_pressed(KEY_E)
+			# or Input.is_physical_key_pressed(KEY_SHIFT)
 	, delta)
-	pickup.track(
+	grapple.track(
 			Input.is_physical_key_pressed(KEY_C)
-			or Input.is_physical_key_pressed(KEY_CTRL)
 			or Input.is_physical_key_pressed(KEY_F)
-	, delta)
-	switch.track(
-			Input.is_physical_key_pressed(KEY_V)
-			or Input.is_physical_key_pressed(KEY_ALT)
-			or Input.is_physical_key_pressed(KEY_Q)
-			or Input.is_physical_key_pressed(KEY_R)
+			# or Input.is_physical_key_pressed(KEY_CTRL)
 	, delta)
 	
 	self_destruct.track(Input.is_key_label_pressed(KEY_DELETE), delta)
