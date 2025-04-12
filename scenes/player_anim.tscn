@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=67 format=3 uid="uid://ds1f0penlkowi"]
 
 [ext_resource type="Texture2D" uid="uid://bxrs3w50qcy3" path="res://content/art/body/sonnyheadjoy.png" id="1_5yb70"]
 [ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
@@ -187,11 +187,27 @@ advance_condition = &"run"
 advance_mode = 2
 advance_condition = &"grapple"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4xp6y"]
+advance_mode = 2
+advance_condition = &"dash"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iu2nd"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ri2hq"]
+advance_mode = 2
+advance_condition = &"dash"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nd3bc"]
+advance_mode = 2
+advance_condition = &"dash"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_cayhs"]
 states/Animations_Dash/node = SubResource("AnimationNodeAnimation_vvsna")
-states/Animations_Dash/position = Vector2(-401.559, -182.587)
+states/Animations_Dash/position = Vector2(-358.226, -229.92)
 states/Animations_Idle/node = SubResource("AnimationNodeAnimation_56ny5")
-states/Animations_Idle/position = Vector2(595.071, -174.508)
+states/Animations_Idle/position = Vector2(595.738, -174.508)
 "states/Animations_Jump Idle/node" = SubResource("AnimationNodeAnimation_51ha2")
 "states/Animations_Jump Idle/position" = Vector2(19.3023, 332.963)
 "states/Animations_Jump fall/node" = SubResource("AnimationNodeAnimation_4xp6y")
@@ -206,8 +222,23 @@ states/End/position = Vector2(940.5, 40.5)
 "states/Grappling hook/node" = SubResource("AnimationNodeAnimation_nf6ww")
 "states/Grappling hook/position" = Vector2(614.964, 0.873291)
 states/Start/position = Vector2(-309.667, 83.945)
-transitions = ["Animations_JumpStart", "Animations_Jump Idle", SubResource("AnimationNodeStateMachineTransition_nf6ww"), "Animations_Jump Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_d43su"), "Animations_Jump Idle", "Animations_Jump fall", SubResource("AnimationNodeStateMachineTransition_bmxdy"), "Animations_Jump fall", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_x37gy"), "Animations_Jump fall", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xy74y"), "Animations_Jump fall", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_dwo66"), "Animations_Dash", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_cayhs"), "Animations_Dash", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_ce3f5"), "Animations_Dash", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_7yq7j"), "Animations_Run", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_i4x4f"), "Animations_Idle", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_8to0v"), "Start", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_4c8gj"), "Animations_Run", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_vvsna"), "Animations_Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_56ny5"), "Animations_Idle", "Grappling hook", SubResource("AnimationNodeStateMachineTransition_ylws4"), "Grappling hook", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_1r3mb"), "Grappling hook", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xhwva"), "Animations_Run", "Grappling hook", SubResource("AnimationNodeStateMachineTransition_51ha2")]
-graph_offset = Vector2(-252.37, -222.14)
+transitions = ["Animations_JumpStart", "Animations_Jump Idle", SubResource("AnimationNodeStateMachineTransition_nf6ww"), "Animations_Jump Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_d43su"), "Animations_Jump Idle", "Animations_Jump fall", SubResource("AnimationNodeStateMachineTransition_bmxdy"), "Animations_Jump fall", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_x37gy"), "Animations_Jump fall", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xy74y"), "Animations_Jump fall", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_dwo66"), "Animations_Dash", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_cayhs"), "Animations_Dash", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_ce3f5"), "Animations_Dash", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_7yq7j"), "Animations_Run", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_i4x4f"), "Animations_Idle", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_8to0v"), "Start", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_4c8gj"), "Animations_Run", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_vvsna"), "Animations_Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_56ny5"), "Animations_Idle", "Grappling hook", SubResource("AnimationNodeStateMachineTransition_ylws4"), "Grappling hook", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_1r3mb"), "Grappling hook", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xhwva"), "Animations_Run", "Grappling hook", SubResource("AnimationNodeStateMachineTransition_51ha2"), "Animations_Jump Idle", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_4xp6y"), "Animations_Dash", "Animations_Jump Idle", SubResource("AnimationNodeStateMachineTransition_iu2nd"), "Animations_Idle", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_ri2hq"), "Animations_Run", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_nd3bc")]
+graph_offset = Vector2(-872.469, -286.738)
+
+[sub_resource type="Animation" id="Animation_70hd6"]
+resource_name = "Grappling hook"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IK TARGETS/HAND TARGETR:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.48, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, -39), Vector2(2, -43), Vector2(48, -32)]
+}
 
 [sub_resource type="Animation" id="Animation_8dvso"]
 length = 0.001
@@ -397,21 +428,6 @@ tracks/2/keys = {
 "values": [Vector2(8, 11), Vector2(8, 15), Vector2(8, 11), Vector2(8, 11)]
 }
 
-[sub_resource type="Animation" id="Animation_70hd6"]
-resource_name = "Grappling hook"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("IK TARGETS/HAND TARGETR:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.48, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-2, -39), Vector2(2, -43), Vector2(48, -32)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_58a7l"]
 _data = {
 &"Grappling hook": SubResource("Animation_70hd6"),
@@ -429,6 +445,90 @@ _data = {
 &"Run": ExtResource("1_8dvso")
 }
 
+[sub_resource type="Animation" id="Animation_vvsna"]
+resource_name = "Become anger"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="Animation" id="Animation_56ny5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="Animation" id="Animation_51ha2"]
+resource_name = "Become sad"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="Animation" id="Animation_4xp6y"]
+resource_name = "Become joy"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="Animation" id="Animation_iu2nd"]
+resource_name = "Become love"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ri2hq"]
+_data = {
+&"Become anger": SubResource("Animation_vvsna"),
+&"Become joy": SubResource("Animation_4xp6y"),
+&"Become love": SubResource("Animation_iu2nd"),
+&"Become sad": SubResource("Animation_51ha2"),
+&"RESET": SubResource("Animation_56ny5")
+}
+
 [node name="PlayerAnim" type="Node2D" node_paths=PackedStringArray("tree")]
 script = ExtResource("1_vvsna")
 tree = NodePath("AnimationTree")
@@ -437,9 +537,7 @@ tree = NodePath("AnimationTree")
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(9.75662, -13.3783)
-rotation = 0.550831
-scale = Vector2(0.999829, 0.999829)
+scale = Vector2(0.999825, 0.999825)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Chest"]
@@ -466,7 +564,7 @@ texture = ExtResource("2_idxwu")
 
 [node name="Bottom Torso" type="Sprite2D" parent="Skeleton2D/Chest"]
 z_index = 13
-position = Vector2(0.303759, 3.08621)
+position = Vector2(-0.966731, 3.01148)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_skdgw")
 
@@ -478,9 +576,9 @@ scale = Vector2(0.03, 0.05)
 texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(22, -39)
-rotation = -1.67456
-scale = Vector2(0.99985, 0.99985)
+position = Vector2(7, -25)
+rotation = -0.197886
+scale = Vector2(0.999844, 0.999844)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -511,9 +609,9 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(17, -40)
-rotation = 2.29676
-scale = Vector2(0.999857, 0.999857)
+position = Vector2(-7, -26)
+rotation = 0.0831625
+scale = Vector2(0.999853, 0.999853)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true
 
@@ -538,9 +636,9 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("4_skdgw")
 
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(-3, -3)
-rotation = 1.18777
-scale = Vector2(0.999836, 0.999836)
+position = Vector2(-5.99999, 5)
+rotation = 0.94466
+scale = Vector2(0.999843, 0.999843)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
 metadata/_local_pose_override_enabled_ = true
 
@@ -569,9 +667,8 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_idxwu")
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(10, -22)
-rotation = 0.530936
-scale = Vector2(0.999851, 0.999851)
+rotation = -0.223763
+scale = Vector2(0.999857, 0.999857)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -604,17 +701,17 @@ texture = ExtResource("3_idxwu")
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(2, 53)
+position = Vector2(-31, 47)
 rotation = 1.70207
 
 [node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(16, 45)
+position = Vector2(27, 50)
 
 [node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-8, -60)
+position = Vector2(-28, -6)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(78, -55)
+position = Vector2(31, -22)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -634,4 +731,9 @@ root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_58a7l"),
 &"Animations": SubResource("AnimationLibrary_gjund")
+}
+
+[node name="Face Changer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ri2hq")
 }
