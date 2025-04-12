@@ -68,6 +68,7 @@ target = NodePath("../Door 1")
 offset_left = 24.0
 offset_top = -40.0
 offset_right = 80.0
+border_color = Color(0, 1, 0, 1)
 script = ExtResource("8_s1pwn")
 
 [node name="Killbox" type="ReferenceRect" parent="."]

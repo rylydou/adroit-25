@@ -15,4 +15,6 @@ func _on_body_entered(body:Node2D) -> void:
 	else:
 		body.velocity.y = -Math.jump_velocity(normal_height, Global.gravity)
 	
+	body.airborne_refresh()
+	
 	body.position.y = position.y - 9.0
