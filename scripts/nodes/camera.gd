@@ -1,6 +1,11 @@
 class_name Camera extends Camera2D
 
 
+var pound_shake_power := 0.0
+
+var time := 0.0
+
+
 func _enter_tree() -> void:
 	Global.camera = self
 
@@ -12,6 +17,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	time += delta
+	
 	var player := Global.player
 	
 	if not is_instance_valid(player): return
@@ -24,3 +31,14 @@ func _process(delta: float) -> void:
 			|| player.position.y <= position.y - 8.0 * 8.0
 	):
 		position.y = player.position.y
+	
+	position_smoothing_speed = 5.0
+	if player.state == PlayerCharacter.State.Pound:
+		position_smoothing_speed = 20.0
+	
+	offset.y = pow(sin(time * TAU * 6.0), 2) * pound_shake_power * 8.0
+	pound_shake_power = lerpf(pound_shake_power, 0.0, Math.smooth(5.0, delta))
+
+
+func pound_shake() -> void:
+	pound_shake_power = 1.0

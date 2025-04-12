@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=10 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ces0gfvlamphi" path="res://scenes/gimmicks/weak_block.tscn" id="2_c6406"]
 [ext_resource type="Script" uid="uid://ybnlpw8yjkgo" path="res://scripts/nodes/room.gd" id="4_0edld"]
 [ext_resource type="PackedScene" uid="uid://gwfv2f0qk4ol" path="res://scenes/gimmicks/door.tscn" id="6_0cume"]
+[ext_resource type="PackedScene" uid="uid://duwv8clbeq1hs" path="res://scenes/gimmicks/tramp.tscn" id="6_5buoj"]
+[ext_resource type="Script" uid="uid://cm40cgtaxuo6m" path="res://scripts/nodes/killbox.gd" id="8_l5iec"]
+[ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="8_s1pwn"]
 
 [node name="Test Ryly" type="Node2D"]
 
@@ -50,6 +53,9 @@ position = Vector2(-36, 20)
 
 [node name="Rooms" type="Node" parent="."]
 
+[node name="Tramp" parent="." instance=ExtResource("6_5buoj")]
+position = Vector2(100, 16)
+
 [node name="Door 1" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
 position = Vector2(68, 0)
 target = NodePath("../Door 2")
@@ -57,3 +63,16 @@ target = NodePath("../Door 2")
 [node name="Door 2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
 position = Vector2(344, 0)
 target = NodePath("../Door 1")
+
+[node name="Checkpoint" type="ReferenceRect" parent="."]
+offset_left = 24.0
+offset_top = -40.0
+offset_right = 80.0
+script = ExtResource("8_s1pwn")
+
+[node name="Killbox" type="ReferenceRect" parent="."]
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 32.0
+offset_bottom = 44.0
+script = ExtResource("8_l5iec")

@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=11 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
 
 [sub_resource type="Curve" id="Curve_6r27q"]
 _limits = [0.0, 128.0, 0.0, 15.0]
-_data = [Vector2(0, 0), 0.0, 8.53333, 0, 1, Vector2(15, 128), -0.758198, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 4.3916, 0, 1, Vector2(14.9908, 65.8335), -0.758198, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4h0vy"]
@@ -18,13 +18,16 @@ size = Vector2(10, 12)
 size = Vector2(10, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6r27q"]
-size = Vector2(6, 16)
+size = Vector2(10, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kww55"]
 size = Vector2(10, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2vmgx"]
 size = Vector2(10, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6unfe"]
+size = Vector2(16, 16)
 
 [node name="Player Character" type="CharacterBody2D"]
 collision_layer = 256
@@ -61,6 +64,7 @@ extra_air_dec = 64.0
 extra_air_smooth = 2.0
 double_jump_move_speed = 70.0
 dash_distance_curve = SubResource("Curve_6r27q")
+pound_speed = 500.0
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -120,4 +124,14 @@ collision_mask = 512
 [node name="Collision" type="CollisionShape2D" parent="Interact Area"]
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_2vmgx")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Unsafe Area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 1024
+
+[node name="Collision" type="CollisionShape2D" parent="Unsafe Area"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_6unfe")
 debug_color = Color(1, 1, 0, 0)
