@@ -38,8 +38,12 @@ var is_jumping := false
 @export var bonk_bounce := 0.0
 
 
-@export_group("Double Jump")
-@export var double_jump := 0.0
+@export_group("Double Jump", "double_jump_")
+@export var double_jump_height := 32.0
+@export var double_jump_move_speed := 0.0
+@export var double_jump_extra_speed := 0.0
+var double_jump_velocity := 0.0
+var is_double_jumping := false
 
 
 @export_group("Assists")
@@ -137,6 +141,7 @@ func calculate_physics() -> void:
 	
 	jump_velocity_min = Math.jump_velocity(jump_height_min, jump_gravity)
 	jump_velocity_max = Math.jump_velocity(jump_height_max, jump_gravity)
+	double_jump_velocity = Math.jump_velocity(double_jump_height, jump_gravity)
 	water_surface_jump_vel = Math.jump_velocity(water_surface_jump_height, jump_gravity)
 	
 	max_fall_speed = jump_velocity_max * max_fall_ratio
@@ -195,18 +200,16 @@ func _process_physics(delta: float) -> void:
 	
 	if gamepad.punch.pressed and Global.emotions.has(&"anger"):
 		var things := punch_area.get_overlapping_bodies()
-		things.append(punch_area.get_overlapping_areas())
+		things.append_array(punch_area.get_overlapping_areas())
 		
 		for thing in things:
-			# if thing.owner:
-				# thing = thing.owner
-			
 			thing.propagate_call(&"receive_punch", [0])
 
 
 func process_state_platformer(delta: float) -> void:
 	if is_on_floor():
 		is_jumping = false
+		is_double_jumping = false
 		wallslide_norm = 0
 		last_walljump_norm = 0
 	
@@ -217,6 +220,7 @@ func process_state_platformer(delta: float) -> void:
 	):
 		is_climbing = true
 		is_jumping = false
+		is_double_jumping = false
 		wallslide_norm = 0
 		last_walljump_norm = 0
 		return
@@ -393,18 +397,18 @@ func process_jump(delta: float) -> void:
 			is_climbing = true
 	
 	if jump_buffer_timer > 0.0:
-		if gamepad.crouch.down and is_on_floor(): # if crouching then fall though
-			#SoundBank.play("fallthrough", position)
-			# position += -get_floor_normal()
-			position.y += 2.0
-			jump_buffer_timer = 0.0
-			coyote_timer = 0.0
-			var offset := abs(get_floor_normal().x)
-			var fallthrough_ignore_ticks := 10.0
-			fallthrough_ignore_timer = fallthrough_ignore_ticks / Global.TPS
-			# velocity.y = maxf(velocity.y, jump_velocity_min)
-			# velocity.y = 0.0
-		elif coyote_timer > 0.0: # or else jump
+		#if gamepad.crouch.down and is_on_floor(): # if crouching then fall though
+		#	#SoundBank.play("fallthrough", position)
+		#	# position += -get_floor_normal()
+		#	position.y += 2.0
+		#	jump_buffer_timer = 0.0
+		#	coyote_timer = 0.0
+		#	var offset := abs(get_floor_normal().x)
+		#	var fallthrough_ignore_ticks := 10.0
+		#	fallthrough_ignore_timer = fallthrough_ignore_ticks / Global.TPS
+		#	# velocity.y = maxf(velocity.y, jump_velocity_min)
+		#	# velocity.y = 0.0
+		if coyote_timer > 0.0: # or else jump
 			#SoundBank.play("jump", position)
 			is_jumping = true
 			coyote_timer = 0.0
@@ -415,6 +419,12 @@ func process_jump(delta: float) -> void:
 				last_walljump_norm = wallslide_norm
 				vel_extra = wallslide_norm * walljump_horizontal_speed
 				wallslide_norm = 0
+		elif not is_double_jumping and Global.emotions.has(&"joy"):
+			is_double_jumping = true
+			jump_buffer_timer = 0.0
+			vel_move = maxf(absf(vel_move), double_jump_move_speed) * direction
+			# vel_extra = double_jump_extra_speed * direction
+			velocity.y = -double_jump_velocity
 
 
 func process_wallslide(delta: float) -> void:
@@ -462,6 +472,7 @@ func grounded_refresh() -> void:
 	jumped_from_ladder = false
 	fallthrough_ignore_timer = 0.0
 	is_jumping = false
+	is_double_jumping = false
 
 
 func airborne_refresh() -> void:

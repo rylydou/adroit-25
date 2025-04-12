@@ -34,6 +34,7 @@ jump_ticks = 25.0
 fall_ticks = 25.0
 max_fall_ratio = 1.5
 bonk_bounce = 1.0
+double_jump_move_speed = 70.0
 max_bonknudge_distance = 6.0
 climb_speed_vertical = 96.0
 climb_speed_horizontal = 48.0
