@@ -1,16 +1,16 @@
-[gd_scene load_steps=24 format=4 uid="uid://blf7gsros4nbv"]
+[gd_scene load_steps=24 format=4 uid="uid://b8mvtujv8paks"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://ybnlpw8yjkgo" path="res://scripts/nodes/room.gd" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="3_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://be1sxrhibjcyt" path="res://scenes/enemy.tscn" id="4_i7141"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="4_i7141"]
 [ext_resource type="PackedScene" uid="uid://gwfv2f0qk4ol" path="res://scenes/gimmicks/door.tscn" id="6_qfnet"]
-[ext_resource type="PackedScene" path="res://scenes/gimmicks/tramp.tscn" id="7_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://duwv8clbeq1hs" path="res://scenes/gimmicks/tramp.tscn" id="7_7r4gi"]
 [ext_resource type="Script" path="res://scripts/nodes/killbox.gd" id="8_4mrxx"]
 [ext_resource type="Script" path="res://scripts/nodes/checkpoint.gd" id="9_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://ces0gfvlamphi" path="res://scenes/gimmicks/weak_block.tscn" id="10_w7kh3"]
-[ext_resource type="PackedScene" path="res://scenes/gimmicks/emotion_pickup.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="11_e3hyu"]
 
 [sub_resource type="Curve2D" id="Curve2D_4mrxx"]
 _data = {

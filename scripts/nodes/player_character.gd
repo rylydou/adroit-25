@@ -194,11 +194,12 @@ func _physics_process(delta: float) -> void:
 
 	playerAnim.tree["parameters/conditions/jump"] = state == State.Jump
 	playerAnim.tree["parameters/conditions/hitground"] = is_grounded
+	playerAnim.tree["parameters/conditions/idle"] = abs(vel_move) == 0
 	
-		
 	
 	if not is_dead:
 		_process_physics(delta)
+		
 
 
 func _process_physics(delta: float) -> void:
