@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=11 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://duwv8clbeq1hs" path="res://scenes/gimmicks/tramp.tscn" id="6_5buoj"]
 [ext_resource type="Script" uid="uid://cm40cgtaxuo6m" path="res://scripts/nodes/killbox.gd" id="8_l5iec"]
 [ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="8_s1pwn"]
+[ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="10_pn3xg"]
 
 [node name="Test Ryly" type="Node2D"]
 
@@ -73,7 +74,14 @@ script = ExtResource("8_s1pwn")
 
 [node name="Killbox" type="ReferenceRect" parent="."]
 offset_left = -20.0
-offset_top = 20.0
-offset_right = 32.0
-offset_bottom = 44.0
+offset_top = 28.0
+offset_right = -4.0
+offset_bottom = 32.0
 script = ExtResource("8_l5iec")
+
+[node name="Emotion Pickup" parent="." instance=ExtResource("10_pn3xg")]
+position = Vector2(168, -8)
+emotion = &"fear"
+emotion_name = "Fear"
+emotion_description = "You can now dash!"
+emotion_usage = "Press {dash} to dash"
