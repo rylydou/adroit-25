@@ -1,11 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://be1sxrhibjcyt"]
+[gd_scene load_steps=10 format=3 uid="uid://be1sxrhibjcyt"]
 
 [ext_resource type="Script" uid="uid://byk5eotjg8klu" path="res://scripts/nodes/enemy.gd" id="1_md0e3"]
-[ext_resource type="Texture2D" uid="uid://hqae87ixrjec" path="res://content/art/placeholder.png" id="2_4ra3w"]
 [ext_resource type="Script" path="res://scripts/nodes/hitbox.gd" id="2_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://b5g0nt0ke5ehp" path="res://content/art/bat/bat1.png" id="3_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://kw4jbhlmcbmb" path="res://content/art/bat/bat2.png" id="4_c4w8v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 8.0
+
+[sub_resource type="Animation" id="Animation_xwavj"]
+resource_name = "Bat flap"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_5uy6h"), ExtResource("4_c4w8v")]
+}
+
+[sub_resource type="Animation" id="Animation_nenq2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_5uy6h")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_md484"]
+_data = {
+&"Bat flap": SubResource("Animation_xwavj"),
+&"RESET": SubResource("Animation_nenq2")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5uy6h"]
+animation = &"Bat flap"
+advance_on_start = true
 
 [node name="Enemy" type="PathFollow2D"]
 rotates = false
@@ -19,4 +61,15 @@ script = ExtResource("2_5uy6h")
 shape = SubResource("CircleShape2D_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_4ra3w")
+position = Vector2(1, 4)
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("3_5uy6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_md484")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeAnimation_5uy6h")
+anim_player = NodePath("../AnimationPlayer")

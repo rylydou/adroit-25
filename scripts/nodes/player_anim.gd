@@ -1,6 +1,6 @@
 extends Node2D
 @export var tree:AnimationTree
-
+@export var faceanimation:AnimationPlayer
 
 var idle = "parameters/conditions/idle"
 var jump = "parameters/conditions/jump"

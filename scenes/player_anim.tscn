@@ -529,9 +529,10 @@ _data = {
 &"RESET": SubResource("Animation_56ny5")
 }
 
-[node name="PlayerAnim" type="Node2D" node_paths=PackedStringArray("tree")]
+[node name="PlayerAnim" type="Node2D" node_paths=PackedStringArray("tree", "faceanimation")]
 script = ExtResource("1_vvsna")
 tree = NodePath("AnimationTree")
+faceanimation = NodePath("Face Changer")
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
@@ -583,14 +584,12 @@ rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
 bone_angle = 80.0
-metadata/_local_pose_override_enabled_ = true
 
 [node name="R hand" type="Bone2D" parent="Skeleton2D/R shoulder"]
 position = Vector2(-3.41501, 18.9327)
 rotation = 0.470748
 scale = Vector2(0.999844, 0.999844)
 rest = Transform2D(0.601423, 0.798931, -0.798931, 0.601423, 5, 21)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/R shoulder/R hand"]
 z_index = 11
@@ -613,13 +612,11 @@ position = Vector2(-7, -26)
 rotation = 0.0831625
 scale = Vector2(0.999853, 0.999853)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="L hand" type="Bone2D" parent="Skeleton2D/L shoulder"]
 position = Vector2(-10, 21)
 rotation = 1.5708
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -10, 21)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/L shoulder/L hand"]
 z_index = 15
@@ -640,7 +637,6 @@ position = Vector2(-5.99999, 5)
 rotation = 0.94466
 scale = Vector2(0.999843, 0.999843)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="L feet" type="Bone2D" parent="Skeleton2D/LThigh"]
 position = Vector2(21.5931, 6.53732)
@@ -650,7 +646,6 @@ rest = Transform2D(0.65286, 0.757474, -0.757474, 0.65286, 21.5931, 6.53732)
 auto_calculate_length_and_angle = false
 length = 26.179
 bone_angle = 24.7746
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/LThigh/L feet"]
 z_index = 15
@@ -670,7 +665,6 @@ texture = ExtResource("3_idxwu")
 rotation = -0.223763
 scale = Vector2(0.999857, 0.999857)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="R feet" type="Bone2D" parent="Skeleton2D/RThigh"]
 position = Vector2(15, 21)
@@ -680,7 +674,6 @@ rest = Transform2D(-0.32556, 0.945494, -0.945494, -0.32556, 15, 21)
 auto_calculate_length_and_angle = false
 length = 21.86
 bone_angle = -1.93
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/RThigh/R feet"]
 z_index = 12
