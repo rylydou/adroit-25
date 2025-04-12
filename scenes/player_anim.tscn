@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://udll2lwgyg4o"]
+[gd_scene load_steps=0 format=3 uid="uid://udll2lwgyg4o"]
 
 [node name="PlayerAnim" type="Node2D"]
 

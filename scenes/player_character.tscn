@@ -14,17 +14,48 @@ size = Vector2(10, 13)
 
 [node name="Player Character" type="CharacterBody2D"]
 collision_layer = 256
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_max_angle = 1.55334
+floor_snap_length = 4.0
 script = ExtResource("1_6r27q")
+move_speed = 80.0
+move_acc_ticks = 15.0
+move_dec_ticks = 15.0
+move_opp_ticks = 5.0
+move_acc_air_ticks = 18.0
+move_dec_air_ticks = 18.0
+jump_height_min = 8.0
+jump_height_max = 32.0
+jump_ticks = 25.0
+fall_ticks = 25.0
+max_fall_ratio = 1.5
+bonk_bounce = 1.0
+max_bonknudge_distance = 6.0
+climb_speed_vertical = 96.0
+climb_speed_horizontal = 48.0
+climb_coyote_time = 10.0
+wallslide_fall_speed = 16.0
+walljump_horizontal_speed = 128.0
+walljump_coyote_time = 10.0
+water_surface_jump_height = 12.0
+water_ratio = 0.667
+extra_bounce = 0.5
+extra_ground_dec = 128.0
+extra_ground_smooth = 10.0
+extra_air_dec = 64.0
+extra_air_smooth = 2.0
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="Sprite" type="Sprite2D" parent="Flip"]
 unique_name_in_owner = true
+position = Vector2(0, -8)
 texture = ExtResource("1_56udc")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_56udc")
 debug_color = Color(0, 1, 0, 0)
 
@@ -34,15 +65,18 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="Climb Area"]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6r27q")
+disabled = true
 debug_color = Color(1, 1, 0, 0)
 
 [node name="Water Area" type="Area2D" parent="."]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 2
+collision_mask = 8
 
 [node name="Collision" type="CollisionShape2D" parent="Water Area"]
-position = Vector2(0, 1.5)
+position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_kww55")
+disabled = true
 debug_color = Color(0, 1, 1, 0)

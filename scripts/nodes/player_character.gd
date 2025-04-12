@@ -44,7 +44,6 @@ var coyote_timer := -1.0
 var jump_buffer_timer := -1.0
 @export_range(0, 60, 1, "or_greater", "suffix:ticks") var action_buffer_ticks := 3.0
 var action_buffer_timer := -1.0
-@export var fallthrough_ignore_ticks_curve: Curve
 var fallthrough_ignore_timer := 0.0
 
 ## If the player hits their head on a corner then how far can they be nudged out of the way
@@ -240,6 +239,8 @@ func process_movement(delta: float) -> void:
 	is_grounded = is_on_floor()
 	var is_input_opposing = not is_zero_approx(vel_move) and sign(vel_move) != sign(gamepad.move.x)
 	
+	print('is_input_opposing: ',is_input_opposing)
+	
 	var move_ticks := 0.0
 	var extra_dec := 0.0
 	var extra_smooth := 0.0
@@ -264,11 +265,11 @@ func process_movement(delta: float) -> void:
 		extra_dec = extra_air_dec
 		extra_smooth = extra_air_smooth
 	
-		if move_ticks > 0.0:
-			var speed: float = move_speed / (move_ticks / Global.TPS / delta)
-			vel_move += gamepad.move.x * speed
-		elif move_ticks < 0.0:
-			vel_move = move_toward(vel_move, 0.0, move_speed / (-move_ticks / Global.TPS / delta))
+	if move_ticks > 0.0:
+		var speed: float = move_speed / (move_ticks / Global.TPS / delta)
+		vel_move += gamepad.move.x * speed
+	elif move_ticks < 0.0:
+		vel_move = move_toward(vel_move, 0.0, move_speed / (-move_ticks / Global.TPS / delta))
 		
 		var max_speed := move_speed
 		vel_move = clamp(vel_move, -max_speed, max_speed)
@@ -365,7 +366,7 @@ func process_jump(delta: float) -> void:
 			jump_buffer_timer = 0.0
 			coyote_timer = 0.0
 			var offset := abs(get_floor_normal().x)
-			var fallthrough_ignore_ticks := fallthrough_ignore_ticks_curve.sample_baked(offset)
+			var fallthrough_ignore_ticks := 10.0
 			fallthrough_ignore_timer = fallthrough_ignore_ticks / Global.TPS
 			# velocity.y = maxf(velocity.y, jump_velocity_min)
 			# velocity.y = 0.0
