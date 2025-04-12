@@ -1,9 +1,22 @@
 class_name PlayerCharacter extends CharacterBody2D
 
 
+enum State {
+	Grounded,
+	Fall,
+	Jump,
+	DoubleJump,
+	Dash,
+	Climb,
+	Dead,
+}
+
+
 
 signal died()
 
+
+var state := State.Grounded
 
 @export var allow_midair_flip = true
 
@@ -36,14 +49,6 @@ var max_fall_speed := 0.0
 var is_jumping := false
 
 @export var bonk_bounce := 0.0
-
-
-@export_group("Double Jump", "double_jump_")
-@export var double_jump_height := 32.0
-@export var double_jump_move_speed := 0.0
-@export var double_jump_extra_speed := 0.0
-var double_jump_velocity := 0.0
-var is_double_jumping := false
 
 
 @export_group("Assists")
@@ -80,18 +85,25 @@ var water_surface_jump_vel := 0.0
 @export var water_gravity_ratio := 0.5
 @export var water_max_fall_ratio := 0.5
 
-@export_group("Dash", "dash_")
-@export var dash_extra_speed := 0.0
-@export var dash_height := 0.0
-var dash_velocity := 0.0
-var is_dashing := false
-
 @export_group("Extra", "extra_")
 @export var extra_bounce := 0.0
 @export var extra_ground_dec := 0.0
 @export var extra_ground_smooth := 0.0
 @export var extra_air_dec := 0.0
 @export var extra_air_smooth := 0.0
+
+@export_group("Double Jump", "double_jump_")
+@export var double_jump_height := 32.0
+@export var double_jump_move_speed := 0.0
+@export var double_jump_extra_speed := 0.0
+var double_jump_velocity := 0.0
+var can_double_jump := true
+
+@export_group("Dash", "dash_")
+@export var dash_distance_curve: Curve
+var dash_og_x := 0.0
+var dash_timer := 0.0
+var can_dash := true
 
 
 @onready var climb_area: Area2D = %"Climb Area"
@@ -148,7 +160,6 @@ func calculate_physics() -> void:
 	jump_velocity_min = Math.jump_velocity(jump_height_min, jump_gravity)
 	jump_velocity_max = Math.jump_velocity(jump_height_max, jump_gravity)
 	double_jump_velocity = Math.jump_velocity(double_jump_height, jump_gravity)
-	dash_velocity = Math.jump_velocity(dash_height, jump_gravity)
 	water_surface_jump_vel = Math.jump_velocity(water_surface_jump_height, jump_gravity)
 	
 	max_fall_speed = jump_velocity_max * max_fall_ratio
@@ -184,7 +195,7 @@ func _process_physics(delta: float) -> void:
 	
 	if wallslide_norm != 0 and coyote_timer > 0.0:
 		direction = wallslide_norm
-	elif (is_on_floor() or allow_midair_flip) and not is_zero_approx(gamepad.move.x):
+	elif (is_on_floor() or allow_midair_flip) and not dash_timer > 0.0 and not is_zero_approx(gamepad.move.x):
 		direction = sign(gamepad.move.x)
 	
 	if flip_node:
@@ -198,7 +209,9 @@ func _process_physics(delta: float) -> void:
 		if is_jumping:
 			velocity.y = minf(velocity.y, -water_surface_jump_vel)
 	
-	if is_climbing:
+	if dash_timer > 0.0:
+		process_state_dash(delta)
+	elif is_climbing:
 		process_state_climb(delta)
 	else:
 		process_state_platformer(delta)
@@ -212,18 +225,18 @@ func _process_physics(delta: float) -> void:
 		for thing in things:
 			thing.propagate_call(&"receive_punch", [0])
 	
-	if not is_dashing and gamepad.dash.pressed and Global.emotions.has(&"fear"):
-		is_dashing = true
-		is_climbing = false
-		vel_extra = dash_extra_speed * direction
-		velocity.y = -dash_velocity
+	if can_dash and gamepad.dash.pressed and Global.emotions.has(&"fear"):
+		can_dash = false
+		dash_timer = dash_distance_curve.max_domain / Global.TPS
+		dash_og_x = position.x
 
 
 func process_state_platformer(delta: float) -> void:
 	if is_on_floor():
+		state = State.Grounded
 		is_jumping = false
-		is_double_jumping = false
-		is_dashing = false
+		can_double_jump = true
+		can_dash = true
 		wallslide_norm = 0
 		last_walljump_norm = 0
 	
@@ -232,10 +245,9 @@ func process_state_platformer(delta: float) -> void:
 		and gamepad.move.y < 0.0
 		and velocity.y > -climb_speed_vertical
 	):
+		state = State.Climb
 		is_climbing = true
 		is_jumping = false
-		is_double_jumping = false
-		is_dashing = false
 		wallslide_norm = 0
 		last_walljump_norm = 0
 		return
@@ -248,9 +260,34 @@ func process_state_platformer(delta: float) -> void:
 	move(delta)
 
 
+func process_state_dash(delta: float) -> void:
+	dash_timer -= delta
+	if dash_timer <= 0.0:
+		state = State.Fall
+		vel_move = move_speed * direction
+		return
+	
+	var dash_duration := dash_distance_curve.max_domain
+	var dash_distance_prev := dash_distance_curve.sample_baked(dash_duration - (dash_timer * Global.TPS))
+	var dash_distance_next := dash_distance_curve.sample_baked(dash_duration - ((dash_timer + delta) * Global.TPS))
+	var dash_delta := dash_distance_prev - dash_distance_next
+	print(dash_delta)
+	var hit := move_and_collide(Vector2(dash_delta * direction, 0.0), false, 0.08, true)
+	last_vel = Vector2.ZERO
+	velocity = Vector2.ZERO
+	vel_extra = 0.0
+	
+	if hit:
+		# end dash early
+		dash_timer = -1.0
+		state = State.Fall
+		vel_move = move_speed * direction
+
+
 func process_state_climb(delta: float) -> void:
 	if climb_area.get_overlapping_bodies().size() == 0 or (is_on_floor() and gamepad.move.y > 0.0):
 		is_climbing = false
+		state = State.Fall
 		coyote_timer = climb_coyote_time / Global.TPS
 		if gamepad.move.y < 0.0:
 			apply_floor_snap()
@@ -262,6 +299,7 @@ func process_state_climb(delta: float) -> void:
 	vel_move = gamepad.move.x * climb_speed_horizontal
 	
 	if jump_buffer_timer > 0.0:
+		state = State.Jump
 		jump_buffer_timer = -1.0
 		coyote_timer = -1.0
 		velocity.y = -jump_velocity_max
@@ -434,8 +472,9 @@ func process_jump(delta: float) -> void:
 				last_walljump_norm = wallslide_norm
 				vel_extra = wallslide_norm * walljump_horizontal_speed
 				wallslide_norm = 0
-		elif not is_double_jumping and Global.emotions.has(&"joy"):
-			is_double_jumping = true
+		elif can_double_jump and Global.emotions.has(&"joy"):
+			state = State.DoubleJump
+			can_double_jump = false
 			jump_buffer_timer = 0.0
 			vel_move = maxf(absf(vel_move), double_jump_move_speed) * direction
 			# vel_extra = double_jump_extra_speed * direction
@@ -487,7 +526,8 @@ func grounded_refresh() -> void:
 	jumped_from_ladder = false
 	fallthrough_ignore_timer = 0.0
 	is_jumping = false
-	is_double_jumping = false
+	can_double_jump = true
+	can_dash = true
 
 
 func airborne_refresh() -> void:

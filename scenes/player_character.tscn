@@ -1,7 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=8 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
+
+[sub_resource type="Curve" id="Curve_6r27q"]
+_limits = [0.0, 128.0, 0.0, 15.0]
+_data = [Vector2(0, 0), 0.0, 8.53333, 0, 1, Vector2(15, 128), -0.758198, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4h0vy"]
 size = Vector2(18, 16)
@@ -34,7 +39,6 @@ jump_ticks = 25.0
 fall_ticks = 25.0
 max_fall_ratio = 1.5
 bonk_bounce = 1.0
-double_jump_move_speed = 70.0
 max_bonknudge_distance = 6.0
 climb_speed_vertical = 96.0
 climb_speed_horizontal = 48.0
@@ -44,13 +48,13 @@ walljump_horizontal_speed = 128.0
 walljump_coyote_time = 10.0
 water_surface_jump_height = 12.0
 water_ratio = 0.667
-dash_extra_speed = 400.0
-dash_height = 4.0
 extra_bounce = 0.5
 extra_ground_dec = 128.0
 extra_ground_smooth = 10.0
 extra_air_dec = 64.0
 extra_air_smooth = 2.0
+double_jump_move_speed = 70.0
+dash_distance_curve = SubResource("Curve_6r27q")
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
