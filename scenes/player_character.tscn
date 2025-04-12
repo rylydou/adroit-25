@@ -37,7 +37,7 @@ floor_constant_speed = true
 floor_max_angle = 1.55334
 floor_snap_length = 4.0
 script = ExtResource("1_6r27q")
-playerAnim = NodePath("PlayerAnim")
+playerAnim = NodePath("Flip/PlayerAnim")
 move_speed = 80.0
 move_acc_ticks = 15.0
 move_dec_ticks = 15.0
@@ -68,12 +68,18 @@ double_jump_move_speed = 70.0
 dash_distance_curve = SubResource("Curve_6r27q")
 pound_speed = 500.0
 
-[node name="PlayerAnim" parent="." instance=ExtResource("2_kww55")]
-position = Vector2(0, -6)
-scale = Vector2(0.8, 0.8)
-
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="Sprite" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("1_56udc")
+
+[node name="PlayerAnim" parent="Flip" instance=ExtResource("2_kww55")]
+position = Vector2(0, -10)
+scale = Vector2(0.2, 0.2)
 
 [node name="Punch Area" type="Area2D" parent="Flip"]
 unique_name_in_owner = true
@@ -84,11 +90,6 @@ collision_mask = 4608
 position = Vector2(5, -8)
 shape = SubResource("RectangleShape2D_4h0vy")
 debug_color = Color(1, 0, 0, 0)
-
-[node name="Sprite" type="Sprite2D" parent="Flip"]
-unique_name_in_owner = true
-position = Vector2(0, -8)
-texture = ExtResource("1_56udc")
 
 [node name="Normal Collision" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true

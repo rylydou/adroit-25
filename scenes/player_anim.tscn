@@ -466,7 +466,7 @@ texture = ExtResource("2_idxwu")
 
 [node name="Bottom Torso" type="Sprite2D" parent="Skeleton2D/Chest"]
 z_index = 13
-position = Vector2(-0.966731, 3.01148)
+position = Vector2(0.303759, 3.08621)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_skdgw")
 

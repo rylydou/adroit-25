@@ -18,8 +18,9 @@ signal died()
 
 
 var state := State.Grounded
-@export var playerAnim :Node2D
 var last_state := State.Grounded
+
+@export var playerAnim: Node2D
 
 @export var allow_midair_flip = true
 
@@ -180,18 +181,10 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 	
 	age += delta
-	#Grounded,
-	#Fall,
-	#Jump,
-	#DoubleJump,
-	#Dash,
-	#Climb,
-	#Dead,
 	gamepad.poll(delta)
-	#print(velocity)
 	
+	playerAnim.tree["parameters/conditions/idle"] = is_grounded and abs(vel_move) <= 0.1
 	playerAnim.tree["parameters/conditions/run"] = is_grounded and abs(vel_move) > 0
-
 	playerAnim.tree["parameters/conditions/jump"] = state == State.Jump
 	playerAnim.tree["parameters/conditions/hitground"] = is_grounded
 	playerAnim.tree["parameters/conditions/idle"] = abs(vel_move) == 0
@@ -206,7 +199,7 @@ func _process_physics(delta: float) -> void:
 	last_state = state
 	
 	if Input.is_action_just_pressed(&"teleport"):
-		position = get_local_mouse_position()
+		position = get_global_mouse_position()
 	
 	if test_move(
 		transform.translated(Vector2.UP * 2.0).scaled_local(Vector2.ONE * 0.1),
@@ -307,7 +300,7 @@ func process_state_platformer(delta: float) -> void:
 		process_movement(delta)
 		process_gravity(delta)
 		process_jump(delta)
-		process_wallslide(delta)
+		#process_wallslide(delta)
 	
 	move(delta)
 
