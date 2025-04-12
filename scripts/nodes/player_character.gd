@@ -123,7 +123,7 @@ func _ready() -> void:
 		&"joy",
 		&"love",
 	]:
-		DevTools.new_command("Get Emotion %s" % emotion)\
+		DevTools.new_command("Give Emotion %s" % emotion)\
 			.describe("Gives the specified emotion upgrade")\
 			.exec(func():
 			Global.emotions.erase(emotion) # ensure there are no duplicates
