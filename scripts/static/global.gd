@@ -12,6 +12,7 @@ static var emotions: Array[StringName] = []
 # === Singletons ===
 static var player: PlayerCharacter
 static var current_room: Room
+static var camera: Camera
 
 
 ## If false then the game will crash when encountering errors

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=7 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="2_71tlf"]
 [ext_resource type="PackedScene" uid="uid://ces0gfvlamphi" path="res://scenes/gimmicks/weak_block.tscn" id="2_c6406"]
 [ext_resource type="Script" uid="uid://ybnlpw8yjkgo" path="res://scripts/nodes/room.gd" id="4_0edld"]
+[ext_resource type="PackedScene" uid="uid://gwfv2f0qk4ol" path="res://scenes/gimmicks/door.tscn" id="6_0cume"]
 
 [node name="Test Ryly" type="Node2D"]
 
@@ -48,3 +49,11 @@ position = Vector2(-60, 20)
 position = Vector2(-36, 20)
 
 [node name="Rooms" type="Node" parent="."]
+
+[node name="Door 1" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
+position = Vector2(68, 0)
+target = NodePath("../Door 2")
+
+[node name="Door 2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
+position = Vector2(344, 0)
+target = NodePath("../Door 1")

@@ -1,3 +1,6 @@
-[gd_resource type="FontVariation" format=3 uid="uid://cpm6gyvng8xw3"]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cpm6gyvng8xw3"]
+
+[ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="1_66qmh"]
 
 [resource]
+base_font = ExtResource("1_66qmh")

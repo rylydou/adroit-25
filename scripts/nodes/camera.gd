@@ -1,6 +1,10 @@
 class_name Camera extends Camera2D
 
 
+func _enter_tree() -> void:
+	Global.camera = self
+
+
 func _ready() -> void:
 	limit_smoothed = true
 	position_smoothing_enabled = true

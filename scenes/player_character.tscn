@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=10 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
@@ -21,6 +21,9 @@ size = Vector2(10, 8)
 size = Vector2(6, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kww55"]
+size = Vector2(10, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vmgx"]
 size = Vector2(10, 13)
 
 [node name="Player Character" type="CharacterBody2D"]
@@ -108,3 +111,13 @@ collision_mask = 8
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_kww55")
 debug_color = Color(0, 1, 1, 0)
+
+[node name="Interact Area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 512
+
+[node name="Collision" type="CollisionShape2D" parent="Interact Area"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_2vmgx")
+debug_color = Color(1, 1, 0, 0)

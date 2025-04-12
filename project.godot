@@ -37,6 +37,7 @@ config/icon="res://icon.svg"
 
 FmodManager="*res://addons/fmod/FmodManager.gd"
 DevTools="*res://addons/devtools/autoload.tscn"
+Game="*res://scenes/game.tscn"
 
 [debug]
 

@@ -111,6 +111,7 @@ var can_dash := true
 @onready var sprite: Sprite2D = %"Sprite"
 @onready var water_area: Area2D = %"Water Area"
 @onready var punch_area: Area2D = %"Punch Area"
+@onready var interact_area: Area2D = %"Interact Area"
 @onready var collision_normal: CollisionShape2D = %"Normal Collision"
 @onready var collision_dash: CollisionShape2D = %"Dash Collision"
 
@@ -253,6 +254,14 @@ func process_state_platformer(delta: float) -> void:
 		wallslide_norm = 0
 		last_walljump_norm = 0
 		return
+	
+	if gamepad.move.y < -0.9 and is_grounded:
+		gamepad.move.y = 0.0
+		var things := interact_area.get_overlapping_bodies()
+		things.append_array(interact_area.get_overlapping_areas())
+		
+		for thing in things:
+			thing.propagate_call(&"receive_interact")
 	
 	process_movement(delta)
 	process_gravity(delta)
