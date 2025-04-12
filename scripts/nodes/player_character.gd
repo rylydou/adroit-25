@@ -80,6 +80,12 @@ var water_surface_jump_vel := 0.0
 @export var water_gravity_ratio := 0.5
 @export var water_max_fall_ratio := 0.5
 
+@export_group("Dash", "dash_")
+@export var dash_extra_speed := 0.0
+@export var dash_height := 0.0
+var dash_velocity := 0.0
+var is_dashing := false
+
 @export_group("Extra", "extra_")
 @export var extra_bounce := 0.0
 @export var extra_ground_dec := 0.0
@@ -142,6 +148,7 @@ func calculate_physics() -> void:
 	jump_velocity_min = Math.jump_velocity(jump_height_min, jump_gravity)
 	jump_velocity_max = Math.jump_velocity(jump_height_max, jump_gravity)
 	double_jump_velocity = Math.jump_velocity(double_jump_height, jump_gravity)
+	dash_velocity = Math.jump_velocity(dash_height, jump_gravity)
 	water_surface_jump_vel = Math.jump_velocity(water_surface_jump_height, jump_gravity)
 	
 	max_fall_speed = jump_velocity_max * max_fall_ratio
@@ -204,12 +211,19 @@ func _process_physics(delta: float) -> void:
 		
 		for thing in things:
 			thing.propagate_call(&"receive_punch", [0])
+	
+	if not is_dashing and gamepad.dash.pressed and Global.emotions.has(&"fear"):
+		is_dashing = true
+		is_climbing = false
+		vel_extra = dash_extra_speed * direction
+		velocity.y = -dash_velocity
 
 
 func process_state_platformer(delta: float) -> void:
 	if is_on_floor():
 		is_jumping = false
 		is_double_jumping = false
+		is_dashing = false
 		wallslide_norm = 0
 		last_walljump_norm = 0
 	
@@ -221,6 +235,7 @@ func process_state_platformer(delta: float) -> void:
 		is_climbing = true
 		is_jumping = false
 		is_double_jumping = false
+		is_dashing = false
 		wallslide_norm = 0
 		last_walljump_norm = 0
 		return
