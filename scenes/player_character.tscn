@@ -67,7 +67,6 @@ collision_mask = 4
 [node name="Collision" type="CollisionShape2D" parent="Climb Area"]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6r27q")
-disabled = true
 debug_color = Color(1, 1, 0, 0)
 
 [node name="Water Area" type="Area2D" parent="."]
@@ -78,5 +77,4 @@ collision_mask = 8
 [node name="Collision" type="CollisionShape2D" parent="Water Area"]
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_kww55")
-disabled = true
 debug_color = Color(0, 1, 1, 0)
