@@ -1,6 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=18 format=3 uid="uid://ds1f0penlkowi"]
 
+[ext_resource type="Texture2D" uid="uid://bxrs3w50qcy3" path="res://content/art/body/sonnyheadjoy.png" id="1_5yb70"]
 [ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
+[ext_resource type="Shader" uid="uid://dik4c1f8d5qp1" path="res://content/shaders/DarkenShader.gdshader" id="2_pii8q"]
+[ext_resource type="Texture2D" uid="uid://dec7nrog1t5cb" path="res://content/art/body/sonnyforearm.png" id="3_idxwu"]
+[ext_resource type="Texture2D" uid="uid://ddulrwngh00en" path="res://content/art/body/sonnyupperarm.png" id="4_skdgw"]
+[ext_resource type="Texture2D" uid="uid://c0ynxwyvgqvll" path="res://content/art/wlk01.png" id="6_sovaf"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
 target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
@@ -40,6 +45,14 @@ modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_8dvso")
 modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_58a7l")
 modifications/3 = SubResource("SkeletonModification2DTwoBoneIK_gjund")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3wqtv"]
+shader = ExtResource("2_pii8q")
+shader_parameter/darkness = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ep1im"]
+shader = ExtResource("2_pii8q")
+shader_parameter/darkness = 0.5
+
 [sub_resource type="Animation" id="Animation_8dvso"]
 length = 0.001
 tracks/0/type = "value"
@@ -77,6 +90,78 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(8, 11)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Chest:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Chest:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/R shoulder:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, -34)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/L shoulder:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, -39)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("IK TARGETS/HAND TARGETR:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(33, -31)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("IK TARGETS/HAND TARGETL:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-28, -6)]
 }
 
 [sub_resource type="Animation" id="Animation_iv54a"]
@@ -137,18 +222,31 @@ _data = {
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D"]
+scale = Vector2(0.999826, 0.999826)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Chest"]
 position = Vector2(0, -45)
 rotation = -1.5708
+scale = Vector2(0.999977, 0.999977)
 rest = Transform2D(1.19249e-08, -1, 1, 1.19249e-08, 0, -45)
 auto_calculate_length_and_angle = false
 length = 16.0
 bone_angle = 0.0
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/Chest/Head"]
+z_index = 13
+position = Vector2(-2.64827, -1.4155)
+rotation = 1.5708
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_5yb70")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/Chest"]
+
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(15, -32)
+position = Vector2(9, -34)
+rotation = -0.363732
+scale = Vector2(0.999832, 0.999832)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -156,15 +254,32 @@ bone_angle = 80.0
 metadata/_local_pose_override_enabled_ = true
 
 [node name="R hand" type="Bone2D" parent="Skeleton2D/R shoulder"]
-position = Vector2(5, 21)
-rotation = 0.925516
+position = Vector2(-3.41501, 18.9327)
+rotation = 0.470748
+scale = Vector2(0.999844, 0.999844)
 rest = Transform2D(0.601423, 0.798931, -0.798931, 0.601423, 5, 21)
 metadata/_local_pose_override_enabled_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/R shoulder/R hand"]
+z_index = 11
+material = SubResource("ShaderMaterial_3wqtv")
+position = Vector2(6.66523, 8.71462)
+rotation = 0.862193
+scale = Vector2(0.0400062, 0.0400062)
+texture = ExtResource("3_idxwu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/R shoulder"]
+z_index = 10
+material = SubResource("ShaderMaterial_ep1im")
+position = Vector2(-2.96585, 12.2987)
+rotation = 1.79588
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("4_skdgw")
+
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(-15, -32)
-rotation = -0.649263
-scale = Vector2(0.999995, 0.999995)
+position = Vector2(-10, -39)
+rotation = 0.424997
+scale = Vector2(0.999845, 0.999845)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true
 
@@ -174,10 +289,24 @@ rotation = 1.5708
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -10, 21)
 metadata/_local_pose_override_enabled_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/L shoulder/L hand"]
+z_index = 11
+position = Vector2(-0.513432, 8.06854)
+rotation = 1.5708
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("3_idxwu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/L shoulder"]
+z_index = 10
+position = Vector2(-8.461, 15.7642)
+rotation = 2.13296
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("4_skdgw")
+
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-10, 11.1667)
-rotation = 1.24848
-scale = Vector2(0.999851, 0.999851)
+rotation = 0.0659393
+scale = Vector2(0.999849, 0.999849)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
 metadata/_local_pose_override_enabled_ = true
 
@@ -191,10 +320,17 @@ length = 26.179
 bone_angle = 24.7746
 metadata/_local_pose_override_enabled_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/LThigh"]
+z_index = 10
+position = Vector2(9.9842, 2.45798)
+rotation = 3.53953
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("3_idxwu")
+
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(8, 11)
-rotation = 0.038703
-scale = Vector2(0.999828, 0.999828)
+rotation = -0.177208
+scale = Vector2(0.99986, 0.99986)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -208,6 +344,13 @@ length = 21.86
 bone_angle = -1.93
 metadata/_local_pose_override_enabled_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/RThigh"]
+z_index = 10
+position = Vector2(9.10587, 12.0236)
+rotation = -2.22704
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("3_idxwu")
+
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
@@ -218,16 +361,19 @@ rotation = 1.70207
 position = Vector2(27, 50)
 
 [node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-23, -8)
+position = Vector2(-28, -6)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(38, -8)
-
-[node name="Upper body anim" type="AnimationPlayer" parent="."]
-root_node = NodePath("")
+position = Vector2(33, -31)
 
 [node name="Leg anim" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_58a7l"),
 &"Animations": SubResource("AnimationLibrary_gjund")
 }
+
+[node name="Wlk01" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(67, -20)
+scale = Vector2(1.05914, 1.12344)
+texture = ExtResource("6_sovaf")
