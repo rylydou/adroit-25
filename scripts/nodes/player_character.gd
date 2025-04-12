@@ -4,10 +4,11 @@ class_name PlayerCharacter extends CharacterBody2D
 enum State {
 	Grounded,
 	Fall,
+	Climb,
 	Jump,
 	DoubleJump,
 	Dash,
-	Climb,
+	Pound,
 	Dead,
 }
 
@@ -18,6 +19,7 @@ signal died()
 
 var state := State.Grounded
 @export var playerAnim :Node2D
+var last_state := State.Grounded
 
 @export var allow_midair_flip = true
 
@@ -106,18 +108,20 @@ var dash_og_x := 0.0
 var dash_timer := 0.0
 var can_dash := true
 
+@export_group("Pound", "pound_")
+@export var pound_speed := 100.0
+
 
 @onready var climb_area: Area2D = %"Climb Area"
 @onready var flip_node: Node2D = %"Flip"
-@onready var sprite: Sprite2D = %"Sprite"
 @onready var water_area: Area2D = %"Water Area"
 @onready var punch_area: Area2D = %"Punch Area"
 @onready var interact_area: Area2D = %"Interact Area"
+@onready var unsafe_area: Area2D = %"Unsafe Area"
 @onready var collision_normal: CollisionShape2D = %"Normal Collision"
 @onready var collision_dash: CollisionShape2D = %"Dash Collision"
 
-## Temporary
-@onready var og_spawn_position := global_position
+@onready var respawn_point := global_position
 
 
 @onready var gamepad := Gamepad.create(-2)
@@ -198,6 +202,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _process_physics(delta: float) -> void:
+	last_state = state
+	
+	if Input.is_action_just_pressed(&"teleport"):
+		position = get_local_mouse_position()
+	
 	if test_move(
 		transform.translated(Vector2.UP * 2.0).scaled_local(Vector2.ONE * 0.1),
 		Vector2.UP, null, 0.0, true):
@@ -251,18 +260,25 @@ func _process_physics(delta: float) -> void:
 
 func process_state_platformer(delta: float) -> void:
 	if is_on_floor():
+		if state == State.Pound:
+			Global.camera.pound_shake()
+		
 		state = State.Grounded
 		is_jumping = false
 		can_double_jump = true
 		can_dash = true
 		wallslide_norm = 0
 		last_walljump_norm = 0
+		
+		if unsafe_area.get_overlapping_areas().size() > 0:
+			respawn_point = global_position
 	
 	if (
 		climb_area.get_overlapping_areas().size() + climb_area.get_overlapping_bodies().size() > 0
 		and gamepad.move.y < 0.0
 		and velocity.y > -climb_speed_vertical
 	):
+		can_dash = true
 		state = State.Climb
 		is_climbing = true
 		is_jumping = false
@@ -270,7 +286,7 @@ func process_state_platformer(delta: float) -> void:
 		last_walljump_norm = 0
 		return
 	
-	if gamepad.move.y < -0.9 and is_grounded:
+	if gamepad.move.y < -0.9 and absf(gamepad.move.x) < 0.1 and is_grounded:
 		gamepad.move.y = 0.0
 		var things := interact_area.get_overlapping_bodies()
 		things.append_array(interact_area.get_overlapping_areas())
@@ -278,10 +294,19 @@ func process_state_platformer(delta: float) -> void:
 		for thing in things:
 			thing.propagate_call(&"receive_interact")
 	
-	process_movement(delta)
-	process_gravity(delta)
-	# process_wallslide(delta)
-	process_jump(delta)
+	if gamepad.move.y > 0.9 and absf(gamepad.move.x) < 0.1 and not is_grounded and Global.emotions.has(&"depression"):
+		state = State.Pound
+		velocity.y = pound_speed
+		vel_move = 0.0
+		vel_extra = 0.0
+		last_vel.x = 0.0
+		velocity.x = 0.0
+	
+	if state != State.Pound:
+		process_movement(delta)
+		process_gravity(delta)
+		process_jump(delta)
+		process_wallslide(delta)
 	
 	move(delta)
 
@@ -306,6 +331,21 @@ func process_state_dash(delta: float) -> void:
 	last_vel = Vector2.ZERO
 	velocity = Vector2.ZERO
 	vel_extra = 0.0
+	
+	if (
+		climb_area.get_overlapping_areas().size() + climb_area.get_overlapping_bodies().size() > 0
+		and gamepad.move.y < 0.0
+	):
+		can_dash = true
+		state = State.Climb
+		is_climbing = true
+		is_jumping = false
+		wallslide_norm = 0
+		last_walljump_norm = 0
+		dash_timer = -1.0
+		collision_normal.disabled = false
+		collision_dash.disabled = true
+		return
 	
 	if hit:
 		# end dash early
@@ -582,9 +622,7 @@ func die() -> void:
 	if is_dead: return
 	is_dead = true
 	
-	SFX.event("death.player").at(self).play()
-	
-	sprite.frame = 0
+	# SFX.event("death.player").at(self).play()
 	
 	respawn()
 
@@ -594,15 +632,13 @@ func respawn() -> void:
 	z_index += 1000
 	scale = Vector2.ONE * 0.75
 	
-	var spawn_position := og_spawn_position
+	var spawn_position := respawn_point
 	
 	var delta := spawn_position - position
 	
 	var duration := 1.0
 	
 	var tween := create_tween()
-	tween.tween_property(sprite, "rotation", TAU * 4.0, duration).from(0.0)\
-			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	tween.parallel().tween_property(self, "position", spawn_position, duration)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	

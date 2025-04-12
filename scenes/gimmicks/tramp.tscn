@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://duwv8clbeq1hs"]
+
+[ext_resource type="Script" uid="uid://b32vkwei471mb" path="res://scripts/nodes/tramp.gd" id="1_gkaew"]
+[ext_resource type="Texture2D" uid="uid://dpajm82gva7ka" path="res://content/art/tramp.png" id="2_pipu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkaew"]
+size = Vector2(24, 8)
+
+[node name="Tramp" type="Area2D"]
+collision_layer = 8704
+collision_mask = 256
+script = ExtResource("1_gkaew")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("2_pipu1")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_gkaew")
+debug_color = Color(0, 1, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

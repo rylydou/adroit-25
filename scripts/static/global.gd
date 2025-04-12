@@ -5,7 +5,7 @@ const TPS := 60.0
 
 static var gravity := 368.64
 static var gravity_scale := 1.0
-static var debug_physics := true
+static var debug_physics := false
 static var emotions: Array[StringName] = []
 
 
