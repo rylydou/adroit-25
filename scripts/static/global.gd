@@ -13,6 +13,7 @@ static var depression := false
 static var anger := false
 static var love := false
 
+static var emotions : Array[String] = []
 # const ground_dec := 128.0
 # const ground_smooth := 10.0
 

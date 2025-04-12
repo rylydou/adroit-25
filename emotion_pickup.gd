@@ -8,7 +8,8 @@ enum emotions {FEAR, JOY, DEPRESSION, ANGER, LOVE}
 
 
 func _on_collision_shape_2d_child_entered_tree(node: Node) -> void:
-	if Node == player:
+	print("hit something")
+	if node is PlayerCharacter:
 		if emotion == emotions.FEAR:
 			Global.fear = true
 			print("GOT FEAR")

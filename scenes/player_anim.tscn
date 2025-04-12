@@ -1,10 +1,128 @@
-[gd_scene format=3 uid="uid://udll2lwgyg4o"]
+[gd_scene load_steps=6 format=3 uid="uid://udll2lwgyg4o"]
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
+target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
+joint_one_bone_idx = 6
+joint_one_bone2d_node = NodePath("LThigh")
+joint_two_bone_idx = 7
+joint_two_bone2d_node = NodePath("LThigh/L feet")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_8dvso"]
+target_nodepath = NodePath("../IK TARGETS/FOOT TARGETR")
+joint_one_bone_idx = 8
+joint_one_bone2d_node = NodePath("RThigh")
+joint_two_bone_idx = 9
+joint_two_bone2d_node = NodePath("RThigh/R feet")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_58a7l"]
+target_nodepath = NodePath("../IK TARGETS/HAND TARGETL")
+flip_bend_direction = true
+joint_one_bone_idx = 4
+joint_one_bone2d_node = NodePath("L shoulder")
+joint_two_bone_idx = 5
+joint_two_bone2d_node = NodePath("L shoulder/L hand")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_gjund"]
+target_nodepath = NodePath("../IK TARGETS/HAND TARGETR")
+flip_bend_direction = true
+joint_one_bone_idx = 2
+joint_one_bone2d_node = NodePath("R shoulder")
+joint_two_bone_idx = 3
+joint_two_bone2d_node = NodePath("R shoulder/R hand")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_x1oag"]
+enabled = true
+modification_count = 4
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_iv54a")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_8dvso")
+modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_58a7l")
+modifications/3 = SubResource("SkeletonModification2DTwoBoneIK_gjund")
 
 [node name="PlayerAnim" type="Node2D"]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
+modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
-[node name="Bone2D" type="Bone2D" parent="Skeleton2D"]
+[node name="Chest" type="Bone2D" parent="Skeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
 
-[node name="Bone2D" type="Bone2D" parent="Skeleton2D/Bone2D"]
-position = Vector2(0, -36)
+[node name="Head" type="Bone2D" parent="Skeleton2D/Chest"]
+position = Vector2(0, -45)
+rotation = -1.5708
+rest = Transform2D(1.19249e-08, -1, 1, 1.19249e-08, 0, -45)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(15, -32)
+rest = Transform2D(1, 0, 0, 1, 15, -32)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 80.0
+metadata/_local_pose_override_enabled_ = true
+
+[node name="R hand" type="Bone2D" parent="Skeleton2D/R shoulder"]
+position = Vector2(5, 21)
+rotation = 0.925516
+rest = Transform2D(0.601423, 0.798931, -0.798931, 0.601423, 5, 21)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(-15, -32)
+rotation = -0.649263
+scale = Vector2(0.999995, 0.999995)
+rest = Transform2D(1, 0, 0, 1, -15, -32)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="L hand" type="Bone2D" parent="Skeleton2D/L shoulder"]
+position = Vector2(-10, 21)
+rotation = 1.5708
+rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -10, 21)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LThigh" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(-10, 9)
+rotation = 1.09537
+rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="L feet" type="Bone2D" parent="Skeleton2D/LThigh"]
+position = Vector2(21.5931, 6.53732)
+rotation = 0.427299
+scale = Vector2(1, 1)
+rest = Transform2D(0.65286, 0.757474, -0.757474, 0.65286, 21.5931, 6.53732)
+auto_calculate_length_and_angle = false
+length = 26.179
+bone_angle = 24.7746
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RThigh" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(8, 11)
+rest = Transform2D(1, 0, 0, 1, 8, 11)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="R feet" type="Bone2D" parent="Skeleton2D/RThigh"]
+position = Vector2(15, 21)
+rotation = 1.90241
+scale = Vector2(0.999974, 0.999974)
+rest = Transform2D(-0.32556, 0.945494, -0.945494, -0.32556, 15, 21)
+auto_calculate_length_and_angle = false
+length = 21.86
+bone_angle = -1.93
+metadata/_local_pose_override_enabled_ = true
+
+[node name="IK TARGETS" type="Node2D" parent="."]
+
+[node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
+position = Vector2(-14, 43)
+rotation = 1.70207
+
+[node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
+position = Vector2(27, 50)
+
+[node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
+position = Vector2(-23, -8)
+
+[node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
+position = Vector2(38, -8)
