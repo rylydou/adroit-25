@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 func player_entered() -> void:
 	Global.current_room = self
 	
-	var camera: Camera2D = get_parent().get_node(^"Camera")
+	var camera := Global.camera
 	var rect := get_global_rect()
 	camera.limit_top = rect.position.y
 	camera.limit_left = rect.position.x
