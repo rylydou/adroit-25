@@ -8,6 +8,25 @@
 
 [node name="Test Ryly" type="Node2D"]
 
+[node name="Room 1" type="ReferenceRect" parent="."]
+custom_minimum_size = Vector2(384, 216)
+offset_left = -492.0
+offset_top = -436.0
+offset_right = 192.0
+offset_bottom = 108.0
+border_color = Color(0.406924, 0.515163, 3.85046e-07, 1)
+script = ExtResource("4_0edld")
+
+[node name="Room 2" type="ReferenceRect" parent="."]
+custom_minimum_size = Vector2(480, 270)
+offset_left = 192.0
+offset_top = -164.0
+offset_right = 672.0
+offset_bottom = 106.0
+border_color = Color(0.352338, 0.347887, 1, 1)
+script = ExtResource("4_0edld")
+camera_zoom = 4.0
+
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 limit_smoothed = true
@@ -28,21 +47,4 @@ position = Vector2(-60, 20)
 [node name="Weak Block2" parent="." instance=ExtResource("2_c6406")]
 position = Vector2(-36, 20)
 
-[node name="Room 1" type="ReferenceRect" parent="."]
-custom_minimum_size = Vector2(384, 216)
-offset_left = -492.0
-offset_top = -436.0
-offset_right = 192.0
-offset_bottom = 108.0
-border_color = Color(0.406924, 0.515163, 3.85046e-07, 1)
-script = ExtResource("4_0edld")
-
-[node name="Room 2" type="ReferenceRect" parent="."]
-custom_minimum_size = Vector2(480, 270)
-offset_left = 192.0
-offset_top = -164.0
-offset_right = 672.0
-offset_bottom = 106.0
-border_color = Color(0.352338, 0.347887, 1, 1)
-script = ExtResource("4_0edld")
-camera_zoom = 4.0
+[node name="Rooms" type="Node" parent="."]

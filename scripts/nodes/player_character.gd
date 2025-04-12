@@ -227,7 +227,7 @@ func process_state_platformer(delta: float) -> void:
 	
 	process_movement(delta)
 	process_gravity(delta)
-	process_wallslide(delta)
+	# process_wallslide(delta)
 	process_jump(delta)
 	
 	move(delta)
