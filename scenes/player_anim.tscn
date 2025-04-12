@@ -1,4 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=11 format=3 uid="uid://ds1f0penlkowi"]
+
+[ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
 target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
@@ -124,6 +126,11 @@ _data = {
 &"new_animation": SubResource("Animation_iv54a")
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gjund"]
+_data = {
+&"Run": ExtResource("1_8dvso")
+}
+
 [node name="PlayerAnim" type="Node2D"]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
@@ -186,8 +193,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(8, 11)
-rotation = -0.223702
-scale = Vector2(0.999827, 0.999827)
+rotation = 0.038703
+scale = Vector2(0.999828, 0.999828)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -221,5 +228,6 @@ root_node = NodePath("")
 
 [node name="Leg anim" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_58a7l")
+&"": SubResource("AnimationLibrary_58a7l"),
+&"Animations": SubResource("AnimationLibrary_gjund")
 }
