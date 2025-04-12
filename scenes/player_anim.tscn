@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=29 format=3 uid="uid://ds1f0penlkowi"]
 
 [ext_resource type="Texture2D" uid="uid://bxrs3w50qcy3" path="res://content/art/body/sonnyheadjoy.png" id="1_5yb70"]
 [ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://ddulrwngh00en" path="res://content/art/body/sonnyupperarm.png" id="4_skdgw"]
 [ext_resource type="Texture2D" uid="uid://cqr1oocexwsm8" path="res://content/art/body/sonnyleg.png" id="7_sovaf"]
 [ext_resource type="Texture2D" uid="uid://ghuhrnx8mo3u" path="res://content/art/jump.png" id="9_3wqtv"]
+[ext_resource type="Animation" uid="uid://ob0sltojqquk" path="res://content/art/animation/JumpStart.res" id="9_sovaf"]
+[ext_resource type="Animation" uid="uid://c0lr0rxfx8gds" path="res://content/art/animation/Jump Idle.res" id="11_oplur"]
+[ext_resource type="Animation" uid="uid://c3vuikl8cxjfp" path="res://content/art/animation/Jump land.res" id="12_vvsna"]
+[ext_resource type="Animation" uid="uid://bexqhw2fwlvi0" path="res://content/art/animation/Idle.res" id="13_56ny5"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
 target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
@@ -63,6 +67,13 @@ shader_parameter/darkness = 0.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_skdgw"]
 shader = ExtResource("2_pii8q")
 shader_parameter/darkness = 0.5
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_51ha2"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4xp6y"]
+graph_offset = Vector2(-289.92, 24)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_51ha2")
+nodes/Animation/position = Vector2(-140, 110)
 
 [sub_resource type="Animation" id="Animation_8dvso"]
 length = 0.001
@@ -136,7 +147,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(9, -34)]
+"values": [Vector2(10, -25)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -148,7 +159,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-10, -39)]
+"values": [Vector2(-8, -26)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -246,234 +257,12 @@ _data = {
 &"new_animation": SubResource("Animation_iv54a")
 }
 
-[sub_resource type="Animation" id="Animation_vvsna"]
-resource_name = "JumpIdle"
-length = 0.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("IK TARGETS/FOOT TARGETL:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(6, 27), Vector2(-2, 28)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("IK TARGETS/FOOT TARGETR:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(27, 16), Vector2(30, 16)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("IK TARGETS/HAND TARGETL:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-46, -56), Vector2(-55, -52)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("IK TARGETS/HAND TARGETR:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(25, -59), Vector2(20, -61)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Skeleton2D/RThigh:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Skeleton2D/LThigh:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-10, 11.1667)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Skeleton2D/L shoulder:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-10, -39)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Skeleton2D/R shoulder:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(9, -34)]
-}
-
-[sub_resource type="Animation" id="Animation_56ny5"]
-resource_name = "JumpStart"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("IK TARGETS/FOOT TARGETL:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-31, 47), Vector2(5, 46)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("IK TARGETS/FOOT TARGETR:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(27, 50), Vector2(16, 45)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("IK TARGETS/HAND TARGETL:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-28, -6)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("IK TARGETS/HAND TARGETR:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(33, -31), Vector2(-14, -10)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Skeleton2D/R shoulder:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(9, -34), Vector2(16, -9)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Skeleton2D/L shoulder:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.336118, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-8, -29), Vector2(2.38419e-07, -19), Vector2(11, -10)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Skeleton2D/LThigh:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-10, 11.1667), Vector2(-6, 19.1667)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Skeleton2D/RThigh:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(4, 8)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Skeleton2D/Chest:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(3, 17)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Skeleton2D/Chest:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.550831]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gjund"]
 _data = {
-&"JumpIdle": SubResource("Animation_vvsna"),
-&"JumpStart": SubResource("Animation_56ny5"),
+&"Idle": ExtResource("13_56ny5"),
+&"Jump Idle": ExtResource("11_oplur"),
+&"Jump fall": ExtResource("12_vvsna"),
+&"JumpStart": ExtResource("9_sovaf"),
 &"Run": ExtResource("1_8dvso")
 }
 
@@ -483,7 +272,7 @@ _data = {
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D"]
-scale = Vector2(0.999824, 0.999824)
+scale = Vector2(0.999837, 0.999837)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Chest"]
@@ -522,9 +311,9 @@ scale = Vector2(0.03, 0.05)
 texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(9, -34)
-rotation = 0.628909
-scale = Vector2(0.99985, 0.99985)
+position = Vector2(10, -25)
+rotation = -0.918235
+scale = Vector2(0.999843, 0.999843)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -555,9 +344,9 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(-10, -39)
-rotation = 0.316627
-scale = Vector2(0.999853, 0.999853)
+position = Vector2(-8, -26)
+rotation = 0.94204
+scale = Vector2(0.999856, 0.999856)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true
 
@@ -583,8 +372,8 @@ texture = ExtResource("4_skdgw")
 
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-10, 11.1667)
-rotation = 1.49036
-scale = Vector2(0.999839, 0.999839)
+rotation = 1.5515
+scale = Vector2(0.999827, 0.999827)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
 metadata/_local_pose_override_enabled_ = true
 
@@ -614,8 +403,8 @@ texture = ExtResource("3_idxwu")
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(8, 11)
-rotation = 0.0959028
-scale = Vector2(0.999855, 0.999855)
+rotation = -0.223625
+scale = Vector2(0.999851, 0.999851)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -648,23 +437,17 @@ texture = ExtResource("3_idxwu")
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-42, 29)
+position = Vector2(-16, 55)
 rotation = 1.70207
 
 [node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
 position = Vector2(27, 50)
 
 [node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-28, -6)
+position = Vector2(-18, 10)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(33, -31)
-
-[node name="Leg anim" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_58a7l"),
-&"Animations": SubResource("AnimationLibrary_gjund")
-}
+position = Vector2(25, 3)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -672,3 +455,14 @@ libraries = {
 position = Vector2(-52, 24)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("9_3wqtv")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_4xp6y")
+anim_player = NodePath("Leg anim")
+
+[node name="Leg anim" type="AnimationPlayer" parent="AnimationTree"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_58a7l"),
+&"Animations": SubResource("AnimationLibrary_gjund")
+}
