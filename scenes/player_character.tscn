@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0yc6mwq24ne8"]
+
+[ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
+[ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56udc"]
+size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6r27q"]
+size = Vector2(6, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kww55"]
+size = Vector2(10, 13)
+
+[node name="Player Character" type="CharacterBody2D"]
+collision_layer = 256
+script = ExtResource("1_6r27q")
+
+[node name="Flip" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
+texture = ExtResource("1_56udc")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_56udc")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Climb Area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collision" type="CollisionShape2D" parent="Climb Area"]
+shape = SubResource("RectangleShape2D_6r27q")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Water Area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Water Area"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_kww55")
+debug_color = Color(0, 1, 1, 0)
