@@ -17,6 +17,7 @@ signal died()
 
 
 var state := State.Grounded
+@export var playerAnim :Node2D
 
 @export var allow_midair_flip = true
 
@@ -175,8 +176,22 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 	
 	age += delta
-	
+	#Grounded,
+	#Fall,
+	#Jump,
+	#DoubleJump,
+	#Dash,
+	#Climb,
+	#Dead,
 	gamepad.poll(delta)
+	#print(velocity)
+	
+	playerAnim.tree["parameters/conditions/run"] = is_grounded and abs(vel_move) > 0
+
+	playerAnim.tree["parameters/conditions/jump"] = state == State.Jump
+	playerAnim.tree["parameters/conditions/hitground"] = is_grounded
+	
+		
 	
 	if not is_dead:
 		_process_physics(delta)
@@ -479,6 +494,7 @@ func process_jump(delta: float) -> void:
 		#	# velocity.y = 0.0
 		if coyote_timer > 0.0: # or else jump
 			#SoundBank.play("jump", position)
+			state = State.Jump
 			is_jumping = true
 			coyote_timer = 0.0
 			jump_buffer_timer = 0.0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=11 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
+[ext_resource type="PackedScene" uid="uid://ds1f0penlkowi" path="res://scenes/player_anim.tscn" id="2_kww55"]
 
 [sub_resource type="Curve" id="Curve_6r27q"]
 _limits = [0.0, 128.0, 0.0, 15.0]
@@ -26,13 +27,14 @@ size = Vector2(10, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2vmgx"]
 size = Vector2(10, 13)
 
-[node name="Player Character" type="CharacterBody2D"]
+[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("playerAnim")]
 collision_layer = 256
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_max_angle = 1.55334
 floor_snap_length = 4.0
 script = ExtResource("1_6r27q")
+playerAnim = NodePath("PlayerAnim")
 move_speed = 80.0
 move_acc_ticks = 15.0
 move_dec_ticks = 15.0
@@ -61,6 +63,10 @@ extra_air_dec = 64.0
 extra_air_smooth = 2.0
 double_jump_move_speed = 70.0
 dash_distance_curve = SubResource("Curve_6r27q")
+
+[node name="PlayerAnim" parent="." instance=ExtResource("2_kww55")]
+position = Vector2(0, -6)
+scale = Vector2(0.8, 0.8)
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true

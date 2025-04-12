@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=51 format=3 uid="uid://ds1f0penlkowi"]
 
 [ext_resource type="Texture2D" uid="uid://bxrs3w50qcy3" path="res://content/art/body/sonnyheadjoy.png" id="1_5yb70"]
 [ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
@@ -9,11 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://c3ja8tcfu1kdy" path="res://content/art/body/sonnyhips.png" id="3_skdgw"]
 [ext_resource type="Texture2D" uid="uid://ddulrwngh00en" path="res://content/art/body/sonnyupperarm.png" id="4_skdgw"]
 [ext_resource type="Texture2D" uid="uid://cqr1oocexwsm8" path="res://content/art/body/sonnyleg.png" id="7_sovaf"]
-[ext_resource type="Texture2D" uid="uid://ghuhrnx8mo3u" path="res://content/art/jump.png" id="9_3wqtv"]
 [ext_resource type="Animation" uid="uid://ob0sltojqquk" path="res://content/art/animation/JumpStart.res" id="9_sovaf"]
 [ext_resource type="Animation" uid="uid://c0lr0rxfx8gds" path="res://content/art/animation/Jump Idle.res" id="11_oplur"]
 [ext_resource type="Animation" uid="uid://c3vuikl8cxjfp" path="res://content/art/animation/Jump land.res" id="12_vvsna"]
 [ext_resource type="Animation" uid="uid://bexqhw2fwlvi0" path="res://content/art/animation/Idle.res" id="13_56ny5"]
+[ext_resource type="Animation" uid="uid://djaibtsed1o6" path="res://content/art/animation/DDash.res" id="15_56ny5"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
 target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
@@ -69,6 +69,9 @@ shader_parameter/darkness = 0.5
 shader = ExtResource("2_pii8q")
 shader_parameter/darkness = 0.5
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vvsna"]
+animation = &"Animations/Dash"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_56ny5"]
 animation = &"Animations/Idle"
 
@@ -81,49 +84,104 @@ animation = &"Animations/Jump fall"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iu2nd"]
 animation = &"Animations/JumpStart"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ri2hq"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nd3bc"]
 animation = &"Animations/Run"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nd3bc"]
-advance_mode = 2
-advance_condition = &"jump"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ri2hq"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nd3bc"]
+graph_offset = Vector2(-411.923, -59.2877)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_ri2hq")
+nodes/Animation/position = Vector2(10, 100)
+nodes/output/position = Vector2(430, 140)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nf6ww"]
+xfade_time = 0.3
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d43su"]
+xfade_time = 0.3
 advance_mode = 2
+advance_condition = &"doublejump"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmxdy"]
 advance_mode = 2
-advance_condition = &"run"
+advance_condition = &"hitground"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x37gy"]
+xfade_time = 0.3
+switch_mode = 2
 advance_mode = 2
+advance_condition = &"dash"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xy74y"]
+xfade_time = 0.3
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"run"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dwo66"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cayhs"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ce3f5"]
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7yq7j"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i4x4f"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8to0v"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4c8gj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vvsna"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_56ny5"]
+advance_mode = 2
+advance_condition = &"jump"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_cayhs"]
+states/Animations_Dash/node = SubResource("AnimationNodeAnimation_vvsna")
+states/Animations_Dash/position = Vector2(-163.559, -79.9208)
 states/Animations_Idle/node = SubResource("AnimationNodeAnimation_56ny5")
-states/Animations_Idle/position = Vector2(346.44, -2.28242)
+states/Animations_Idle/position = Vector2(253.738, -63.8083)
 "states/Animations_Jump Idle/node" = SubResource("AnimationNodeAnimation_51ha2")
-"states/Animations_Jump Idle/position" = Vector2(629.622, 210.33)
+"states/Animations_Jump Idle/position" = Vector2(38.3109, 240.963)
 "states/Animations_Jump fall/node" = SubResource("AnimationNodeAnimation_4xp6y")
-"states/Animations_Jump fall/position" = Vector2(860.138, 218.189)
+"states/Animations_Jump fall/position" = Vector2(274.271, 240.449)
 states/Animations_JumpStart/node = SubResource("AnimationNodeAnimation_iu2nd")
-states/Animations_JumpStart/position = Vector2(379.122, 218.33)
-states/Animations_Run/node = SubResource("AnimationNodeAnimation_ri2hq")
-states/Animations_Run/position = Vector2(618.122, 60.33)
+states/Animations_JumpStart/position = Vector2(-260.717, 242.068)
+states/Animations_Run/node = SubResource("AnimationNodeAnimation_nd3bc")
+states/Animations_Run/position = Vector2(106.798, 83.4756)
+states/BlendTree/node = SubResource("AnimationNodeBlendTree_nd3bc")
+states/BlendTree/position = Vector2(589.671, 95.5625)
 states/End/position = Vector2(940.5, 40.5)
-states/Start/position = Vector2(178, -3.39121)
-transitions = ["Animations_Run", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_nd3bc"), "Animations_JumpStart", "Animations_Jump Idle", SubResource("AnimationNodeStateMachineTransition_nf6ww"), "Animations_Jump Idle", "Animations_Jump fall", SubResource("AnimationNodeStateMachineTransition_d43su"), "Animations_Jump fall", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_bmxdy"), "Start", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_x37gy"), "Animations_Idle", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xy74y"), "Animations_Run", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_dwo66")]
-graph_offset = Vector2(123.668, -165.517)
+states/Start/position = Vector2(-309.667, 83.945)
+transitions = ["Animations_JumpStart", "Animations_Jump Idle", SubResource("AnimationNodeStateMachineTransition_nf6ww"), "Animations_Jump Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_d43su"), "Animations_Jump Idle", "Animations_Jump fall", SubResource("AnimationNodeStateMachineTransition_bmxdy"), "Animations_Jump fall", "Animations_Dash", SubResource("AnimationNodeStateMachineTransition_x37gy"), "Animations_Jump fall", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_xy74y"), "Animations_Jump fall", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_dwo66"), "Animations_Dash", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_cayhs"), "Animations_Dash", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_ce3f5"), "Animations_Dash", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_7yq7j"), "Animations_Run", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_i4x4f"), "Animations_Idle", "Animations_Run", SubResource("AnimationNodeStateMachineTransition_8to0v"), "Start", "Animations_Idle", SubResource("AnimationNodeStateMachineTransition_4c8gj"), "Animations_Run", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_vvsna"), "Animations_Idle", "Animations_JumpStart", SubResource("AnimationNodeStateMachineTransition_56ny5")]
+graph_offset = Vector2(-602.169, -187.76)
 
 [sub_resource type="Animation" id="Animation_8dvso"]
 length = 0.001
@@ -259,6 +317,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [Vector2(-0.966731, 3.01148)]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Skeleton2D/Chest/Head:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
 
 [sub_resource type="Animation" id="Animation_iv54a"]
 resource_name = "new_animation"
@@ -309,6 +379,7 @@ _data = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gjund"]
 _data = {
+&"Dash": ExtResource("15_56ny5"),
 &"Idle": ExtResource("13_56ny5"),
 &"Jump Idle": ExtResource("11_oplur"),
 &"Jump fall": ExtResource("12_vvsna"),
@@ -324,13 +395,13 @@ tree = NodePath("AnimationTree")
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D"]
-scale = Vector2(0.999811, 0.999811)
+scale = Vector2(0.999828, 0.999828)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Chest"]
 position = Vector2(0, -45)
-rotation = -1.5708
-scale = Vector2(0.999977, 0.999977)
+rotation = -1.67675
+scale = Vector2(0.99991, 0.99991)
 rest = Transform2D(1.19249e-08, -1, 1, 1.19249e-08, 0, -45)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -364,8 +435,8 @@ texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(10, -25)
-rotation = -0.918214
-scale = Vector2(0.999843, 0.999843)
+rotation = -0.197849
+scale = Vector2(0.999848, 0.999848)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -397,8 +468,8 @@ texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-8, -26)
-rotation = 0.942027
-scale = Vector2(0.999845, 0.999845)
+rotation = 0.083169
+scale = Vector2(0.999856, 0.999856)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true
 
@@ -424,8 +495,8 @@ texture = ExtResource("4_skdgw")
 
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-10, 11.1667)
-rotation = 1.55144
-scale = Vector2(0.999844, 0.999844)
+rotation = 0.944676
+scale = Vector2(0.999837, 0.999837)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
 metadata/_local_pose_override_enabled_ = true
 
@@ -455,8 +526,8 @@ texture = ExtResource("3_idxwu")
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(8, 11)
-rotation = -0.223623
-scale = Vector2(0.999858, 0.999858)
+rotation = -0.223762
+scale = Vector2(0.999857, 0.999857)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -489,29 +560,28 @@ texture = ExtResource("3_idxwu")
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-42, 29)
+position = Vector2(-16, 55)
 rotation = 1.70207
 
 [node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
 position = Vector2(27, 50)
 
 [node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-28, -6)
+position = Vector2(-18, 10)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(33, -31)
+position = Vector2(25, 3)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="Jump" type="Sprite2D" parent="."]
-position = Vector2(-52, 24)
-scale = Vector2(0.39, 0.39)
-texture = ExtResource("9_3wqtv")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_cayhs")
 anim_player = NodePath("Leg anim")
+parameters/conditions/dash = false
+parameters/conditions/doublejump = false
+parameters/conditions/hitground = false
 parameters/conditions/idle = false
+parameters/conditions/is = false
 parameters/conditions/jump = false
 parameters/conditions/run = false
 
