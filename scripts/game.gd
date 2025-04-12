@@ -3,6 +3,9 @@ extends CanvasLayer
 
 @onready var fade_animation: AnimationPlayer = %"Fade Animation"
 
+@onready var cutscene_animation: AnimationPlayer = %"Cutscene Animation"
+@onready var cutscene_text_container: Control = %"Cutscene Text Container"
+
 
 var _transition_callback: Callable
 
@@ -27,3 +30,41 @@ func transition_done() -> void:
 	# for i in 5:
 	# 	Global.camera.reset_smoothing()
 	# 	await get_tree().process_fram
+
+
+func play_cutscene(text: String) -> void:
+	Util.queue_free_children(cutscene_text_container)
+	
+	var lines := text.split("\n\n", false)
+	cutscene_animation.play(&"in")
+	
+	Global.player.gamepad.device = 99
+	
+	for line in lines:
+		if line == "[clear]":
+			Util.queue_free_children(cutscene_text_container)
+			continue
+		
+		var label := RichTextLabel.new()
+		label.bbcode_enabled = true
+		label.scroll_active = false
+		label.fit_content = true
+		label.text = "[wave][center]" + line
+		label.visible_characters = 0
+		cutscene_text_container.add_child(label)
+		
+		var tween := create_tween()
+		tween.tween_property(label, ^"visible_characters", line.length(), line.length() * 0.05)
+		await tween.finished
+		
+		while true:
+			await get_tree().process_frame
+			if Input.is_anything_pressed():
+				break
+	
+	cutscene_animation.play(&"out")
+	Global.player.gamepad.device = -2
+
+
+func play_get_emotion(name: String, description: String, usage_tip: String) -> void:
+	pass

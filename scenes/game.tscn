@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://5fi3ylkf1d57"]
+[gd_scene load_steps=16 format=3 uid="uid://5fi3ylkf1d57"]
 
 [ext_resource type="Shader" uid="uid://bwpe7pg25uw1l" path="res://content/shaders/diamond_fade.gdshader" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d3swcaj2gx4mx" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Shader" uid="uid://brrs0bp6kfj5i" path="res://content/shaders/static_bar.gdshader" id="3_lbhrr"]
+[ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="4_lbhrr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yqjtg"]
 shader = ExtResource("1_uwrxv")
 shader_parameter/progress = 0.0
-shader_parameter/diamond_pixel_size = 32.0
+shader_parameter/diamond_pixel_size = 48.0
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -74,6 +76,149 @@ _data = {
 &"out": SubResource("Animation_lnu2h")
 }
 
+[sub_resource type="Animation" id="Animation_iywne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bar Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bar Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1080)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Cutscene Text Container:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lbhrr"]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bar Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bar Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(0, 1080), Vector2(0, 980)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Cutscene Text Container:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p57ef"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bar Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.25),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bar Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.25),
+"update": 0,
+"values": [Vector2(0, 980), Vector2(0, 1080)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Cutscene Text Container:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iywne"]
+_data = {
+&"RESET": SubResource("Animation_iywne"),
+&"in": SubResource("Animation_lbhrr"),
+&"out": SubResource("Animation_p57ef")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
+shader = ExtResource("3_lbhrr")
+shader_parameter/blur_amount = 10.0
+shader_parameter/noise_size = 12.0
+shader_parameter/noise_fps = 15.0
+shader_parameter/noise_color = Color(1, 1, 1, 0.1)
+
+[sub_resource type="Theme" id="Theme_lbhrr"]
+default_font = ExtResource("4_lbhrr")
+default_font_size = 48
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 16
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 4
+RichTextLabel/constants/shadow_outline_size = 16
+RichTextLabel/font_sizes/bold_font_size = 64
+
 [node name="Game" type="CanvasLayer"]
 process_mode = 3
 layer = 128
@@ -94,3 +239,61 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_yqjtg")
 }
+speed_scale = 2.0
+
+[node name="Cutscreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Cutscene Animation" type="AnimationPlayer" parent="Cutscreen"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_iywne")
+}
+
+[node name="Bar Top" type="ColorRect" parent="Cutscreen"]
+material = SubResource("ShaderMaterial_lbhrr")
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Bar Bottom" type="ColorRect" parent="Cutscreen"]
+material = SubResource("ShaderMaterial_lbhrr")
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="Cutscene Text Container" type="VBoxContainer" parent="Cutscreen"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -20.0
+offset_right = 159.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_lbhrr")
+theme_override_constants/separation = 32

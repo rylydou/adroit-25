@@ -2,15 +2,23 @@ extends Area2D
 
 
 @export var emotion := &""
-
+@export var color := Color.WHITE
 @export var emotion_name := ""
-@export_multiline var emotion_description := ""
-@export_multiline var emotion_usage := ""
+@export var emotion_description := ""
+@export var emotion_usage_tip := ""
+
+@export_multiline var cutscene_text := ""
+
+
+func _ready() -> void:
+	$Particles.modulate = color
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not PlayerCharacter: return
-	
-	queue_free()
+	if not body.is_grounded: return
 	
 	Global.emotions.append(emotion)
+	await Game.play_cutscene(cutscene_text)
+	
+	queue_free()
