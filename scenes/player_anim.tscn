@@ -435,8 +435,8 @@ texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(10, -25)
-rotation = -0.197849
-scale = Vector2(0.999848, 0.999848)
+rotation = -1.11143
+scale = Vector2(0.999846, 0.999846)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -468,8 +468,8 @@ texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-8, -26)
-rotation = 0.083169
-scale = Vector2(0.999856, 0.999856)
+rotation = 0.0831669
+scale = Vector2(0.999855, 0.999855)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true
 
@@ -570,7 +570,7 @@ position = Vector2(27, 50)
 position = Vector2(-18, 10)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(25, 3)
+position = Vector2(30.5823, -34.942)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
