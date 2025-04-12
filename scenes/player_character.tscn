@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=9 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
@@ -13,6 +13,9 @@ size = Vector2(18, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56udc"]
 size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uj7mf"]
+size = Vector2(10, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6r27q"]
 size = Vector2(6, 16)
@@ -74,9 +77,16 @@ unique_name_in_owner = true
 position = Vector2(0, -8)
 texture = ExtResource("1_56udc")
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Normal Collision" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_56udc")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Dash Collision" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_uj7mf")
 debug_color = Color(0, 1, 0, 0)
 
 [node name="Climb Area" type="Area2D" parent="."]

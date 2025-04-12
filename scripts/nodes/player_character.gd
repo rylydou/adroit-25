@@ -111,6 +111,8 @@ var can_dash := true
 @onready var sprite: Sprite2D = %"Sprite"
 @onready var water_area: Area2D = %"Water Area"
 @onready var punch_area: Area2D = %"Punch Area"
+@onready var collision_normal: CollisionShape2D = %"Normal Collision"
+@onready var collision_dash: CollisionShape2D = %"Dash Collision"
 
 ## Temporary
 @onready var og_spawn_position := global_position
@@ -261,17 +263,21 @@ func process_state_platformer(delta: float) -> void:
 
 
 func process_state_dash(delta: float) -> void:
+	collision_normal.disabled = true
+	collision_dash.disabled = false
+	
 	dash_timer -= delta
 	if dash_timer <= 0.0:
 		state = State.Fall
 		vel_move = move_speed * direction
+		collision_normal.disabled = false
+		collision_dash.disabled = true
 		return
 	
 	var dash_duration := dash_distance_curve.max_domain
 	var dash_distance_prev := dash_distance_curve.sample_baked(dash_duration - (dash_timer * Global.TPS))
 	var dash_distance_next := dash_distance_curve.sample_baked(dash_duration - ((dash_timer + delta) * Global.TPS))
 	var dash_delta := dash_distance_prev - dash_distance_next
-	print(dash_delta)
 	var hit := move_and_collide(Vector2(dash_delta * direction, 0.0), false, 0.08, true)
 	last_vel = Vector2.ZERO
 	velocity = Vector2.ZERO
@@ -280,8 +286,9 @@ func process_state_dash(delta: float) -> void:
 	if hit:
 		# end dash early
 		dash_timer = -1.0
+		collision_normal.disabled = false
+		collision_dash.disabled = true
 		state = State.Fall
-		vel_move = move_speed * direction
 
 
 func process_state_climb(delta: float) -> void:
