@@ -281,9 +281,9 @@ func process_movement(delta: float) -> void:
 		vel_move += gamepad.move.x * speed
 	elif move_ticks < 0.0:
 		vel_move = move_toward(vel_move, 0.0, move_speed / (-move_ticks / Global.TPS / delta))
-		
-		var max_speed := move_speed
-		vel_move = clamp(vel_move, -max_speed, max_speed)
+	
+	var max_speed := move_speed
+	vel_move = clamp(vel_move, -max_speed, max_speed)
 	
 	vel_extra = move_toward(vel_extra, 0.0, extra_dec * delta)
 	vel_extra = lerp(vel_extra, 0.0, Math.smooth(extra_smooth, delta))
