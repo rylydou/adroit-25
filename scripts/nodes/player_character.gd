@@ -239,7 +239,7 @@ func process_movement(delta: float) -> void:
 	is_grounded = is_on_floor()
 	var is_input_opposing = not is_zero_approx(vel_move) and sign(vel_move) != sign(gamepad.move.x)
 	
-	print('is_input_opposing: ',is_input_opposing)
+	#print('is_input_opposing: ',is_input_opposing)
 	
 	var move_ticks := 0.0
 	var extra_dec := 0.0

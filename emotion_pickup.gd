@@ -11,6 +11,7 @@ func _on_collision_shape_2d_child_entered_tree(node: Node) -> void:
 	if Node == player:
 		if emotion == emotions.FEAR:
 			Global.fear = true
+			print("GOT FEAR")
 		if emotion == emotions.JOY:
 			Global.joy = true
 		if emotion == emotions.DEPRESSION:
