@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://ds1f0penlkowi"]
+[gd_scene load_steps=71 format=3 uid="uid://ds1f0penlkowi"]
 
 [ext_resource type="Texture2D" uid="uid://bxrs3w50qcy3" path="res://content/art/body/sonnyheadjoy.png" id="1_5yb70"]
 [ext_resource type="Animation" uid="uid://cwckil8b6vjj7" path="res://content/art/animation/Run.res" id="1_8dvso"]
@@ -13,6 +13,7 @@
 [ext_resource type="Animation" uid="uid://c0lr0rxfx8gds" path="res://content/art/animation/Jump Idle.res" id="11_oplur"]
 [ext_resource type="Animation" uid="uid://c3vuikl8cxjfp" path="res://content/art/animation/Jump land.res" id="12_vvsna"]
 [ext_resource type="Animation" uid="uid://bexqhw2fwlvi0" path="res://content/art/animation/Idle.res" id="13_56ny5"]
+[ext_resource type="Shader" uid="uid://ceeafkvq5iq47" path="res://content/shaders/flip.gdshader" id="15_51ha2"]
 [ext_resource type="Animation" uid="uid://djaibtsed1o6" path="res://content/art/animation/DDash.res" id="15_56ny5"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
@@ -460,36 +461,6 @@ tracks/0/keys = {
 "values": [ExtResource("1_5yb70")]
 }
 
-[sub_resource type="Animation" id="Animation_56ny5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_5yb70")]
-}
-
-[sub_resource type="Animation" id="Animation_51ha2"]
-resource_name = "Become sad"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_5yb70")]
-}
-
 [sub_resource type="Animation" id="Animation_4xp6y"]
 resource_name = "Become joy"
 tracks/0/type = "value"
@@ -520,6 +491,36 @@ tracks/0/keys = {
 "values": [ExtResource("1_5yb70")]
 }
 
+[sub_resource type="Animation" id="Animation_51ha2"]
+resource_name = "Become sad"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
+[sub_resource type="Animation" id="Animation_56ny5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Chest/Head/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5yb70")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ri2hq"]
 _data = {
 &"Become anger": SubResource("Animation_vvsna"),
@@ -529,7 +530,18 @@ _data = {
 &"RESET": SubResource("Animation_56ny5")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xp6y"]
+shader = ExtResource("15_51ha2")
+shader_parameter/flip_horizontal = true
+shader_parameter/flip_vertical = false
+
+[sub_resource type="Gradient" id="Gradient_51ha2"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4xp6y"]
+gradient = SubResource("Gradient_51ha2")
+
 [node name="PlayerAnim" type="Node2D" node_paths=PackedStringArray("tree", "faceanimation")]
+scale = Vector2(7, 7)
 script = ExtResource("1_vvsna")
 tree = NodePath("AnimationTree")
 faceanimation = NodePath("Face Changer")
@@ -538,6 +550,8 @@ faceanimation = NodePath("Face Changer")
 modification_stack = SubResource("SkeletonModificationStack2D_x1oag")
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(-2.55983, -1.23931)
+rotation = 0.0618613
 scale = Vector2(0.999825, 0.999825)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 
@@ -565,7 +579,7 @@ texture = ExtResource("2_idxwu")
 
 [node name="Bottom Torso" type="Sprite2D" parent="Skeleton2D/Chest"]
 z_index = 13
-position = Vector2(-0.966731, 3.01148)
+position = Vector2(-0.278791, -2.15512)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_skdgw")
 
@@ -577,19 +591,21 @@ scale = Vector2(0.03, 0.05)
 texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(7, -25)
-rotation = -0.197886
-scale = Vector2(0.999844, 0.999844)
+position = Vector2(8.37607, -27.1004)
+rotation = 0.420522
+scale = Vector2(0.999846, 0.999846)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
 length = 16.0
 bone_angle = 80.0
+metadata/_local_pose_override_enabled_ = true
 
 [node name="R hand" type="Bone2D" parent="Skeleton2D/R shoulder"]
 position = Vector2(-3.41501, 18.9327)
 rotation = 0.470748
 scale = Vector2(0.999844, 0.999844)
 rest = Transform2D(0.601423, 0.798931, -0.798931, 0.601423, 5, 21)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/R shoulder/R hand"]
 z_index = 11
@@ -608,15 +624,17 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(-7, -26)
-rotation = 0.0831625
+position = Vector2(-9.75214, -32.1923)
+rotation = -0.130397
 scale = Vector2(0.999853, 0.999853)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="L hand" type="Bone2D" parent="Skeleton2D/L shoulder"]
 position = Vector2(-10, 21)
 rotation = 1.5708
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -10, 21)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/L shoulder/L hand"]
 z_index = 15
@@ -634,9 +652,10 @@ texture = ExtResource("4_skdgw")
 
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-5.99999, 5)
-rotation = 0.94466
-scale = Vector2(0.999843, 0.999843)
+rotation = 1.24703
+scale = Vector2(0.999842, 0.999842)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="L feet" type="Bone2D" parent="Skeleton2D/LThigh"]
 position = Vector2(21.5931, 6.53732)
@@ -646,6 +665,7 @@ rest = Transform2D(0.65286, 0.757474, -0.757474, 0.65286, 21.5931, 6.53732)
 auto_calculate_length_and_angle = false
 length = 26.179
 bone_angle = 24.7746
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/LThigh/L feet"]
 z_index = 15
@@ -662,9 +682,11 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_idxwu")
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
-rotation = -0.223763
-scale = Vector2(0.999857, 0.999857)
+position = Vector2(-4.63319, -0.926638)
+rotation = 0.65843
+scale = Vector2(0.999858, 0.999858)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="R feet" type="Bone2D" parent="Skeleton2D/RThigh"]
 position = Vector2(15, 21)
@@ -674,6 +696,7 @@ rest = Transform2D(-0.32556, 0.945494, -0.945494, -0.32556, 15, 21)
 auto_calculate_length_and_angle = false
 length = 21.86
 bone_angle = -1.93
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/RThigh/R feet"]
 z_index = 12
@@ -694,17 +717,17 @@ texture = ExtResource("3_idxwu")
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-31, 47)
+position = Vector2(-6.0769, 55.6795)
 rotation = 1.70207
 
 [node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(27, 50)
+position = Vector2(-26.2821, 22.641)
 
 [node name="HAND TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-28, -6)
+position = Vector2(-4.43587, -2.72224)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
-position = Vector2(31, -22)
+position = Vector2(-2, -39)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -730,3 +753,14 @@ libraries = {
 libraries = {
 &"": SubResource("AnimationLibrary_ri2hq")
 }
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_4xp6y")
+offset_left = -47.0
+offset_top = -73.0
+offset_right = 35.0
+offset_bottom = 63.0
+texture = SubResource("GradientTexture2D_4xp6y")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="TextureRect"]
