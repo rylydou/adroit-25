@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://udll2lwgyg4o"]
+[gd_scene load_steps=9 format=3 uid="uid://ds1f0penlkowi"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_iv54a"]
 target_nodepath = NodePath("../IK TARGETS/FOOT TARGETL")
@@ -37,6 +37,92 @@ modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_iv54a")
 modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_8dvso")
 modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_58a7l")
 modifications/3 = SubResource("SkeletonModification2DTwoBoneIK_gjund")
+
+[sub_resource type="Animation" id="Animation_8dvso"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IK TARGETS/FOOT TARGETL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-42, 29)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IK TARGETS/FOOT TARGETR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(27, 50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/RThigh:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 11)]
+}
+
+[sub_resource type="Animation" id="Animation_iv54a"]
+resource_name = "new_animation"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IK TARGETS/FOOT TARGETL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-42, 29), Vector2(-17, 29), Vector2(-4, 39), Vector2(-9, 48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IK TARGETS/FOOT TARGETR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9, 50), Vector2(12, 57), Vector2(33, 37.09), Vector2(41.63, 47), Vector2(28, 58), Vector2(9, 50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/RThigh:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.35, 0.4, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 11), Vector2(8, 15), Vector2(8, 11), Vector2(8, 11)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_58a7l"]
+_data = {
+&"RESET": SubResource("Animation_8dvso"),
+&"new_animation": SubResource("Animation_iv54a")
+}
 
 [node name="PlayerAnim" type="Node2D"]
 
@@ -82,15 +168,16 @@ rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -10, 21)
 metadata/_local_pose_override_enabled_ = true
 
 [node name="LThigh" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(-10, 9)
-rotation = 1.09537
+position = Vector2(-10, 11.1667)
+rotation = 1.24848
+scale = Vector2(0.999851, 0.999851)
 rest = Transform2D(0.650885, 0.759173, -0.759173, 0.650885, -10, 9)
 metadata/_local_pose_override_enabled_ = true
 
 [node name="L feet" type="Bone2D" parent="Skeleton2D/LThigh"]
 position = Vector2(21.5931, 6.53732)
-rotation = 0.427299
-scale = Vector2(1, 1)
+rotation = 1.11461
+scale = Vector2(0.999922, 0.999922)
 rest = Transform2D(0.65286, 0.757474, -0.757474, 0.65286, 21.5931, 6.53732)
 auto_calculate_length_and_angle = false
 length = 26.179
@@ -99,6 +186,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="RThigh" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(8, 11)
+rotation = -0.223702
+scale = Vector2(0.999827, 0.999827)
 rest = Transform2D(1, 0, 0, 1, 8, 11)
 metadata/_local_pose_override_enabled_ = true
 
@@ -115,7 +204,7 @@ metadata/_local_pose_override_enabled_ = true
 [node name="IK TARGETS" type="Node2D" parent="."]
 
 [node name="FOOT TARGETL" type="Node2D" parent="IK TARGETS"]
-position = Vector2(-14, 43)
+position = Vector2(-42, 29)
 rotation = 1.70207
 
 [node name="FOOT TARGETR" type="Node2D" parent="IK TARGETS"]
@@ -126,3 +215,11 @@ position = Vector2(-23, -8)
 
 [node name="HAND TARGETR" type="Node2D" parent="IK TARGETS"]
 position = Vector2(38, -8)
+
+[node name="Upper body anim" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+
+[node name="Leg anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_58a7l")
+}
