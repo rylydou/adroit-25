@@ -17,10 +17,11 @@ func _ready() -> void:
 		var area := Area2D.new()
 		var collision := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
-		shape.size = size
+		shape.size = size - (Vector2.ONE * 12.0)
 		collision.shape = shape
-		collision.position = size / 2
+		collision.position = size * 0.5
 		collision.debug_color = border_color
+		collision.debug_color.a = 0.0
 		area.add_child(collision)
 		add_child(area)
 		
@@ -47,11 +48,4 @@ func player_entered() -> void:
 	camera.limit_left = rect.position.x
 	camera.limit_right = rect.end.x
 	camera.limit_bottom = rect.end.y
-	camera.limit_smoothed = true
-	camera.position_smoothing_enabled = true
-	camera.position_smoothing_speed = 5.0
-	create_tween().tween_property(camera, ^"zoom", Vector2.ONE * camera_zoom, 3.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-
-
-func player_exited() -> void:
-	pass
+	create_tween().tween_property(camera, ^"zoom", Vector2.ONE * camera_zoom, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

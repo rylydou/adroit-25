@@ -127,7 +127,7 @@ func vibrate(weak: float, strong: float, duration: float) -> void:
 func poll(delta: float) -> void:
 	match device:
 		-2:
-			if joys.has(0):
+			if Input.is_joy_known(0):
 				var _device := device
 				device = 0
 				poll_gamepad(delta)

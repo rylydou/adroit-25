@@ -1,6 +1,7 @@
 class_name PlayerCharacter extends CharacterBody2D
 
 
+
 signal died()
 
 
@@ -35,6 +36,11 @@ var max_fall_speed := 0.0
 var is_jumping := false
 
 @export var bonk_bounce := 0.0
+
+
+@export_group("Double Jump")
+@export var double_jump := 0.0
+
 
 @export_group("Assists")
 ## The amount of time the player can still jump after leaving a platform, see "Looney Tunes"
@@ -105,7 +111,24 @@ var vel_extra := 0.0
 
 
 func _enter_tree() -> void:
+	Global.player = self
 	calculate_physics()
+
+
+func _ready() -> void:
+	for emotion in [
+		&"fear",
+		&"depression",
+		&"anger",
+		&"joy",
+		&"love",
+	]:
+		DevTools.new_command("Get Emotion %s" % emotion)\
+			.describe("Gives the specified emotion upgrade")\
+			.exec(func():
+			Global.emotions.erase(emotion) # ensure there are no duplicates
+			Global.emotions.append(emotion)
+			)
 
 
 func calculate_physics() -> void:
@@ -170,7 +193,7 @@ func _process_physics(delta: float) -> void:
 	
 	fallthrough_ignore_timer -= delta
 	
-	if gamepad.punch.pressed:
+	if gamepad.punch.pressed and Global.emotions.has(&"anger"):
 		var things := punch_area.get_overlapping_bodies()
 		things.append(punch_area.get_overlapping_areas())
 		
