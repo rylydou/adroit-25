@@ -199,12 +199,13 @@ You can now dash by pressing {dash}!"
 [node name="Parallax2D" type="Parallax2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+z_index = 120
 position = Vector2(-19, -49)
 scale = Vector2(0.838542, 0.834722)
 texture = ExtResource("16_jpd4d")
 
 [node name="Parallax2D" type="Parallax2D" parent="Parallax2D"]
-scroll_scale = Vector2(13.93, 13.93)
+scroll_scale = Vector2(2, 2)
 autoscroll = Vector2(2, 0)
 repeat_times = 50
 
@@ -215,5 +216,5 @@ texture = ExtResource("17_yr5x1")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax2D/Parallax2D"]
 z_index = -15
-position = Vector2(578, -52)
+position = Vector2(786, -118)
 texture = ExtResource("18_fg7eg")

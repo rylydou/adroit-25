@@ -7,7 +7,9 @@ func _process(delta: float) -> void:
 	oldpos = global_position
 	progress += speed * delta
 	if global_position.x - oldpos.x < -0.25:
-		sprite.flip_h = true
+		if sprite.flip_h != null:
+			sprite.flip_h = true
 	else:
-		sprite.flip_h = false
+		if sprite.flip_h != null:
+			sprite.flip_h = false
 		
