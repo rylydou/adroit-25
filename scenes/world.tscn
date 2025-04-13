@@ -1421,21 +1421,21 @@ metadata/_custom_type_script = "uid://dw08f1a28p7t0"
 [node name="Voids" type="Node" parent="."]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Voids"]
-z_index = -1
+z_index = -1500
 position = Vector2(-141.5, 1286)
 scale = Vector2(1045, 21)
 mesh = SubResource("QuadMesh_q5onr")
 texture = SubResource("GradientTexture2D_jhx03")
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="Voids"]
-z_index = -1
+z_index = -1500
 position = Vector2(-1142, 213)
 scale = Vector2(321.5, 21)
 mesh = SubResource("QuadMesh_q5onr")
 texture = SubResource("GradientTexture2D_jhx03")
 
 [node name="MeshInstance2D3" type="MeshInstance2D" parent="Voids"]
-z_index = -1
+z_index = -1500
 material = SubResource("CanvasItemMaterial_q5onr")
 position = Vector2(-762.125, 276.5)
 scale = Vector2(451.75, 123)
@@ -1445,22 +1445,24 @@ texture = SubResource("GradientTexture2D_jhx03")
 [node name="Effects" type="Node" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Effects"]
+z_index = -1500
 material = SubResource("ShaderMaterial_7iits")
 offset_left = -984.0
+offset_top = -3.0
 offset_right = -504.0
 offset_bottom = 337.0
 
 [node name="ColorRect2" type="ColorRect" parent="Effects"]
-z_index = -1
+z_index = -1500
 material = SubResource("ShaderMaterial_7iits")
 offset_left = 908.0
 offset_top = 1162.0
-offset_right = 1336.0
-offset_bottom = 1608.0
+offset_right = 1280.0
+offset_bottom = 1540.0
 
 [node name="God ray" type="MeshInstance2D" parent="Effects"]
 modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
-z_index = -400
+z_index = -1500
 z_as_relative = false
 material = SubResource("ShaderMaterial_7t5mc")
 position = Vector2(-1219.63, -153.125)
@@ -1471,7 +1473,7 @@ layer_name = &"lighting"
 
 [node name="God ray2" type="MeshInstance2D" parent="Effects"]
 modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
-z_index = -400
+z_index = -1500
 z_as_relative = false
 material = SubResource("ShaderMaterial_pm21f")
 position = Vector2(-2096, 1151)
@@ -1482,7 +1484,7 @@ layer_name = &"lighting"
 
 [node name="God ray3" type="MeshInstance2D" parent="Effects"]
 modulate = Color(0.788235, 0.215686, 0.392157, 0.101961)
-z_index = -400
+z_index = -1500
 z_as_relative = false
 material = SubResource("ShaderMaterial_2lf6f")
 position = Vector2(-865.656, 110.281)
