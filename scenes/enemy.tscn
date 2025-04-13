@@ -49,7 +49,7 @@ _data = {
 animation = &"Bat flap"
 advance_on_start = true
 
-[node name="Enemy" type="PathFollow2D"]
+[node name="Enemy" type="PathFollow2D" node_paths=PackedStringArray("sprite")]
 z_index = 1
 rotates = false
 script = ExtResource("1_md0e3")
