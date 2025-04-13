@@ -125,8 +125,6 @@ var grapple_target_x := 0.0
 @export var move_tilt := -10.0
 @export var dash_tilt := 10.0
 @export var wobble_friction := 0.0
-@export var wobble_accel := 0.0
-var wobble_speed := 0.0
 
 @export var face_anger: Sprite2D
 @export var face_joy: Sprite2D
@@ -275,6 +273,8 @@ func _process_physics(delta: float) -> void:
 	if gamepad.punch.pressed and Global.emotions.has(&"anger") and is_grounded:
 		var things := punch_area.get_overlapping_bodies()
 		things.append_array(punch_area.get_overlapping_areas())
+		
+		pivot.rotation = PI / 2.0
 		
 		for thing in things:
 			thing.propagate_call(&"receive_punch", [0])
@@ -682,6 +682,8 @@ func die() -> void:
 	
 	# SFX.event("death.player").at(self).play()
 	
+	collision_normal.disabled = true
+	collision_dash.disabled = true
 	respawn()
 
 
@@ -689,6 +691,8 @@ func respawn() -> void:
 	modulate.a = 0.5
 	z_index += 1000
 	scale = Vector2.ONE * 0.75
+	
+	Game.death_noise_anim.play(&"death")
 	
 	var spawn_position := respawn_point
 	
@@ -701,10 +705,12 @@ func respawn() -> void:
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 	
 	await tween.finished
+	tween.kill()
 	
 	apply_floor_snap()
 	
-	tween.kill()
+	collision_normal.disabled = false
+	collision_dash.disabled = true
 	
 	modulate.a = 1.0
 	z_index -= 1000

@@ -41,6 +41,7 @@ func _process(delta: float) -> void:
 
 func player_entered() -> void:
 	Global.current_room = self
+	Game.entered_room.emit()
 	
 	var camera := Global.camera
 	var rect := get_global_rect()
@@ -48,4 +49,4 @@ func player_entered() -> void:
 	camera.limit_left = rect.position.x
 	camera.limit_right = rect.end.x
 	camera.limit_bottom = rect.end.y
-	create_tween().tween_property(camera, ^"zoom", Vector2.ONE * camera_zoom, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	camera.target_zoom = camera_zoom

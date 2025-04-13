@@ -1,10 +1,14 @@
 extends CanvasLayer
 
 
+signal entered_room()
+
+
 @onready var fade_animation: AnimationPlayer = %"Fade Animation"
 
 @onready var cutscene_animation: AnimationPlayer = %"Cutscene Animation"
 @onready var cutscene_text_container: Control = %"Cutscene Text Container"
+@onready var death_noise_anim: AnimationPlayer = %"Death Noise Anim"
 
 
 var _transition_callback: Callable
@@ -16,7 +20,7 @@ func transition_to_scene(scene_path: String) -> void:
 		
 		for i in 5:
 			if is_instance_valid(Global.camera):
-				Global.camera.reset_smoothing()
+				Global.camera.reset()
 			await get_tree().process_frame
 	
 	fade_animation.play(&"in")
@@ -28,7 +32,7 @@ func start_door_transition(target_position: Vector2) -> void:
 	_transition_callback = func():
 		Global.player.position = target_position
 		for i in 5:
-			Global.camera.reset_smoothing()
+			Global.camera.reset()
 			await get_tree().process_frame
 	
 	fade_animation.play(&"in")

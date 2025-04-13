@@ -183,7 +183,6 @@ metadata/_custom_type_script = "uid://bh5x1dl14crwh"
 z_index = -1200
 z_as_relative = false
 scale = Vector2(0.126, 0.126)
-tile_map_data = PackedByteArray("AAAKAAAAAAAAAAAAAAAGAP7/AAAAAAAAAAAaAP7/AAAAAAAAAAAdAP3/AAAAAAIAAAAgAP7/AAAAAAAAAAAiAP7/AAAAAAAAAAAlAP7/AAAAAAAAAAAUAP//AAAAAAAAAAAMAAEAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAhAP3/AAAAAAIAABAkAP3/AAAAAAIAABAoAP//AAADAAAAAAAwAP//AAADAAAAAAAOAP//AAADAAAAAAARAP//AAAAAAAAAAANAP//AAAAAAAAAAAQAP//AAADAAAAAAAVAP7/AAAAAAIAAAAZAP7/AAAAAAIAAAAdAP//AAAAAAAAAAASAP//AAAAAAAAAADw/wAAAAAAAAAAAADk/wQAAAAAAAAAAADa/wQAAAAAAAAAAADf/wQAAAAAAAAAAADg/wQAAAADAAAAAADk/wUAAAADAAAAAADc/wQAAAAAAAIAAAA=")
 tile_set = ExtResource("9_qcoof")
 
 [node name="SortingLayer" type="Node" parent="Tilemap FX BG"]
@@ -220,6 +219,7 @@ position = Vector2(-60, 20)
 
 [node name="Weak Block2" parent="." instance=ExtResource("2_c6406")]
 position = Vector2(-36, 20)
+is_persistent = false
 
 [node name="Rooms" type="Node" parent="."]
 
@@ -246,7 +246,7 @@ script = ExtResource("18_l11sl")
 layer_name = &"lighting"
 
 [node name="Emotion Pickup" parent="." instance=ExtResource("10_pn3xg")]
-position = Vector2(28, -8)
+position = Vector2(2.40971, -168.874)
 emotion = &"fear"
 emotion_name = "Fear"
 emotion_usage_tip = "Press {dash} to dash"
@@ -269,10 +269,10 @@ border_color = Color(0, 1, 0, 1)
 script = ExtResource("8_s1pwn")
 
 [node name="Killbox" type="ReferenceRect" parent="."]
-offset_left = -80.0
-offset_top = 8.0
-offset_right = -72.0
-offset_bottom = 32.0
+offset_left = 101.416
+offset_top = -13.8423
+offset_right = 109.416
+offset_bottom = 10.1577
 script = ExtResource("8_l5iec")
 
 [node name="CutsceneTrigger" type="ReferenceRect" parent="."]

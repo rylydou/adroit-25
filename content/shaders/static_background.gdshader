@@ -22,6 +22,7 @@ void fragment() {
 	float noise = clamp(random((floor(SCREEN_UV * noise_res) / noise_res) + noies_seed).x, 0., 1.);
 	float noise_a = 1.-length(SCREEN_UV - vec2(.5)) * 2.;
 	noise_a = max(noise_a, 0.0);
+	noise_a = 1.0;
 	fin.rgb += noise_color.rgb * noise * noise_color.a * noise_a;
 	
 	COLOR.rgb = mix(fin.rgb, COLOR.rgb, COLOR.a);
