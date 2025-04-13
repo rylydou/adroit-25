@@ -1274,7 +1274,7 @@ material = SubResource("ShaderMaterial_7iits")
 offset_left = 908.0
 offset_top = 1164.0
 offset_right = 1336.0
-offset_bottom = 1512.0
+offset_bottom = 1520.0
 
 [node name="Player Character" parent="." instance=ExtResource("3_4wyf3")]
 position = Vector2(-488, 205)
