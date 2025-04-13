@@ -15,7 +15,8 @@ func transition_to_scene(scene_path: String) -> void:
 		get_tree().change_scene_to_file(scene_path)
 		
 		for i in 5:
-			Global.camera.reset_smoothing()
+			if is_instance_valid(Global.camera):
+				Global.camera.reset_smoothing()
 			await get_tree().process_frame
 	
 	fade_animation.play(&"in")
@@ -77,7 +78,3 @@ func play_cutscene(text: String) -> void:
 	
 	cutscene_animation.play(&"out")
 	Global.player.gamepad.enabled = true
-
-
-func play_get_emotion(name: String, description: String, usage_tip: String) -> void:
-	pass

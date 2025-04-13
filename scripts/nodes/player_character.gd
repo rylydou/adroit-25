@@ -21,8 +21,6 @@ signal died()
 var state := State.Grounded
 var last_state := State.Grounded
 
-@export var playerAnimParent: SubViewportContainer
-
 @export var allow_midair_flip = true
 
 @export_group("Movement", "move_")
@@ -115,16 +113,24 @@ var can_dash := true
 var olddirection
 var can_pound := 0.0
 
-
 @export_group("Grapple", "grapple_")
 @export var grapple_speed_curve: Curve
 @export var grapple_min_distance := 16.0
 @export var grapple_max_distance := 8.0 * 30.0
-@export var max_grapple_time := 10.0
+@export var max_grapple_time := 5.0
 var grappling_time := 0.0
 var grapple_target_x := 0.0
 
+@export_group("GFX")
+@export var move_tilt := -10.0
+@export var dash_tilt := 10.0
+@export var wobble_friction := 0.0
+@export var wobble_accel := 0.0
+var wobble_speed := 0.0
 
+
+@onready var head: Sprite2D = %"Head"
+@onready var pivot: Node2D = %"Pivot"
 @onready var climb_area: Area2D = %"Climb Area"
 @onready var flip_node: Node2D = %"Flip"
 @onready var water_area: Area2D = %"Water Area"
@@ -202,16 +208,18 @@ func _physics_process(delta: float) -> void:
 	age += delta
 	gamepad.poll(delta)
 	
-	playerAnimParent.playerAnime.tree["parameters/conditions/idle"] = is_grounded and abs(vel_move) <= 0.1
-	playerAnimParent.playerAnime.tree["parameters/conditions/run"] = is_grounded and abs(vel_move) > 0
-	playerAnimParent.playerAnime.tree["parameters/conditions/jump"] = state == State.Jump
-	playerAnimParent.playerAnime.tree["parameters/conditions/hitground"] = is_grounded
-	playerAnimParent.playerAnime.tree["parameters/conditions/idle"] = abs(vel_move) == 0
-	
-	
 	if not is_dead:
 		_process_physics(delta)
-		
+	
+	var target_tilt := 0.0
+	
+	if gamepad.move.x != 0.0:
+		target_tilt = move_tilt
+	if state == State.Dash or state == State.Grapple:
+		target_tilt = dash_tilt
+	
+	# pivot.rotation_degrees = target_tilt
+	pivot.rotation = lerp_angle(pivot.rotation, deg_to_rad(target_tilt), Math.smooth(10.0, delta))
 
 
 func _process_physics(delta: float) -> void:
@@ -236,13 +244,8 @@ func _process_physics(delta: float) -> void:
 	if wallslide_norm != 0 and coyote_timer > 0.0:
 		direction = wallslide_norm
 	elif (is_on_floor() or allow_midair_flip) and not dash_timer > 0.0 and not is_zero_approx(gamepad.move.x):
-		#if sign(gamepad.move.x) != direction:
-			#playerAnimParent.flip =sign(gamepad.move.x)
 		direction = sign(gamepad.move.x)
-		playerAnimParent.flip = direction
-		#playerAnimParent.flipplayer.play("flip")
-		
-		
+	
 	if flip_node:
 		flip_node.scale.x = direction
 	
@@ -271,6 +274,7 @@ func _process_physics(delta: float) -> void:
 			thing.propagate_call(&"receive_punch", [0])
 	
 	if can_dash and gamepad.dash.pressed and Global.emotions.has(&"fear"):
+		state = State.Dash
 		can_dash = false
 		dash_timer = dash_distance_curve.max_domain / Global.TPS
 		dash_og_x = position.x
@@ -338,9 +342,16 @@ func process_state_platformer(delta: float) -> void:
 		floor_snap_length = 0.0
 		grappling_time += delta
 		var grapple_speed := grapple_speed_curve.sample_baked(grappling_time * Global.TPS)
-		position.x = move_toward(position.x, grapple_target_x, grapple_speed * delta)
+		
+		var hit := move_and_collide(Vector2(grapple_speed * delta * signf(grapple_target_x - position.x), 0.0), false, 0.08, true)
+		
+		# position.x = move_toward(position.x, grapple_target_x, )
 		grapple_line.points[1] = grapple_line.to_local(global_position + Vector2(0.0, -8.0))
-		if absf(position.x - grapple_target_x) < grapple_min_distance or grappling_time > max_grapple_time:
+		if (
+				absf(position.x - grapple_target_x) < grapple_min_distance
+				or grappling_time > max_grapple_time
+				or hit
+		):
 			floor_snap_length = 4.0
 			state = State.Fall
 			grapple_gfx.hide()
@@ -359,6 +370,7 @@ func process_state_platformer(delta: float) -> void:
 			grapple_gfx.show()
 			grapple_gfx.position.x = grapple_target_x
 			grapple_gfx.position.y = position.y - 8.0
+			grapple_gfx.scale.x = direction
 	
 	move(delta)
 
