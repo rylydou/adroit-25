@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ghuhrnx8mo3u"
-path="res://.godot/imported/jump.png-9772303f45ca3ac3022d3c1a7099256e.ctex"
+uid="uid://d1iefaspkxsr3"
+path="res://.godot/imported/joy.png-095379c524e80412973b16248469c0d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/art/jump.png"
-dest_files=["res://.godot/imported/jump.png-9772303f45ca3ac3022d3c1a7099256e.ctex"]
+source_file="res://content/art/emotion_pickups/joy.png"
+dest_files=["res://.godot/imported/joy.png-095379c524e80412973b16248469c0d3.ctex"]
 
 [params]
 

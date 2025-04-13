@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://clp3bddavnurl"]
+[gd_scene load_steps=10 format=3 uid="uid://clp3bddavnurl"]
 
 [ext_resource type="Script" uid="uid://blccfjbfouiua" path="res://scripts/nodes/emotion_pickup.gd" id="1_og0d8"]
+[ext_resource type="Texture2D" uid="uid://cy8s45wvmmuje" path="res://content/art/emotion_pickups/anger.png" id="2_r5g7a"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5ekld"]
 particle_flag_disable_z = true
 angle_min = -360.0
 angle_max = 360.0
 direction = Vector3(0, -1, 0)
+spread = 180.0
 initial_velocity_max = 26.91
 gravity = Vector3(0, 0, 0)
 linear_accel_min = 27.63
@@ -28,6 +30,44 @@ fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 metadata/_snap_count = 4
 
+[sub_resource type="Animation" id="Animation_r5g7a"]
+resource_name = "idle"
+length = 0.66667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anger:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, -2), Vector2(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_6484j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anger:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_01o0i"]
+_data = {
+&"RESET": SubResource("Animation_6484j"),
+&"idle": SubResource("Animation_r5g7a")
+}
+
 [node name="Emotion Pickup" type="Area2D"]
 collision_layer = 0
 collision_mask = 256
@@ -43,5 +83,17 @@ shape = SubResource("CircleShape2D_5ekld")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_r5g7a")
+
+[node name="Anger" type="Sprite2D" parent="."]
+rotation = 0.261799
+scale = Vector2(0.0209344, 0.0209344)
+texture = ExtResource("2_r5g7a")
+
+[node name="Animation Player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_01o0i")
+}
+autoplay = "idle"
+speed_scale = 0.125
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

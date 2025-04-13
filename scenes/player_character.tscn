@@ -68,6 +68,9 @@ extra_air_smooth = 2.0
 double_jump_move_speed = 70.0
 dash_distance_curve = SubResource("Curve_6r27q")
 pound_speed = 500.0
+grapple_start_speed = 200.0
+grapple_acceleration = 1000.0
+grapple_min_distance = 8.0
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -82,9 +85,9 @@ texture = ExtResource("1_56udc")
 z_index = 75
 offset_left = -9.0
 offset_top = -18.0
-offset_right = 536.0
-offset_bottom = 527.0
-scale = Vector2(0.038, 0.038)
+offset_right = 503.0
+offset_bottom = 494.0
+scale = Vector2(0.0359441, 0.0359441)
 
 [node name="Punch Area" type="Area2D" parent="Flip"]
 unique_name_in_owner = true
@@ -95,6 +98,12 @@ collision_mask = 4608
 position = Vector2(5, -8)
 shape = SubResource("RectangleShape2D_4h0vy")
 debug_color = Color(1, 0, 0, 0)
+
+[node name="Grapple Raycast" type="RayCast2D" parent="Flip"]
+unique_name_in_owner = true
+position = Vector2(0, -7)
+target_position = Vector2(1000, -1)
+collision_mask = 2051
 
 [node name="Normal Collision" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
@@ -147,11 +156,6 @@ collision_mask = 1024
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6unfe")
 debug_color = Color(1, 1, 0, 0)
-
-[node name="Grapple Raycast" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-target_position = Vector2(0, 1000)
-collision_mask = 2051
 
 [node name="Grapple Target" type="Node2D" parent="."]
 unique_name_in_owner = true

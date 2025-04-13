@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ces0gfvlamphi"]
 
-[ext_resource type="Texture2D" uid="uid://c63x7loaym3i7" path="res://icon.svg" id="1_cmano"]
 [ext_resource type="Script" uid="uid://cdblmfjwdfte5" path="res://scripts/nodes/weak_block.gd" id="1_hlcya"]
+[ext_resource type="Texture2D" uid="uid://3d2ntw6bo6r8" path="res://content/art/weak_block.png" id="2_hlcya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlcya"]
 size = Vector2(24, 24)
@@ -12,8 +12,8 @@ collision_mask = 0
 script = ExtResource("1_hlcya")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_cmano")
+scale = Vector2(0.208375, 0.208375)
+texture = ExtResource("2_hlcya")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true

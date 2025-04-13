@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ynxwyvgqvll"
-path="res://.godot/imported/wlk01.png-7e0fa420304d6d6888a55546ff9216f7.ctex"
+uid="uid://t81fvnfp3hb5"
+path="res://.godot/imported/sadness.png-a6531af4f8c78633f79932343d63f03a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/art/wlk01.png"
-dest_files=["res://.godot/imported/wlk01.png-7e0fa420304d6d6888a55546ff9216f7.ctex"]
+source_file="res://content/art/emotion_pickups/sadness.png"
+dest_files=["res://.godot/imported/sadness.png-a6531af4f8c78633f79932343d63f03a.ctex"]
 
 [params]
 

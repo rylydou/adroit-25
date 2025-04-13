@@ -9,6 +9,12 @@ static var debug_physics := false
 static var emotions: Array[StringName] = []
 
 
+# enum InputMethod := {
+	
+# }
+static var input_method := &"arrow"
+
+
 # === Singletons ===
 static var player: PlayerCharacter
 static var current_room: Room

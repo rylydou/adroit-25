@@ -9,6 +9,7 @@ enum State {
 	DoubleJump,
 	Dash,
 	Pound,
+	Grapple,
 	Dead,
 }
 
@@ -118,7 +119,9 @@ var can_pound := 0.0
 @export_group("Grapple", "grapple_")
 @export var grapple_start_speed := 80.0
 @export var grapple_acceleration := 80.0
+@export var grapple_min_distance := 16.0
 var grapple_speed := 0.0
+var grapple_target_x := 0.0
 
 
 @onready var climb_area: Area2D = %"Climb Area"
@@ -267,7 +270,7 @@ func _process_physics(delta: float) -> void:
 
 
 func process_state_platformer(delta: float) -> void:
-	if is_on_floor():
+	if is_on_floor() and state != State.Grapple and state != State.Dash:
 		if state == State.Pound:
 			Global.camera.pound_shake()
 		
@@ -312,6 +315,9 @@ func process_state_platformer(delta: float) -> void:
 			and velocity.y != 0.0
 			and Global.emotions.has(&"depression")
 			and can_pound
+			and state != State.Grapple
+			and state != State.Pound
+			and state != State.Dash
 	):
 		can_pound = false
 		state = State.Pound
@@ -321,16 +327,29 @@ func process_state_platformer(delta: float) -> void:
 		last_vel.x = 0.0
 		velocity.x = 0.0
 	
-	if state != State.Pound:
+	if state != State.Pound and state != State.Grapple:
 		process_movement(delta)
 		process_gravity(delta)
 		process_jump(delta)
 		#process_wallslide(delta)
 	
+	if state == State.Grapple:
+		grapple_speed += grapple_acceleration * delta
+		position.x = move_toward(position.x, grapple_target_x, grapple_speed * delta)
+		if absf(position.x - grapple_target_x) < grapple_min_distance:
+			state = State.Fall
+		airborne_refresh()
+	
 	if gamepad.grapple.pressed and Global.emotions.has(&"love"):
 		grapple_ray_cast.force_raycast_update()
-		
-		# grapple_ray_cast.
+		if grapple_ray_cast.is_colliding():
+			velocity = Vector2.ZERO
+			last_vel = Vector2.ZERO
+			vel_move = 0.0
+			vel_extra = 0.0
+			state = State.Grapple
+			grapple_target_x = grapple_ray_cast.get_collision_point().x
+			grapple_speed = grapple_start_speed
 	
 	move(delta)
 

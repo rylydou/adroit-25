@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq84qlxdh3mhf"
-path="res://.godot/imported/tile_rock.png-47dfb3d74cb1f29cedfb37c7d9865466.ctex"
+uid="uid://3d2ntw6bo6r8"
+path="res://.godot/imported/weak_block.png-36db6efb746649d7cc824ad33ac15ce1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/art/tile_rock.png"
-dest_files=["res://.godot/imported/tile_rock.png-47dfb3d74cb1f29cedfb37c7d9865466.ctex"]
+source_file="res://content/art/weak_block.png"
+dest_files=["res://.godot/imported/weak_block.png-36db6efb746649d7cc824ad33ac15ce1.ctex"]
 
 [params]
 
