@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{d3bc73d0-22ed-4304-8038-76266f1aaecb}">
 		<property name="name">
-			<value>ground_pound_land</value>
+			<value>ground_pound_impact</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
