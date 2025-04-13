@@ -112,6 +112,14 @@ var can_dash := true
 @export_group("Pound", "pound_")
 @export var pound_speed := 100.0
 var olddirection
+var can_pound := 0.0
+
+
+@export_group("Grapple", "grapple_")
+@export var grapple_start_speed := 80.0
+@export var grapple_acceleration := 80.0
+var grapple_speed := 0.0
+
 
 @onready var climb_area: Area2D = %"Climb Area"
 @onready var flip_node: Node2D = %"Flip"
@@ -121,6 +129,7 @@ var olddirection
 @onready var unsafe_area: Area2D = %"Unsafe Area"
 @onready var collision_normal: CollisionShape2D = %"Normal Collision"
 @onready var collision_dash: CollisionShape2D = %"Dash Collision"
+@onready var grapple_ray_cast: RayCast2D = %"Grapple Raycast"
 
 @onready var respawn_point := global_position
 
@@ -244,7 +253,7 @@ func _process_physics(delta: float) -> void:
 	
 	fallthrough_ignore_timer -= delta
 	
-	if gamepad.punch.pressed and Global.emotions.has(&"anger"):
+	if gamepad.punch.pressed and Global.emotions.has(&"anger") and is_grounded:
 		var things := punch_area.get_overlapping_bodies()
 		things.append_array(punch_area.get_overlapping_areas())
 		
@@ -268,9 +277,9 @@ func process_state_platformer(delta: float) -> void:
 		can_dash = true
 		wallslide_norm = 0
 		last_walljump_norm = 0
-		
-		if unsafe_area.get_overlapping_areas().size() > 0:
-			respawn_point = global_position
+	
+	if (is_grounded or state == State.Dash) and unsafe_area.get_overlapping_areas().size() > 0:
+		respawn_point = global_position
 	
 	if (
 		climb_area.get_overlapping_areas().size() + climb_area.get_overlapping_bodies().size() > 0
@@ -285,7 +294,7 @@ func process_state_platformer(delta: float) -> void:
 		last_walljump_norm = 0
 		return
 	
-	if gamepad.move.y < -0.9 and absf(gamepad.move.x) < 0.1 and is_grounded:
+	if gamepad.move.y < -0.9 and is_grounded:
 		gamepad.move.y = 0.0
 		var things := interact_area.get_overlapping_bodies()
 		things.append_array(interact_area.get_overlapping_areas())
@@ -293,7 +302,18 @@ func process_state_platformer(delta: float) -> void:
 		for thing in things:
 			thing.propagate_call(&"receive_interact")
 	
-	if gamepad.move.y > 0.9 and absf(gamepad.move.x) < 0.1 and not is_grounded and Global.emotions.has(&"depression"):
+	if gamepad.move.y == 0.0:
+		can_pound = true
+	
+	if (
+			gamepad.move.y > 0.9
+			and absf(gamepad.move.x) < 0.1
+			and not is_grounded
+			and velocity.y != 0.0
+			and Global.emotions.has(&"depression")
+			and can_pound
+	):
+		can_pound = false
 		state = State.Pound
 		velocity.y = pound_speed
 		vel_move = 0.0
@@ -306,6 +326,11 @@ func process_state_platformer(delta: float) -> void:
 		process_gravity(delta)
 		process_jump(delta)
 		#process_wallslide(delta)
+	
+	if gamepad.grapple.pressed and Global.emotions.has(&"love"):
+		grapple_ray_cast.force_raycast_update()
+		
+		# grapple_ray_cast.
 	
 	move(delta)
 
@@ -364,6 +389,7 @@ func process_state_climb(delta: float) -> void:
 			velocity.y = 0.0
 		return
 	
+	can_dash = true
 	vel_extra = 0.0
 	velocity.y = gamepad.move.y * climb_speed_vertical
 	vel_move = gamepad.move.x * climb_speed_horizontal
@@ -399,8 +425,6 @@ func move(delta: float) -> void:
 func process_movement(delta: float) -> void:
 	is_grounded = is_on_floor()
 	var is_input_opposing = not is_zero_approx(vel_move) and sign(vel_move) != sign(gamepad.move.x)
-	
-	#print('is_input_opposing: ',is_input_opposing)
 	
 	var move_ticks := 0.0
 	var extra_dec := 0.0
@@ -520,17 +544,6 @@ func process_jump(delta: float) -> void:
 			is_climbing = true
 	
 	if jump_buffer_timer > 0.0:
-		#if gamepad.crouch.down and is_on_floor(): # if crouching then fall though
-		#	#SoundBank.play("fallthrough", position)
-		#	# position += -get_floor_normal()
-		#	position.y += 2.0
-		#	jump_buffer_timer = 0.0
-		#	coyote_timer = 0.0
-		#	var offset := abs(get_floor_normal().x)
-		#	var fallthrough_ignore_ticks := 10.0
-		#	fallthrough_ignore_timer = fallthrough_ignore_ticks / Global.TPS
-		#	# velocity.y = maxf(velocity.y, jump_velocity_min)
-		#	# velocity.y = 0.0
 		if coyote_timer > 0.0: # or else jump
 			#SoundBank.play("jump", position)
 			state = State.Jump

@@ -49,14 +49,8 @@ _data = {
 animation = &"Bat flap"
 advance_on_start = true
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 [node name="Enemy" type="PathFollow2D"]
 z_index = 1
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 rotates = false
 script = ExtResource("1_md0e3")
 speed = 50.0

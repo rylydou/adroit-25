@@ -41,6 +41,7 @@ process_material = SubResource("ParticleProcessMaterial_5ekld")
 shape = SubResource("CircleShape2D_5ekld")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_r5g7a")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

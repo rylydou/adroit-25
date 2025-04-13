@@ -84,6 +84,7 @@ teleport={
 2d_physics/layer_9="Player"
 2d_physics/layer_10="Interactable"
 2d_physics/layer_11="Unsafe"
+2d_physics/layer_12="Grappleable"
 2d_physics/layer_13="Punchable"
 2d_physics/layer_14="Poundable"
 

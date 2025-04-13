@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not PlayerCharacter: return
-	if not body.is_grounded: return
 	
 	Global.emotions.append(emotion)
 	await Game.play_cutscene(cutscene_text)
