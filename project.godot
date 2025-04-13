@@ -66,6 +66,10 @@ folder_colors={
 "res://scripts/": "green"
 }
 
+[gui]
+
+common/snap_controls_to_pixels=false
+
 [input]
 
 teleport={

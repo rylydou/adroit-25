@@ -335,11 +335,13 @@ func process_state_platformer(delta: float) -> void:
 		#process_wallslide(delta)
 	
 	if state == State.Grapple:
+		floor_snap_length = 0.0
 		grappling_time += delta
 		var grapple_speed := grapple_speed_curve.sample_baked(grappling_time * Global.TPS)
 		position.x = move_toward(position.x, grapple_target_x, grapple_speed * delta)
 		grapple_line.points[1] = grapple_line.to_local(global_position + Vector2(0.0, -8.0))
 		if absf(position.x - grapple_target_x) < grapple_min_distance or grappling_time > max_grapple_time:
+			floor_snap_length = 4.0
 			state = State.Fall
 			grapple_gfx.hide()
 			airborne_refresh()
@@ -682,6 +684,8 @@ func respawn() -> void:
 	
 	await tween.finished
 	
+	apply_floor_snap()
+	
 	tween.kill()
 	
 	modulate.a = 1.0
@@ -718,7 +722,7 @@ func say(text: String) -> void:
 			tween.tween_callback(Util.noop).set_delay(3.0)
 			await tween.finished
 			tween = create_tween()
-			tween.tween_property(label, ^"position:y", -8.0, 1.0).as_relative().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+			tween.tween_property(label, ^"position:y", -16.0, 1.0).as_relative().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 			tween.parallel().tween_property(label, ^"modulate:a", 0.0, 0.5)
 			tween.tween_callback(label.queue_free)
 		
