@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://be1sxrhibjcyt"]
+[gd_scene load_steps=11 format=3 uid="uid://be1sxrhibjcyt"]
 
 [ext_resource type="Script" uid="uid://byk5eotjg8klu" path="res://scripts/nodes/enemy.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://c28f0xhfy3li2" path="res://scripts/nodes/hitbox.gd" id="2_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://b5g0nt0ke5ehp" path="res://content/art/bat/bat1.png" id="3_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://kw4jbhlmcbmb" path="res://content/art/bat/bat2.png" id="4_c4w8v"]
+[ext_resource type="Texture2D" uid="uid://b1rd2rrpqxfk" path="res://content/art/bat/bat3.png" id="4_xwavj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
 radius = 6.0
@@ -18,10 +19,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("3_5uy6h"), ExtResource("4_c4w8v")]
+"values": [ExtResource("3_5uy6h"), ExtResource("4_xwavj"), ExtResource("4_c4w8v"), ExtResource("4_xwavj")]
 }
 
 [sub_resource type="Animation" id="Animation_nenq2"]
@@ -62,8 +63,8 @@ script = ExtResource("1_md0e3")
 speed = 50.0
 sprite = NodePath("Sprite2D")
 anim_tree = NodePath("AnimationTree")
-anim_speed = 0.6
-anim_speed_variability = 0.15
+anim_speed = 0.4
+anim_speed_variability = 0.1
 rotation_speed = 0.2
 rotation_speed_variability = 0.05
 max_rotation = 0.15
