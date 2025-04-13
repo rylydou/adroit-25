@@ -62,7 +62,8 @@ script = ExtResource("1_md0e3")
 speed = 50.0
 sprite = NodePath("Sprite2D")
 anim_tree = NodePath("AnimationTree")
-variability = 0.2
+anim_speed = 0.6
+variability = 0.15
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_5uy6h")
