@@ -699,21 +699,32 @@ func respawn() -> void:
 	is_dead = false
 
 
+var say_queue: Array[String] = []
+
 func say(text: String) -> void:
-	var lines := text.split("\n\n", false)
+	say_queue.append(text)
 	
-	for line in lines:
-		var label := talk_label.duplicate()
-		label.text = "[wave][center]" + line
-		label.visible_characters = 0
-		add_child(label)
-		label.show()
+	if say_queue.size() > 1: return
+	
+	while say_queue.size() > 0:
+		text = say_queue.front()
 		
-		var tween := create_tween()
-		tween.tween_property(label, ^"visible_characters", line.length(), line.length() * 0.04)
-		tween.tween_callback(Util.noop).set_delay(3.0)
-		await tween.finished
-		tween = create_tween()
-		tween.tween_property(label, ^"position:y", -8.0, 1.0).as_relative().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-		tween.parallel().tween_property(label, ^"modulate:a", 0.0, 0.5)
-		tween.tween_callback(label.queue_free)
+		var lines := text.split("\n\n", false)
+		
+		for line in lines:
+			var label := talk_label.duplicate()
+			label.text = "[wave][center]" + line
+			label.visible_characters = 0
+			add_child(label)
+			label.show()
+			
+			var tween := create_tween()
+			tween.tween_property(label, ^"visible_characters", line.length(), line.length() * 0.04)
+			tween.tween_callback(Util.noop).set_delay(3.0)
+			await tween.finished
+			tween = create_tween()
+			tween.tween_property(label, ^"position:y", -8.0, 1.0).as_relative().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(label, ^"modulate:a", 0.0, 0.5)
+			tween.tween_callback(label.queue_free)
+		
+		say_queue.pop_front()

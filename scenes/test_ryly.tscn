@@ -196,7 +196,7 @@ position = Vector2(-36, 20)
 [node name="Rooms" type="Node" parent="."]
 
 [node name="Tramp" parent="." instance=ExtResource("6_5buoj")]
-position = Vector2(100, 16)
+position = Vector2(148, 0)
 
 [node name="Door 1" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
 position = Vector2(68, 0)
@@ -205,6 +205,17 @@ target = NodePath("../Door 2")
 [node name="Door 2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_0cume")]
 position = Vector2(344, 0)
 target = NodePath("../Door 1")
+
+[node name="God ray" type="MeshInstance2D" parent="."]
+modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
+z_index = -200
+z_as_relative = false
+material = SubResource("ShaderMaterial_mb24a")
+position = Vector2(152, -68)
+scale = Vector2(172.5, 164.5)
+mesh = SubResource("QuadMesh_l11sl")
+script = ExtResource("18_l11sl")
+layer_name = &"lighting"
 
 [node name="Checkpoint" type="ReferenceRect" parent="."]
 offset_left = 24.0
@@ -221,7 +232,7 @@ offset_bottom = 32.0
 script = ExtResource("8_l5iec")
 
 [node name="Emotion Pickup" parent="." instance=ExtResource("10_pn3xg")]
-position = Vector2(168, -8)
+position = Vector2(28, -8)
 emotion = &"fear"
 emotion_name = "Fear"
 emotion_usage_tip = "Press {dash} to dash"
@@ -237,26 +248,21 @@ FEAR!
 You can now dash by pressing {dash}!"
 
 [node name="CutsceneTrigger" type="ReferenceRect" parent="."]
-offset_left = 148.0
-offset_top = -20.0
-offset_right = 192.0
-offset_bottom = 4.0
+offset_left = 36.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
 script = ExtResource("11_uql75")
 play_in_background = true
-text = "What the fuck is this?
-
-Is this some sort of walki talking?
-
-I better be careful this place is super duper dangerous"
+text = "Text 1"
 metadata/_custom_type_script = "uid://dw08f1a28p7t0"
 
-[node name="God ray" type="MeshInstance2D" parent="."]
-modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
-z_index = -200
-z_as_relative = false
-material = SubResource("ShaderMaterial_mb24a")
-position = Vector2(152, -68)
-scale = Vector2(172.5, 164.5)
-mesh = SubResource("QuadMesh_l11sl")
-script = ExtResource("18_l11sl")
-layer_name = &"lighting"
+[node name="CutsceneTrigger2" type="ReferenceRect" parent="."]
+offset_left = -12.0
+offset_top = 8.0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("11_uql75")
+play_in_background = true
+text = "Text 2"
+metadata/_custom_type_script = "uid://dw08f1a28p7t0"

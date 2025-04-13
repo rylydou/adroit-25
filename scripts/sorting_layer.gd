@@ -11,10 +11,13 @@ const SORTING_LAYERS := [
 	
 	&"item",
 	
+	&"gimmick_fg",
+	
 	&"grapple",
 	&"player",
 	&"grapple_trail",
 	
+	&"gimmick_bg",
 	&"tiles_fg",
 	&"tiles_bg",
 	

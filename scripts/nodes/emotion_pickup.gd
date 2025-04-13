@@ -14,7 +14,7 @@ var triggered := false
 
 
 func _ready() -> void:
-	$Particles.modulate = color
+	$Color.modulate = color
 
 
 func _on_body_entered(body: Node2D) -> void:
