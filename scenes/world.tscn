@@ -372,6 +372,8 @@ script = ExtResource("1_k0juu")
 
 [node name="Glow" type="Node2D" parent="Camera"]
 top_level = true
+z_index = 3931
+z_as_relative = false
 
 [node name="MeshInstance2D 1" type="MeshInstance2D" parent="Camera/Glow"]
 modulate = Color(0, 1, 0, 0.125)
@@ -404,6 +406,12 @@ position = Vector2(244, 135)
 scale = Vector2(300, 300)
 mesh = SubResource("QuadMesh_l8ah6")
 texture = SubResource("GradientTexture2D_8u370")
+
+[node name="SortingLayer" type="Node" parent="Camera/Glow"]
+script = ExtResource("14_dss4m")
+bias = 24631
+layer_name = &"overlay"
+metadata/_custom_type_script = "uid://bh5x1dl14crwh"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -1100
