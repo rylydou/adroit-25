@@ -1,16 +1,21 @@
-[gd_scene load_steps=16 format=4 uid="uid://dcaki6yce0pbk"]
+[gd_scene load_steps=24 format=4 uid="uid://dcaki6yce0pbk"]
 
 [ext_resource type="Theme" uid="uid://c4wugwrbcfbko" path="res://resources/theme.tres" id="1_7vrkn"]
 [ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="2_fu7sn"]
-[ext_resource type="Script" path="res://main_menu.gd" id="2_jix8l"]
+[ext_resource type="Script" uid="uid://crd3veoumupd8" path="res://main_menu.gd" id="2_jix8l"]
 [ext_resource type="Shader" uid="uid://d0aqi3b8oi0t" path="res://content/shaders/tilemap.gdshader" id="3_dy7ct"]
 [ext_resource type="Texture2D" uid="uid://dbqdgvhmdp2sr" path="res://content/art/FINALTILE.png" id="4_0o4t1"]
-[ext_resource type="PackedScene" uid="uid://s8xhhsborks5" path="res://scenes/input_method_picker.tscn" id="4_glbon"]
+[ext_resource type="PackedScene" path="res://scenes/input_method_picker.tscn" id="4_glbon"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="5_0k4wn"]
 [ext_resource type="Shader" uid="uid://dixd5ogvypvih" path="res://content/shaders/static_background.gdshader" id="5_glbon"]
 [ext_resource type="Script" uid="uid://bh5x1dl14crwh" path="res://scripts/sorting_layer.gd" id="6_j5v2v"]
 [ext_resource type="PackedScene" uid="uid://be1sxrhibjcyt" path="res://scenes/enemy.tscn" id="7_0k4wn"]
+[ext_resource type="Shader" path="res://content/shaders/tile.gdshader" id="8_iotk1"]
+[ext_resource type="Texture2D" uid="uid://du5yukcbhbktt" path="res://content/art/backwall.png" id="9_w44g7"]
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="10_0o4t1"]
+[ext_resource type="Texture2D" uid="uid://bfmb0u0i5v36p" path="res://content/art/helloworld.png" id="10_w44g7"]
+[ext_resource type="Shader" path="res://content/shaders/recolor shader.gdshader" id="11_g8g3n"]
+[ext_resource type="Texture2D" uid="uid://s1i5mcx4ihcv" path="res://content/art/background objects/amethyst.png" id="12_8u0te"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iotk1"]
 shader = ExtResource("3_dy7ct")
@@ -18,12 +23,25 @@ shader_parameter/tex = ExtResource("4_0o4t1")
 shader_parameter/tiling = 4.0
 shader_parameter/ratio = 1.0
 shader_parameter/tex_size = Vector2(128, 128)
+shader_parameter/tint = Color(1, 0.855, 0.655, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_j5v2v"]
 _data = {
 "points": PackedVector2Array(-19.2939, 1.30806, 19.2939, -1.30806, 4, 57, -10.301, 4.0877, 10.301, -4.0877, 94, 38, 1.9621, 13.0806, -1.9621, -13.0806, 112, -10, 13.8982, 7.52136, -13.8982, -7.52136, 63, -53, 17.9859, 0.981048, -17.9859, -0.981048, -5, -63, 9.31995, -21.0925, -9.31995, 21.0925, -69, -37, -3.43367, -11.9361, 3.43367, 11.9361, -79, 11, -10.1375, -9.81048, 10.1375, 9.81048, -56, 49, 0, 0, 0, 0, 4, 57)
 }
 point_count = 9
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cm266"]
+shader = ExtResource("8_iotk1")
+shader_parameter/scale = 0.25
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_g8g3n"]
+size = Vector2(10000, 10000)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oiatc"]
+shader = ExtResource("11_g8g3n")
+shader_parameter/tint_color = Color(1, 1, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jix8l"]
 font = ExtResource("2_fu7sn")
@@ -71,6 +89,29 @@ curve = SubResource("Curve2D_j5v2v")
 
 [node name="Enemy" parent="Node2D/Path2D" instance=ExtResource("7_0k4wn")]
 position = Vector2(4, 57)
+
+[node name="Background" type="MeshInstance2D" parent="Node2D"]
+modulate = Color(0, 0.160784, 0.152941, 1)
+z_index = -4096
+z_as_relative = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_cm266")
+mesh = SubResource("QuadMesh_g8g3n")
+texture = ExtResource("9_w44g7")
+
+[node name="Helloworld" type="Sprite2D" parent="Node2D"]
+position = Vector2(53, 42)
+rotation = -0.161948
+scale = Vector2(0.136592, 0.136592)
+texture = ExtResource("10_w44g7")
+
+[node name="Amethyst5" type="Sprite2D" parent="Node2D"]
+z_index = -2000
+material = SubResource("ShaderMaterial_oiatc")
+position = Vector2(-50, -69)
+rotation = -3.4986
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_8u0te")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(6, 6)
