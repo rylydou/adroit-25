@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnndfsi7k5y8m"
-path="res://.godot/imported/cavesb1.png-bf3d0da32dc0f0572e44499215f4c01f.ctex"
+uid="uid://cgoj6n68hct38"
+path="res://.godot/imported/cave again stag.png-4da263df855fd88c8697e69b187a82d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://content/art/cavesb1.png"
-dest_files=["res://.godot/imported/cavesb1.png-bf3d0da32dc0f0572e44499215f4c01f.ctex"]
+source_file="res://content/art/cave/cave again stag.png"
+dest_files=["res://.godot/imported/cave again stag.png-4da263df855fd88c8697e69b187a82d2.ctex"]
 
 [params]
 

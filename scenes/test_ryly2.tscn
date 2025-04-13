@@ -13,9 +13,9 @@
 [ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="13_3351a"]
 [ext_resource type="Script" path="res://scripts/nodes/killbox.gd" id="14_bra00"]
 [ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="15_vcn2u"]
-[ext_resource type="Texture2D" uid="uid://la4mmx5a5xmw" path="res://content/art/caves.png" id="16_jpd4d"]
-[ext_resource type="Texture2D" uid="uid://cnndfsi7k5y8m" path="res://content/art/cavesb1.png" id="17_yr5x1"]
-[ext_resource type="Texture2D" uid="uid://0rku6a58v11h" path="res://content/art/cavesb2.png" id="18_fg7eg"]
+[ext_resource type="Texture2D" uid="uid://la4mmx5a5xmw" path="res://content/art/cave/caves.png" id="16_jpd4d"]
+[ext_resource type="Texture2D" uid="uid://cnndfsi7k5y8m" path="res://content/art/cave/cavesb1.png" id="17_yr5x1"]
+[ext_resource type="Texture2D" uid="uid://0rku6a58v11h" path="res://content/art/cave/cavesb2.png" id="18_fg7eg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_je3wl"]
 noise_type = 3
