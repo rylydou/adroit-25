@@ -14,10 +14,10 @@ point_count = 2
 size = Vector2(18, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56udc"]
-size = Vector2(10, 12)
+size = Vector2(8, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uj7mf"]
-size = Vector2(10, 8)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6r27q"]
 size = Vector2(10, 16)
