@@ -49,11 +49,15 @@ _data = {
 animation = &"Bat flap"
 advance_on_start = true
 
+<<<<<<< Updated upstream
 [node name="Enemy" type="PathFollow2D"]
 z_index = 1
+=======
+>>>>>>> Stashed changes
 rotates = false
 script = ExtResource("1_md0e3")
 speed = 50.0
+sprite = NodePath("Sprite2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_5uy6h")

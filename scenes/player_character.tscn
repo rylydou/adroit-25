@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
-[ext_resource type="PackedScene" uid="uid://ds1f0penlkowi" path="res://scenes/player_anim.tscn" id="2_kww55"]
+[ext_resource type="PackedScene" uid="uid://dduvy2freqdbj" path="res://scenes/sub_viewport_container.tscn" id="4_4h0vy"]
 
 [sub_resource type="Curve" id="Curve_6r27q"]
 _limits = [0.0, 128.0, 0.0, 15.0]
@@ -30,14 +30,14 @@ size = Vector2(10, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6unfe"]
 size = Vector2(16, 16)
 
-[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("playerAnim")]
+[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("playerAnimParent")]
 collision_layer = 256
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_max_angle = 1.55334
 floor_snap_length = 4.0
 script = ExtResource("1_6r27q")
-playerAnim = NodePath("Flip/PlayerAnim")
+playerAnimParent = NodePath("SubViewportContainer")
 move_speed = 80.0
 move_acc_ticks = 15.0
 move_dec_ticks = 15.0
@@ -76,10 +76,6 @@ unique_name_in_owner = true
 visible = false
 position = Vector2(0, -8)
 texture = ExtResource("1_56udc")
-
-[node name="PlayerAnim" parent="Flip" instance=ExtResource("2_kww55")]
-position = Vector2(0, -10)
-scale = Vector2(0.2, 0.2)
 
 [node name="Punch Area" type="Area2D" parent="Flip"]
 unique_name_in_owner = true
@@ -142,3 +138,10 @@ collision_mask = 1024
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6unfe")
 debug_color = Color(1, 1, 0, 0)
+
+[node name="SubViewportContainer" parent="." instance=ExtResource("4_4h0vy")]
+offset_left = -7.0
+offset_top = -17.0
+offset_right = 505.0
+offset_bottom = 495.0
+scale = Vector2(0.035, 0.035)

@@ -6,21 +6,6 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_o34jn"]
 viewport_path = NodePath("SubViewport/Node3D/SubViewport")
 
-[sub_resource type="Animation" id="Animation_ydeyd"]
-resource_name = "flip"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0525839, 0.4),
-"transitions": PackedFloat32Array(1, 1, 2.82843),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.354302, 0), Vector3(0, 3.14159, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_o34jn"]
 length = 0.001
 tracks/0/type = "value"
@@ -36,17 +21,34 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ydeyd"]
+resource_name = "flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0525839, 0.4),
+"transitions": PackedFloat32Array(1, 1, 2.82843),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.354302, 0), Vector3(0, 3.14159, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jdcf7"]
 _data = {
 &"RESET": SubResource("Animation_o34jn"),
 &"flip": SubResource("Animation_ydeyd")
 }
 
-[node name="SubViewportContainer" type="SubViewportContainer" node_paths=PackedStringArray("playerAnime")]
+[node name="SubViewportContainer" type="SubViewportContainer" node_paths=PackedStringArray("playerAnime", "flipplayer", "sprite")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_o34jn")
 playerAnime = NodePath("SubViewport/Node3D/SubViewport/PlayerAnim")
+flipplayer = NodePath("SubViewport/Node3D/AnimationPlayer")
+sprite = NodePath("SubViewport/Node3D/Sprite3D")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

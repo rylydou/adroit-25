@@ -20,7 +20,7 @@ signal died()
 var state := State.Grounded
 var last_state := State.Grounded
 
-@export var playerAnim: Node2D
+@export var playerAnimParent: SubViewportContainer
 
 @export var allow_midair_flip = true
 
@@ -111,7 +111,7 @@ var can_dash := true
 
 @export_group("Pound", "pound_")
 @export var pound_speed := 100.0
-
+var olddirection
 
 @onready var climb_area: Area2D = %"Climb Area"
 @onready var flip_node: Node2D = %"Flip"
@@ -183,11 +183,11 @@ func _physics_process(delta: float) -> void:
 	age += delta
 	gamepad.poll(delta)
 	
-	playerAnim.tree["parameters/conditions/idle"] = is_grounded and abs(vel_move) <= 0.1
-	playerAnim.tree["parameters/conditions/run"] = is_grounded and abs(vel_move) > 0
-	playerAnim.tree["parameters/conditions/jump"] = state == State.Jump
-	playerAnim.tree["parameters/conditions/hitground"] = is_grounded
-	playerAnim.tree["parameters/conditions/idle"] = abs(vel_move) == 0
+	playerAnimParent.playerAnime.tree["parameters/conditions/idle"] = is_grounded and abs(vel_move) <= 0.1
+	playerAnimParent.playerAnime.tree["parameters/conditions/run"] = is_grounded and abs(vel_move) > 0
+	playerAnimParent.playerAnime.tree["parameters/conditions/jump"] = state == State.Jump
+	playerAnimParent.playerAnime.tree["parameters/conditions/hitground"] = is_grounded
+	playerAnimParent.playerAnime.tree["parameters/conditions/idle"] = abs(vel_move) == 0
 	
 	
 	if not is_dead:
@@ -213,12 +213,17 @@ func _process_physics(delta: float) -> void:
 	action_buffer_timer -= delta
 	if gamepad.punch.pressed:
 		action_buffer_timer = action_buffer_ticks / Global.TPS
-	
+	var fliponce = false
 	if wallslide_norm != 0 and coyote_timer > 0.0:
 		direction = wallslide_norm
 	elif (is_on_floor() or allow_midair_flip) and not dash_timer > 0.0 and not is_zero_approx(gamepad.move.x):
+		#if sign(gamepad.move.x) != direction:
+			#playerAnimParent.flip =sign(gamepad.move.x)
 		direction = sign(gamepad.move.x)
-	
+		playerAnimParent.flip = direction
+		#playerAnimParent.flipplayer.play("flip")
+		
+		
 	if flip_node:
 		flip_node.scale.x = direction
 	
