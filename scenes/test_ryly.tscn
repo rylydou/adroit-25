@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=38 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://duwv8clbeq1hs" path="res://scenes/gimmicks/tramp.tscn" id="6_5buoj"]
 [ext_resource type="Texture2D" uid="uid://dbqdgvhmdp2sr" path="res://content/art/FINALTILE.png" id="6_je3wl"]
 [ext_resource type="Shader" uid="uid://d0aqi3b8oi0t" path="res://content/shaders/tilemap.gdshader" id="6_uqn56"]
-[ext_resource type="Texture2D" uid="uid://e6dk1klvh3b5" path="res://content/art/gfx_tileset.png" id="6_uwipe"]
 [ext_resource type="Script" uid="uid://cm40cgtaxuo6m" path="res://scripts/nodes/killbox.gd" id="8_l5iec"]
 [ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="8_s1pwn"]
 [ext_resource type="Texture2D" uid="uid://dokrv245eq5dx" path="res://resources/tileset_shadow.tres" id="9_l11sl"]
+[ext_resource type="TileSet" uid="uid://cpcfh4pga2t48" path="res://resources/tileset_deco_fg.tres" id="9_qcoof"]
 [ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="10_pn3xg"]
 [ext_resource type="Script" uid="uid://dw08f1a28p7t0" path="res://scripts/nodes/cutscene_trigger.gd" id="11_uql75"]
 [ext_resource type="Shader" uid="uid://tfb2an4m7d5f" path="res://content/shaders/fog.gdshader" id="15_avbd1"]
@@ -98,17 +98,6 @@ shader_parameter/tiling = 4.0
 shader_parameter/ratio = 1.0
 shader_parameter/tex_size = Vector2(128, 128)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mb24a"]
-texture = ExtResource("6_uwipe")
-texture_region_size = Vector2i(128, 128)
-0:0/size_in_atlas = Vector2i(3, 2)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 45)
-
-[sub_resource type="TileSet" id="TileSet_avbd1"]
-tile_size = Vector2i(128, 128)
-sources/0 = SubResource("TileSetAtlasSource_mb24a")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qcoof"]
 texture = ExtResource("9_l11sl")
 texture_region_size = Vector2i(64, 64)
@@ -193,9 +182,9 @@ metadata/_custom_type_script = "uid://bh5x1dl14crwh"
 [node name="Tilemap FX BG" type="TileMapLayer" parent="."]
 z_index = -1200
 z_as_relative = false
-scale = Vector2(0.063, 0.063)
-tile_map_data = PackedByteArray("AAAKAAAAAAAAAAAAAAAGAP7/AAAAAAAAAAAaAP7/AAAAAAAAAAAdAP3/AAAAAAAAAAAgAP7/AAAAAAAAAAAiAP7/AAAAAAAAAAAlAP7/AAAAAAAAAAAdAP7/AAAAAAAAAAAUAP//AAAAAAAAAAAMAAEAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_avbd1")
+scale = Vector2(0.126, 0.126)
+tile_map_data = PackedByteArray("AAAKAAAAAAAAAAAAAAAGAP7/AAAAAAAAAAAaAP7/AAAAAAAAAAAdAP3/AAAAAAIAAAAgAP7/AAAAAAAAAAAiAP7/AAAAAAAAAAAlAP7/AAAAAAAAAAAUAP//AAAAAAAAAAAMAAEAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAhAP3/AAAAAAIAABAkAP3/AAAAAAIAABAoAP//AAADAAAAAAAwAP//AAADAAAAAAAOAP//AAADAAAAAAARAP//AAAAAAAAAAANAP//AAAAAAAAAAAQAP//AAADAAAAAAAVAP7/AAAAAAIAAAAZAP7/AAAAAAIAAAA=")
+tile_set = ExtResource("9_qcoof")
 
 [node name="SortingLayer" type="Node" parent="Tilemap FX BG"]
 script = ExtResource("18_l11sl")
