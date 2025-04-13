@@ -128,6 +128,12 @@ var grapple_target_x := 0.0
 @export var wobble_accel := 0.0
 var wobble_speed := 0.0
 
+@export var face_anger: Sprite2D
+@export var face_joy: Sprite2D
+@export var face_fear: Sprite2D
+@export var face_depression: Sprite2D
+@export var face_love: Sprite2D
+
 
 @onready var head: Sprite2D = %"Head"
 @onready var pivot: Node2D = %"Pivot"
