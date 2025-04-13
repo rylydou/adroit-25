@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cgf600m883k5k"]
+[gd_scene load_steps=80 format=4 uid="uid://cgf600m883k5k"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_vu0lg"]
 [ext_resource type="Shader" path="res://content/shaders/tilemap.gdshader" id="2_iqeub"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ces0gfvlamphi" path="res://scenes/gimmicks/weak_block.tscn" id="12_1ky3h"]
 [ext_resource type="Script" uid="uid://dw08f1a28p7t0" path="res://scripts/nodes/cutscene_trigger.gd" id="13_6q1py"]
 [ext_resource type="Shader" path="res://content/shaders/fog.gdshader" id="14_sdcfp"]
-[ext_resource type="Shader" path="res://content/shaders/godray.gdshader" id="15_r7xnq"]
+[ext_resource type="Shader" uid="uid://dpf1l4sq8nj3k" path="res://content/shaders/godray.gdshader" id="15_r7xnq"]
 [ext_resource type="Script" path="res://scripts/sorting_layer.gd" id="16_67pj7"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="17_nlrbl"]
 [ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="18_r5f38"]
@@ -27,8 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://b4ilf4cckjwug" path="res://content/art/cave/cave middle.png" id="25_x3ug2"]
 [ext_resource type="Texture2D" uid="uid://cu6h853tme4sd" path="res://content/art/cave/acascsa.png" id="26_sgfcu"]
 [ext_resource type="Texture2D" uid="uid://s1i5mcx4ihcv" path="res://content/art/background objects/amethyst.png" id="27_x3hfn"]
-[ext_resource type="Texture2D" uid="uid://i7gmj0bybhnu" path="res://content/art/background objects/boulder.png" id="28_d5mq0"]
 [ext_resource type="Shader" uid="uid://cahljrmjwalu4" path="res://content/shaders/recolor shader.gdshader" id="29_1ky3h"]
+[ext_resource type="TileSet" uid="uid://cpcfh4pga2t48" path="res://resources/tileset_deco_fg.tres" id="29_x3hfn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oo54l"]
 shader = ExtResource("2_iqeub")
@@ -263,7 +263,47 @@ fill_from = Vector2(0, 0.00569801)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6q1py"]
 shader = ExtResource("29_1ky3h")
-shader_parameter/tint_color = Color(0.70103, 0.534789, 1, 1)
+shader_parameter/tint_color = Color(0.566977, 0.126258, 0.999973, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d5mq0"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(0.0443613, 0.572193, 0.975484, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ky3h"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(1.05888e-06, 0.812092, 0.671203, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdcfp"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(1, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7xnq"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(1, 0.262745, 0.4, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67pj7"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(4.13924e-06, 0.651507, 0.821793, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlrbl"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(0.32549, 0.866667, 0.490196, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5f38"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(0.588235, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ds0cs"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(4.33177e-07, 0.407478, 0.5125, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6umyr"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(0.505882, 0.776471, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ya1t"]
+shader = ExtResource("29_1ky3h")
+shader_parameter/tint_color = Color(0.994507, 0.619391, 0.447807, 1)
 
 [node name="World" type="Node2D"]
 
@@ -1753,21 +1793,112 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-2169, 1078, -2237, 1081, -2265, 1118, -2248, 1238, -2441, 1322, -2715, 1175, -2116, 712)
 
 [node name="background objects" type="Parallax2D" parent="Art"]
+z_index = -100
 
 [node name="Amethyst" type="Sprite2D" parent="Art/background objects"]
-position = Vector2(91, 36)
-rotation = 2.64438
-scale = Vector2(0.1, 0.1)
+z_index = -100
+position = Vector2(271.381, 186.807)
+rotation = 5.67465
+scale = Vector2(0.0294548, 0.0337353)
 texture = ExtResource("27_x3hfn")
-
-[node name="Boulder" type="Sprite2D" parent="Art/background objects"]
-position = Vector2(113, 355)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("28_d5mq0")
 
 [node name="Amethyst2" type="Sprite2D" parent="Art/background objects"]
+z_index = -100
 material = SubResource("ShaderMaterial_6q1py")
-position = Vector2(123, 25)
-rotation = -3.09589
-scale = Vector2(0.1, 0.1)
+position = Vector2(323.533, 189.891)
+rotation = 0.411407
+scale = Vector2(0.0294548, 0.0337353)
 texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst3" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_d5mq0")
+position = Vector2(154, 168)
+rotation = 0.294329
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst4" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_1ky3h")
+position = Vector2(509, 307)
+rotation = -0.720484
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst5" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_sdcfp")
+position = Vector2(129, 244)
+rotation = -2.42598
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst6" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_r7xnq")
+position = Vector2(-223, 328)
+rotation = -0.415488
+scale = Vector2(0.0320995, 0.0364464)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst7" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_67pj7")
+position = Vector2(-529, 114)
+rotation = -2.33279
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst8" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_nlrbl")
+position = Vector2(-436, 168)
+rotation = -2.51518
+scale = Vector2(0.0238092, 0.0423882)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst9" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_r5f38")
+position = Vector2(-222, 89)
+rotation = -2.80673
+scale = Vector2(0.0270851, 0.0364774)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst10" type="Sprite2D" parent="Art/background objects"]
+position = Vector2(-1048, 113)
+rotation = -0.487246
+scale = Vector2(0.0327938, 0.0387114)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst11" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_ds0cs")
+position = Vector2(-1261, -54)
+rotation = -3.11319
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst12" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_6umyr")
+position = Vector2(-1124, -217)
+rotation = 2.80697
+scale = Vector2(0.0291403, 0.0380688)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst13" type="Sprite2D" parent="Art/background objects"]
+material = SubResource("ShaderMaterial_0ya1t")
+position = Vector2(-1782, 1237)
+rotation = -0.503227
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("27_x3hfn")
+
+[node name="Amethyst14" type="Sprite2D" parent="Art/background objects"]
+position = Vector2(-831, 1200)
+rotation = 3.11028
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("27_x3hfn")
+
+[node name="Tilemap FX BG" type="TileMapLayer" parent="."]
+z_index = -1200
+z_as_relative = false
+scale = Vector2(0.126, 0.126)
+tile_map_data = PackedByteArray("AAARABUAAAAAAAAAAAAkABgAAAADAAAAAAA/ABYAAAAAAAAAADBAACYAAAAAAAAAABAWACwAAAAAAAAAABARACIAAAAAAAIAADDm/ykAAAADAAAAAADm/w0AAAAAAAAAADDL/xcAAAAAAAAAACB//w8AAAADAAAAAAB3/+f/AAAAAAAAADBm//3/AAAAAAIAADA5AJMAAAAAAAAAAABDAI8AAAAAAAIAADAnAJIAAAAAAAAAADAIAJAAAAAAAAAAACDp/5gAAAAAAAAAACDV/54AAAADAAAAAADN/48AAAAAAAAAAADr/4MAAAAAAAAAACCy/5gAAAAAAAAAACCP/6MAAAAAAAAAACCa/5YAAAAAAAAAADB1/5IAAAAAAAAAADBb/5MAAAADAAAAADBb/5wAAAADAAAAAABB/5YAAAAAAAAAADBK/5UAAAADAAAAADAk/5sAAAADAAAAAAAE/5oAAAADAAAAABBs/6IAAAAAAAAAAAC7/3MAAAAAAAAAACCy/4YAAAAAAAAAABCp/4YAAAADAAAAAACI/3kAAAAAAAAAAACB/3gAAAAAAAIAADDDAFAAAAAAAAAAAACyAD8AAAADAAAAADDpAFUAAAADAAAAAAALAVAAAAADAAAAAADvADsAAAAAAAAAADACAT8AAAAAAAAAACAUATgAAAAAAAAAADA=")
+tile_set = ExtResource("29_x3hfn")
+
+[node name="SortingLayer" type="Node" parent="Tilemap FX BG"]
+script = ExtResource("16_67pj7")
+layer_name = &"tiles_bg"

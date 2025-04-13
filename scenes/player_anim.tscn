@@ -590,7 +590,7 @@ texture = ExtResource("3_skdgw")
 
 [node name="R shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(10, -25)
-rotation = -0.197849
+rotation = -0.197852
 scale = Vector2(0.999849, 0.999849)
 rest = Transform2D(1, 0, 0, 1, 15, -32)
 auto_calculate_length_and_angle = false
@@ -623,7 +623,7 @@ texture = ExtResource("4_skdgw")
 
 [node name="L shoulder" type="Bone2D" parent="Skeleton2D"]
 position = Vector2(-8, -26)
-rotation = 0.0831616
+rotation = 0.083163
 scale = Vector2(0.999853, 0.999853)
 rest = Transform2D(1, 0, 0, 1, -15, -32)
 metadata/_local_pose_override_enabled_ = true

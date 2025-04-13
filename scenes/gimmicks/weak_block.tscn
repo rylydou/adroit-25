@@ -2,17 +2,18 @@
 
 [ext_resource type="Script" uid="uid://cdblmfjwdfte5" path="res://scripts/nodes/weak_block.gd" id="1_hlcya"]
 [ext_resource type="Texture2D" uid="uid://3d2ntw6bo6r8" path="res://content/art/weak_block.png" id="2_hlcya"]
-[ext_resource type="Script" uid="uid://bh5x1dl14crwh" path="res://scripts/sorting_layer.gd" id="3_boujk"]
+[ext_resource type="Script" path="res://scripts/sorting_layer.gd" id="3_boujk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlcya"]
 size = Vector2(24, 24)
 
-[node name="Weak Block" type="StaticBody2D"]
-z_index = -800
+[node name="Weak Block" type="StaticBody2D" node_paths=PackedStringArray("emitter")]
+z_index = -1000
 z_as_relative = false
 collision_layer = 4611
 collision_mask = 0
 script = ExtResource("1_hlcya")
+emitter = NodePath("CPUParticles2D")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.208375, 0.208375)
@@ -26,4 +27,21 @@ debug_color = Color(0, 1, 0, 0)
 [node name="SortingLayer" type="Node" parent="."]
 script = ExtResource("3_boujk")
 layer_name = &"gimmick_bg"
-metadata/_custom_type_script = "uid://bh5x1dl14crwh"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.87
+randomness = 0.14
+emission_shape = 5
+emission_points = PackedVector2Array(8, 10, -8.07, -8, -8, 10, 8, -8)
+emission_normals = PackedVector2Array()
+emission_colors = PackedColorArray()
+spread = 156.4
+gravity = Vector2(0, -98)
+initial_velocity_max = 58.1
+angle_min = -720.0
+angle_max = 657.5
+scale_amount_max = 5.0
+color = Color(0.430137, 0.429014, 0.409152, 1)

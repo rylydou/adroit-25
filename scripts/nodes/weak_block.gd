@@ -4,7 +4,7 @@ extends StaticBody2D
 ## If false then the block will respawn on room enter
 @export var is_persistent := true
 @export var strength := 0
-
+@export var emitter: CPUParticles2D
 
 @onready var collision_shape: CollisionShape2D = %"Collision"
 
@@ -39,3 +39,4 @@ func receive_punch(punch_strength: int) -> void:
 	tween = create_tween()
 	tween.tween_property(self, ^"scale", Vector2.ZERO, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, ^"modulate:a", 0.0, 0.75)
+	emitter.emitting = true
