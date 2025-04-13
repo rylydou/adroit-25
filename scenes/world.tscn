@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://blf7gsros4nbv"]
+[gd_scene load_steps=90 format=4 uid="uid://blf7gsros4nbv"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="1_rwgxs"]
@@ -31,6 +31,11 @@
 [ext_resource type="Texture2D" uid="uid://cu6h853tme4sd" path="res://content/art/cave/acascsa.png" id="29_817gm"]
 [ext_resource type="Texture2D" uid="uid://s1i5mcx4ihcv" path="res://content/art/background objects/amethyst.png" id="30_ggc52"]
 [ext_resource type="Shader" path="res://content/shaders/recolor shader.gdshader" id="31_l8ah6"]
+[ext_resource type="Texture2D" uid="uid://ieog5ee1wqmq" path="res://content/art/caveartmural.png" id="32_fh13f"]
+[ext_resource type="Texture2D" uid="uid://cnlraoqfxi25q" path="res://content/art/caveart.png" id="33_rup4s"]
+[ext_resource type="Texture2D" uid="uid://bfmb0u0i5v36p" path="res://content/art/helloworld.png" id="34_f17e3"]
+[ext_resource type="Texture2D" uid="uid://bjur2174au4dl" path="res://content/art/helloworldarm.png" id="35_x2olw"]
+[ext_resource type="Texture2D" uid="uid://bemj1hh77nmm7" path="res://content/art/background objects/deadbot.png" id="36_x2olw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oo54l"]
 shader = ExtResource("2_lakw3")
@@ -439,10 +444,10 @@ script = ExtResource("2_4wyf3")
 
 [node name="Room7" type="ReferenceRect" parent="Rooms"]
 custom_minimum_size = Vector2(384, 216)
-offset_left = -416.0
-offset_top = 1024.0
-offset_right = -32.0
-offset_bottom = 1296.0
+offset_left = -435.0
+offset_top = 1015.0
+offset_right = -51.0
+offset_bottom = 1287.0
 border_color = Color(0.508934, 0.47932, 0, 1)
 script = ExtResource("2_4wyf3")
 
@@ -1982,3 +1987,31 @@ position = Vector2(-831, 1200)
 rotation = 3.11028
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("30_ggc52")
+
+[node name="Caveartmural" type="Sprite2D" parent="."]
+z_index = -1600
+position = Vector2(-756, 222)
+scale = Vector2(0.362658, 0.362658)
+texture = ExtResource("32_fh13f")
+
+[node name="Caveart" type="Sprite2D" parent="."]
+position = Vector2(-1789, 1167)
+scale = Vector2(0.377976, 0.377976)
+texture = ExtResource("33_rup4s")
+
+[node name="Helloworld" type="Sprite2D" parent="."]
+position = Vector2(-198, 1178)
+scale = Vector2(0.405882, 0.405882)
+texture = ExtResource("34_f17e3")
+
+[node name="Helloworldarm" type="Sprite2D" parent="."]
+position = Vector2(-203.105, 1196.16)
+rotation = 0.497753
+scale = Vector2(0.0508569, 0.0508569)
+texture = ExtResource("35_x2olw")
+
+[node name="Deadbot" type="Sprite2D" parent="."]
+position = Vector2(-226, 1183)
+rotation = 0.299949
+scale = Vector2(0.0838245, 0.0838245)
+texture = ExtResource("36_x2olw")
