@@ -14,7 +14,6 @@ enum State {
 }
 
 
-
 signal died()
 
 
@@ -165,12 +164,19 @@ var vel_move := 0.0
 var vel_extra := 0.0
 
 
+var move_sfx: SFX.Instance
+
+
 func _enter_tree() -> void:
 	Global.player = self
 	calculate_physics()
 
 
 func _ready() -> void:
+	move_sfx = SFX.event(&"move")
+	move_sfx.play()
+	SFX.event(&"bgm").play()
+	
 	var emotions := [
 		&"fear",
 		&"depression",
@@ -224,6 +230,10 @@ func _physics_process(delta: float) -> void:
 	
 	if gamepad.move.x != 0.0:
 		target_tilt = move_tilt
+		move_sfx.set_pause(false)
+	else:
+		move_sfx.set_pause(true)
+	
 	if state == State.Dash or state == State.Grapple:
 		target_tilt = dash_tilt
 	

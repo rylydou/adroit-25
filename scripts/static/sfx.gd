@@ -25,6 +25,9 @@ class Instance:
 	func stop() -> void:
 		fmod_event.stop(0)
 		fmod_event.release()
+	
+	func set_pause(state: bool) -> void:
+		fmod_event.paused = state
 
 
 static var enable_sound_cache := not OS.is_debug_build()
