@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://s8xhhsborks5"]
+
+[ext_resource type="Theme" uid="uid://bf2tw0xdinayh" path="res://resources/theme.tres" id="1_nd0as"]
+[ext_resource type="Script" uid="uid://bb45mymy2netx" path="res://scripts/input_method_picker.gd" id="2_h4say"]
+
+[node name="Input Method Picker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nd0as")
+script = ExtResource("2_h4say")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.5
+offset_top = -50.5
+offset_right = 111.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "How do you wanna play?"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Box"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="Arrow Button" type="Button" parent="Box/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Arrow Keys"
+
+[node name="Label" type="Label" parent="Box/VBoxContainer/Arrow Button"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 31.0
+offset_top = -18.333
+offset_right = 312.0
+offset_bottom = 18.3337
+grow_horizontal = 0
+grow_vertical = 2
+text = "<- recommended"
+
+[node name="WASD Button" type="Button" parent="Box/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "WASD"
+
+[node name="Gamepad Button" type="Button" parent="Box/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Controller"
+
+[connection signal="pressed" from="Box/VBoxContainer/Arrow Button" to="." method="arrow_keys"]
+[connection signal="pressed" from="Box/VBoxContainer/WASD Button" to="." method="wasd"]
+[connection signal="pressed" from="Box/VBoxContainer/Gamepad Button" to="." method="gamepad"]

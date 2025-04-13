@@ -42,3 +42,9 @@ func _process(delta: float) -> void:
 
 func pound_shake() -> void:
 	pound_shake_power = 1.0
+
+
+func reset_smoothing() -> void:
+	super.reset_smoothing()
+	
+	

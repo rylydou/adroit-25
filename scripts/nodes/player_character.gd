@@ -312,20 +312,15 @@ func process_state_platformer(delta: float) -> void:
 		for thing in things:
 			thing.propagate_call(&"receive_interact")
 	
-	if gamepad.move.y == 0.0:
-		can_pound = true
-	
 	if (
-			gamepad.move.y > 0.9
+			gamepad.crouch.pressed
 			and not is_grounded
 			and velocity.y != 0.0
 			and Global.emotions.has(&"depression")
-			and can_pound
 			and state != State.Grapple
 			and state != State.Pound
 			and state != State.Dash
 	):
-		can_pound = false
 		state = State.Pound
 		velocity.y = pound_speed
 		vel_move = 0.0
@@ -713,7 +708,7 @@ func say(text: String) -> void:
 		
 		for line in lines:
 			var label := talk_label.duplicate()
-			label.text = "[wave][center]" + line
+			label.text = "[wave][center]" + Global.translate_button_prompts(line)
 			label.visible_characters = 0
 			add_child(label)
 			label.show()

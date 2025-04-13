@@ -31,32 +31,6 @@ static func _static_init() -> void:
 	gamepads.append(keyboard)
 
 
-static func _joy_connection_changed(id: int, connected: bool) -> void:
-	if connected:
-		var info := JoyInfo.from_id(id)
-		info.connected = true
-		joys[id] = info
-		print("[Input] ",info.name," connected as ",id)
-		# if info.is_known:
-		# 	Toast.show(str("Connected: ",info.name))
-		# else:
-		# 	Toast.show(str("Unknown Gamepad: ",info.name))
-		var gamepad := Gamepad.create(id)
-		gamepads.append(gamepad)
-		# Bus.gamepad_connected.emit(gamepad)
-		return
-	
-	if not joys.has(id): return
-	var info: JoyInfo = joys[id]
-	info.connected = false
-	print("[Input] ",info.name," disconnected from ",id)
-	# Toast.show(str("Disconnected: ",info.name))
-	var index := Util.index_of(gamepads, func(gamepad: Gamepad) -> bool: return gamepad.device == id)
-	var gamepad := gamepads[index]
-	# Bus.gamepad_disconnected.emit(gamepad)
-	gamepads.remove_at(index)
-
-
 static func create(device: int) -> Gamepad:
 	var gamepad := Gamepad.new()
 	gamepad.device = device
@@ -75,18 +49,10 @@ static func create(device: int) -> Gamepad:
 @export var trigger_deadzone := 0.5
 
 
-var any := Btn.new()
+var enabled := true
 
-var menu_ok := Btn.new()
-var menu_back := Btn.new()
-var menu_pause := Btn.new()
-var menu_left := Btn.turbo()
-var menu_right := Btn.turbo()
-var menu_up := Btn.turbo()
-var menu_down := Btn.turbo()
 
 var move := Vector2.ZERO
-var aim := Vector2.ZERO
 
 var jump := Btn.new()
 var crouch := Btn.new()
@@ -102,79 +68,23 @@ func duplicate() -> Gamepad:
 	return Gamepad.create(self.device)
 
 
-func get_connection() -> bool:
-	match device:
-		-2: return true
-		-1: return true
-	if Gamepad.joys.has(device):
-		return Gamepad.joys[device].connected
-	return false
-
-
-func get_name() -> String:
-	match device:
-		-2: return "Auto"
-		-1: return "Keyboard"
-	if not Gamepad.joys.has(device):
-		return Gamepad.joys[device].name
-	return "Unknown"
-
-
-func vibrate(weak: float, strong: float, duration: float) -> void:
-	Input.start_joy_vibration(device, weak, strong, duration)
-
-
 func poll(delta: float) -> void:
-	match device:
-		-2:
-			if Input.is_joy_known(0):
-				var _device := device
-				device = 0
-				poll_gamepad(delta)
-				device = _device
-			else:
-				poll_keyboard(delta)
-		-1:
-			poll_keyboard(delta)
-		_:
-			poll_gamepad(delta)
+	if not enabled:
+		poll_gamepad(delta, 100)
+		return
+	
+	match Global.input_method:
+		Global.InputMethod.ArrowKeys:
+			poll_arrows(delta)
+		Global.InputMethod.WASD:
+			poll_wasd(delta)
+		Global.InputMethod.Gamepad:
+			poll_gamepad(delta, 0)
 
 
-func poll_gamepad(delta: float) -> void:
-	any.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_START)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_BACK)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_A)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_B)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_X)
-			or Input.is_joy_button_pressed(device, JOY_BUTTON_Y)
-	), delta)
-	
-	menu_ok.track(Input.is_joy_button_pressed(device, JOY_BUTTON_B), delta)
-	menu_back.track(Input.is_joy_button_pressed(device, JOY_BUTTON_A), delta)
-	menu_pause.track(Input.is_joy_button_pressed(device, JOY_BUTTON_START), delta)
-	
-	menu_left.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_LEFT) or
-			Input.get_joy_axis(device, JOY_AXIS_LEFT_X) <= -deadzone
-	), delta)
-	menu_right.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_RIGHT) or
-			Input.get_joy_axis(device, JOY_AXIS_LEFT_X) >= +deadzone
-	), delta)
-	menu_up.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_UP) or
-			Input.get_joy_axis(device, JOY_AXIS_LEFT_Y) <= -deadzone
-	), delta)
-	menu_down.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_DOWN) or
-			Input.get_joy_axis(device, JOY_AXIS_LEFT_Y) >= +deadzone
-	), delta)
-	
+func poll_gamepad(delta: float, device: int) -> void:
 	move.x = Input.get_joy_axis(device, JOY_AXIS_LEFT_X)
 	move.y = Input.get_joy_axis(device, JOY_AXIS_LEFT_Y)
-	aim.x = Input.get_joy_axis(device, JOY_AXIS_RIGHT_X)
-	aim.y = Input.get_joy_axis(device, JOY_AXIS_RIGHT_Y)
 	
 	move.x += float(Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_RIGHT)) - float(Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_LEFT))
 	move.y += float(Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_DOWN)) - float(Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_UP))
@@ -216,59 +126,57 @@ func poll_gamepad(delta: float) -> void:
 	self_destruct.track(Input.is_joy_button_pressed(device, JOY_BUTTON_BACK), delta)
 
 
-func poll_keyboard(delta: float) -> void:
-	any.track((
-			Input.is_key_pressed(KEY_SPACE)
-			or Input.is_key_pressed(KEY_ENTER)
-			or Input.is_key_pressed(KEY_E)
+func poll_arrows(delta: float) -> void:
+	var right := float(
+			Input.is_physical_key_pressed(KEY_RIGHT)
+	)
+	var left := float(
+			Input.is_physical_key_pressed(KEY_LEFT)
+	)
+	move.x = right - left
+	
+	var down := float(
+			Input.is_physical_key_pressed(KEY_DOWN)
+	)
+	var up := float(
+			Input.is_physical_key_pressed(KEY_UP)
+	)
+	move.y = down - up
+	
+	jump.track((
+			Input.is_physical_key_pressed(KEY_Z)
+	), delta)
+	crouch.track((
+			Input.is_physical_key_pressed(KEY_DOWN)
 	), delta)
 	
-	menu_ok.track((
-			Input.is_physical_key_pressed(KEY_E)
-			or Input.is_physical_key_pressed(KEY_SPACE)
-			or Input.is_physical_key_pressed(KEY_ENTER)
-	), delta)
-	menu_back.track((
-			Input.is_physical_key_pressed(KEY_Q)
-			or Input.is_physical_key_pressed(KEY_BACKSPACE)
-			or Input.is_physical_key_pressed(KEY_ESCAPE)
-	), delta)
-	menu_pause.track(Input.is_key_label_pressed(KEY_ESCAPE), delta)
+	punch.track(
+			Input.is_physical_key_pressed(KEY_SPACE)
+	, delta)
+	dash.track(
+			Input.is_physical_key_pressed(KEY_X)
+	, delta)
+	grapple.track(
+			Input.is_physical_key_pressed(KEY_C)
+	, delta)
 	
-	menu_left.track((
-			Input.is_physical_key_pressed(KEY_A)
-			or Input.is_physical_key_pressed(KEY_LEFT)
-	), delta)
-	menu_right.track((
-			Input.is_physical_key_pressed(KEY_D)
-			or Input.is_physical_key_pressed(KEY_RIGHT)
-	), delta)
-	menu_up.track((
-			Input.is_physical_key_pressed(KEY_W)
-			or Input.is_physical_key_pressed(KEY_UP)
-	), delta)
-	menu_down.track((
-			Input.is_physical_key_pressed(KEY_S)
-			or Input.is_physical_key_pressed(KEY_DOWN)
-	), delta)
-	
+	self_destruct.track(Input.is_key_label_pressed(KEY_DELETE), delta)
+
+
+func poll_wasd(delta: float) -> void:
 	var right := float(
 			Input.is_physical_key_pressed(KEY_D)
-			or Input.is_physical_key_pressed(KEY_RIGHT)
 	)
 	var left := float(
 			Input.is_physical_key_pressed(KEY_A)
-			or Input.is_physical_key_pressed(KEY_LEFT)
 	)
 	move.x = right - left
 	
 	var down := float(
 			Input.is_physical_key_pressed(KEY_S)
-			or Input.is_physical_key_pressed(KEY_DOWN)
 	)
 	var up := float(
 			Input.is_physical_key_pressed(KEY_W)
-			or Input.is_physical_key_pressed(KEY_UP)
 	)
 	move.y = down - up
 	
@@ -277,22 +185,21 @@ func poll_keyboard(delta: float) -> void:
 			# or Input.is_physical_key_pressed(KEY_SPACE)
 	), delta)
 	crouch.track((
-			Input.is_physical_key_pressed(KEY_DOWN)
-			# or Input.is_physical_key_pressed(KEY_S)
+			Input.is_physical_key_pressed(KEY_S)
 	), delta)
 	
 	punch.track(
 			Input.is_physical_key_pressed(KEY_SPACE)
 	, delta)
 	dash.track(
-			Input.is_physical_key_pressed(KEY_X)
-			# or Input.is_physical_key_pressed(KEY_E)
-			# or Input.is_physical_key_pressed(KEY_SHIFT)
+			Input.is_physical_key_pressed(KEY_E)
+			or Input.is_physical_key_pressed(KEY_SHIFT)
 	, delta)
 	grapple.track(
-			Input.is_physical_key_pressed(KEY_C)
-			or Input.is_physical_key_pressed(KEY_F)
-			# or Input.is_physical_key_pressed(KEY_CTRL)
+			Input.is_physical_key_pressed(KEY_F)
+			or Input.is_physical_key_pressed(KEY_CTRL)
+			or Input.is_physical_key_pressed(KEY_META)
+			or Input.is_physical_key_pressed(KEY_ALT)
 	, delta)
 	
 	self_destruct.track(Input.is_key_label_pressed(KEY_DELETE), delta)

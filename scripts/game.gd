@@ -10,6 +10,17 @@ extends CanvasLayer
 var _transition_callback: Callable
 
 
+func transition_to_scene(scene_path: String) -> void:
+	_transition_callback = func():
+		get_tree().change_scene_to_file(scene_path)
+		
+		for i in 5:
+			Global.camera.reset_smoothing()
+			await get_tree().process_frame
+	
+	fade_animation.play(&"in")
+
+
 func start_door_transition(target_position: Vector2) -> void:
 	get_tree().paused = true
 	
@@ -38,12 +49,14 @@ func play_cutscene(text: String) -> void:
 	var lines := text.split("\n\n", false)
 	cutscene_animation.play(&"in")
 	
-	Global.player.gamepad.device = 99
+	Global.player.gamepad.enabled = false
 	
 	for line in lines:
 		if line == "[clear]":
 			Util.queue_free_children(cutscene_text_container)
 			continue
+		
+		line = Global.translate_button_prompts(line)
 		
 		var label := RichTextLabel.new()
 		label.bbcode_enabled = true
@@ -63,7 +76,7 @@ func play_cutscene(text: String) -> void:
 				break
 	
 	cutscene_animation.play(&"out")
-	Global.player.gamepad.device = -2
+	Global.player.gamepad.enabled = true
 
 
 func play_get_emotion(name: String, description: String, usage_tip: String) -> void:

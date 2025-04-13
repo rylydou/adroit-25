@@ -5,7 +5,9 @@ class_name SortingLayer extends Node
 const SORTING_LAYERS := [
 	&"overlay",
 	
-	&"foreground",
+	&"foreground_front",
+	&"shadow",
+	&"foreground_back",
 	
 	&"lighting",
 	
