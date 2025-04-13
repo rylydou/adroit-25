@@ -13,6 +13,7 @@ extends PathFollow2D
 var true_max_rotation:float
 var true_rotation_speed:float
 var time:= 0.0
+var offset: float
 
 func _ready():
 	anim_tree.tree_root.start_offset = randf() * anim_speed
@@ -20,6 +21,7 @@ func _ready():
 	true_max_rotation = (max_rotation - max_rotation_variability/2) + randf() * max_rotation_variability
 	true_rotation_speed = (rotation_speed - rotation_speed_variability/2) + randf() * rotation_speed_variability
 	true_rotation_speed = true_rotation_speed / true_max_rotation
+	offset = randf() * 2 * PI
 
 func _process(delta: float) -> void:
 	progress += speed * delta
@@ -46,6 +48,6 @@ func handle_rotation():
 	
 	
 	if sprite.flip_h:
-		sprite.rotation = -sin(time * true_rotation_speed) * true_max_rotation
+		sprite.rotation = -sin(time * true_rotation_speed + offset) * true_max_rotation
 	else:
-		sprite.rotation = sin(time * true_rotation_speed) * true_max_rotation
+		sprite.rotation = sin(time * true_rotation_speed + offset) * true_max_rotation
