@@ -1137,6 +1137,16 @@ play_in_background = true
 text = "I'm getting sick of this"
 metadata/_custom_type_script = "uid://dw08f1a28p7t0"
 
+[node name="CutsceneTrigger21" type="ReferenceRect" parent="Cutscenes"]
+offset_left = -1087.0
+offset_top = 976.0
+offset_right = -1064.0
+offset_bottom = 1000.0
+script = ExtResource("11_q5onr")
+play_in_background = true
+text = "I'm getting sick of this"
+metadata/_custom_type_script = "uid://dw08f1a28p7t0"
+
 [node name="CutsceneTrigger10" type="ReferenceRect" parent="Cutscenes"]
 offset_left = -1023.0
 offset_top = 1256.0
