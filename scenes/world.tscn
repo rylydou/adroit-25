@@ -833,7 +833,14 @@ Done so much
 
 Seen so much
 
-I'm... Happy"
+I'm... Happy
+
+[clear]
+
+[b] You discovered
+JOY!
+
+You can now double jump by pressing {jump} midair!"
 
 [node name="Love" parent="Emotion Pickups" instance=ExtResource("11_e3hyu")]
 position = Vector2(2364, 464)
@@ -848,6 +855,13 @@ I love the bats
 I love the stalactites and stalagmites
 
 I love the caverns and cliffs
+
+[clear]
+
+[b] You discovered
+LOVE!
+
+You can now zipline to walls by pressing {grapple}!
 
 [clear]
 
