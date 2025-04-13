@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://blf7gsros4nbv"]
+[gd_scene load_steps=51 format=4 uid="uid://blf7gsros4nbv"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="1_rwgxs"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="11_e3hyu"]
 [ext_resource type="Script" uid="uid://dw08f1a28p7t0" path="res://scripts/nodes/cutscene_trigger.gd" id="11_q5onr"]
 [ext_resource type="Shader" uid="uid://tfb2an4m7d5f" path="res://content/shaders/fog.gdshader" id="13_jhx03"]
+[ext_resource type="Shader" uid="uid://dpf1l4sq8nj3k" path="res://content/shaders/godray.gdshader" id="13_xo05s"]
+[ext_resource type="Script" path="res://scripts/sorting_layer.gd" id="14_dss4m"]
 
 [sub_resource type="Curve2D" id="Curve2D_4mrxx"]
 _data = {
@@ -175,6 +177,53 @@ shader_parameter/noise_b_scroll = Vector2(0.025, 0)
 shader_parameter/noise_b = SubResource("NoiseTexture2D_lakw3")
 shader_parameter/noise_b_remap = SubResource("GradientTexture1D_qhnkk")
 shader_parameter/noise_b_density = SubResource("GradientTexture2D_xo05s")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7t5mc"]
+shader = ExtResource("13_xo05s")
+shader_parameter/angle = -0.305
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.3
+shader_parameter/cutoff = 0.0550001
+shader_parameter/falloff = 0.54
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 5.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_lakw3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm21f"]
+shader = ExtResource("13_xo05s")
+shader_parameter/angle = -0.13
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.25
+shader_parameter/cutoff = 0.0550001
+shader_parameter/falloff = 0.54
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 5.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lf6f"]
+shader = ExtResource("13_xo05s")
+shader_parameter/angle = 0.925
+shader_parameter/position = 0.13
+shader_parameter/spread = 0.25
+shader_parameter/cutoff = 0.0550001
+shader_parameter/falloff = 0.54
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 5.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
 
 [sub_resource type="Curve" id="Curve_71j4m"]
 _limits = [0.0, 88.0, 0.0, 20.0]
@@ -929,9 +978,9 @@ I hate everything
 [clear]
 
 [b] You discovered
-FEAR!
+ANGER!
 
-You can now dash by pressing {dash}!"
+You can now break weak blocks by pressing {punch}!"
 
 [node name="Joy" parent="Emotion Pickups" instance=ExtResource("11_e3hyu")]
 position = Vector2(-2228, 1192)
@@ -1297,9 +1346,41 @@ offset_top = 1164.0
 offset_right = 1336.0
 offset_bottom = 1520.0
 
+[node name="God ray" type="MeshInstance2D" parent="Effects"]
+modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
+z_index = -200
+z_as_relative = false
+material = SubResource("ShaderMaterial_7t5mc")
+position = Vector2(-1219.63, -153.125)
+scale = Vector2(169.25, 162.25)
+mesh = SubResource("QuadMesh_lakw3")
+script = ExtResource("14_dss4m")
+layer_name = &"lighting"
+
+[node name="God ray2" type="MeshInstance2D" parent="Effects"]
+modulate = Color(0.787397, 0.812349, 0.393119, 0.513726)
+z_index = -200
+z_as_relative = false
+material = SubResource("ShaderMaterial_pm21f")
+position = Vector2(-2096, 1151)
+scale = Vector2(340.625, 181.125)
+mesh = SubResource("QuadMesh_lakw3")
+script = ExtResource("14_dss4m")
+layer_name = &"lighting"
+
+[node name="God ray3" type="MeshInstance2D" parent="Effects"]
+modulate = Color(0.788235, 0.215686, 0.392157, 0.101961)
+z_index = -200
+z_as_relative = false
+material = SubResource("ShaderMaterial_2lf6f")
+position = Vector2(-865.656, 110.281)
+scale = Vector2(233.312, 258.563)
+mesh = SubResource("QuadMesh_lakw3")
+script = ExtResource("14_dss4m")
+layer_name = &"lighting"
+
 [node name="Player Character" parent="." instance=ExtResource("3_4wyf3")]
 position = Vector2(92, 168)
 move_acc_ticks = 10.0
 move_dec_ticks = 10.0
 dash_distance_curve = SubResource("Curve_71j4m")
-grapple_start_speed = 0.0
