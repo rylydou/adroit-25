@@ -69,6 +69,7 @@ texture = SubResource("ViewportTexture_o34jn")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.247116, 5.85724)
+fov = 81.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport/Node3D"]
 libraries = {

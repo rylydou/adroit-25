@@ -10,3 +10,4 @@ func _ready() -> void:
 		if body is not PlayerCharacter: return
 		body.die()
 	)
+	

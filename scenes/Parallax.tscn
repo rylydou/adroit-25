@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cnndfsi7k5y8m" path="res://content/art/cavesb1.png" id="2_8rxox"]
 [ext_resource type="Texture2D" uid="uid://0rku6a58v11h" path="res://content/art/cavesb2.png" id="3_euy61"]
 
-[sub_resource type="Gradient" id="Gradient_rf3rd"]
+[sub_resource type="Gradient" id="Gradient_vlveh"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6e84v"]
-gradient = SubResource("Gradient_rf3rd")
+gradient = SubResource("Gradient_vlveh")
 
 [node name="Paralax" type="Node2D"]
 

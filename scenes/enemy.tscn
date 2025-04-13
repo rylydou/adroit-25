@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://be1sxrhibjcyt"]
 
 [ext_resource type="Script" uid="uid://byk5eotjg8klu" path="res://scripts/nodes/enemy.gd" id="1_md0e3"]
-[ext_resource type="Script" path="res://scripts/nodes/hitbox.gd" id="2_5uy6h"]
+[ext_resource type="Script" uid="uid://c28f0xhfy3li2" path="res://scripts/nodes/hitbox.gd" id="2_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://b5g0nt0ke5ehp" path="res://content/art/bat/bat1.png" id="3_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://kw4jbhlmcbmb" path="res://content/art/bat/bat2.png" id="4_c4w8v"]
 
