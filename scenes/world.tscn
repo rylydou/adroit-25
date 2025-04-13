@@ -1,16 +1,16 @@
-[gd_scene load_steps=90 format=4 uid="uid://blf7gsros4nbv"]
+[gd_scene load_steps=97 format=4 uid="uid://blf7gsros4nbv"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://ybnlpw8yjkgo" path="res://scripts/nodes/room.gd" id="2_4wyf3"]
-[ext_resource type="Shader" path="res://content/shaders/tilemap.gdshader" id="2_lakw3"]
+[ext_resource type="Shader" uid="uid://d0aqi3b8oi0t" path="res://content/shaders/tilemap.gdshader" id="2_lakw3"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="3_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://dbqdgvhmdp2sr" path="res://content/art/FINALTILE.png" id="3_pm21f"]
 [ext_resource type="PackedScene" uid="uid://be1sxrhibjcyt" path="res://scenes/enemy.tscn" id="4_i7141"]
 [ext_resource type="PackedScene" uid="uid://gwfv2f0qk4ol" path="res://scenes/gimmicks/door.tscn" id="6_qfnet"]
 [ext_resource type="TileSet" uid="uid://cpcfh4pga2t48" path="res://resources/tileset_deco_fg.tres" id="7_7iits"]
 [ext_resource type="PackedScene" uid="uid://duwv8clbeq1hs" path="res://scenes/gimmicks/tramp.tscn" id="7_7r4gi"]
-[ext_resource type="Script" path="res://scripts/nodes/killbox.gd" id="8_4mrxx"]
+[ext_resource type="Script" uid="uid://cm40cgtaxuo6m" path="res://scripts/nodes/killbox.gd" id="8_4mrxx"]
 [ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="9_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://ces0gfvlamphi" path="res://scenes/gimmicks/weak_block.tscn" id="10_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="11_e3hyu"]
@@ -19,8 +19,9 @@
 [ext_resource type="Shader" uid="uid://dpf1l4sq8nj3k" path="res://content/shaders/godray.gdshader" id="13_xo05s"]
 [ext_resource type="Script" uid="uid://bh5x1dl14crwh" path="res://scripts/sorting_layer.gd" id="14_dss4m"]
 [ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="16_dss4m"]
-[ext_resource type="Script" path="res://scripts/nodes/translate_label.gd" id="19_pm21f"]
+[ext_resource type="Script" uid="uid://b4na6b86t83dy" path="res://scripts/nodes/translate_label.gd" id="19_pm21f"]
 [ext_resource type="Texture2D" uid="uid://dokrv245eq5dx" path="res://resources/tileset_shadow.tres" id="20_2lf6f"]
+[ext_resource type="Shader" uid="uid://c3rp3xmxbnvo5" path="res://content/shaders/tile.gdshader" id="22_kpybi"]
 [ext_resource type="Texture2D" uid="uid://du5yukcbhbktt" path="res://content/art/backwall.png" id="22_oo54l"]
 [ext_resource type="Texture2D" uid="uid://cgoj6n68hct38" path="res://content/art/cave/cave again stag.png" id="23_luhhm"]
 [ext_resource type="Texture2D" uid="uid://co003l6wrtlku" path="res://content/art/cave/another one.png" id="24_fh13f"]
@@ -37,12 +38,37 @@
 [ext_resource type="Texture2D" uid="uid://bjur2174au4dl" path="res://content/art/helloworldarm.png" id="35_x2olw"]
 [ext_resource type="Texture2D" uid="uid://bemj1hh77nmm7" path="res://content/art/background objects/deadbot.png" id="36_x2olw"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_817gm"]
+shader = ExtResource("22_kpybi")
+shader_parameter/scale = 0.25
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ggc52"]
+size = Vector2(10000, 10000)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_817gm"]
+blend_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_l8ah6"]
+
+[sub_resource type="Gradient" id="Gradient_ctatt"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8u370"]
+gradient = SubResource("Gradient_ctatt")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oo54l"]
 shader = ExtResource("2_lakw3")
 shader_parameter/tex = ExtResource("3_pm21f")
 shader_parameter/tiling = 4.0
 shader_parameter/ratio = 1.0
 shader_parameter/tex_size = Vector2(128, 128)
+shader_parameter/tint = Color(1, 0.855, 0.655, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7iits"]
 texture = ExtResource("20_2lf6f")
@@ -327,8 +353,57 @@ shader_parameter/tint_color = Color(0.994507, 0.619391, 0.447807, 1)
 
 [node name="World" type="Node2D"]
 
+[node name="Background" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0.160784, 0.152941, 1)
+z_index = -1500
+z_as_relative = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_817gm")
+mesh = SubResource("QuadMesh_ggc52")
+texture = ExtResource("22_oo54l")
+
+[node name="SortingLayer" type="Node" parent="Background"]
+script = ExtResource("14_dss4m")
+layer_name = &"background_far"
+metadata/_custom_type_script = "uid://bh5x1dl14crwh"
+
 [node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("1_k0juu")
+
+[node name="Glow" type="Node2D" parent="Camera"]
+top_level = true
+
+[node name="MeshInstance2D 1" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(0, 1, 0, 0.125)
+material = SubResource("CanvasItemMaterial_817gm")
+position = Vector2(-241, -139)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_l8ah6")
+texture = SubResource("GradientTexture2D_8u370")
+
+[node name="MeshInstance2D 2" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(1, 0, 0, 0.125)
+material = SubResource("CanvasItemMaterial_817gm")
+position = Vector2(239, -136)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_l8ah6")
+texture = SubResource("GradientTexture2D_8u370")
+
+[node name="MeshInstance2D 3" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(0, 0, 1, 0.125)
+material = SubResource("CanvasItemMaterial_817gm")
+position = Vector2(-240, 133)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_l8ah6")
+texture = SubResource("GradientTexture2D_8u370")
+
+[node name="MeshInstance2D 4" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(1, 1, 0, 0.125)
+material = SubResource("CanvasItemMaterial_817gm")
+position = Vector2(244, 135)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_l8ah6")
+texture = SubResource("GradientTexture2D_8u370")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -1100
@@ -523,7 +598,7 @@ offset_left = -1376.0
 offset_top = 1133.0
 offset_right = -1056.0
 offset_bottom = 1313.0
-border_color = Color(0.447861, 0.502295, 0, 1)
+border_color = Color(0.44786, 0.502295, 0, 1)
 script = ExtResource("2_4wyf3")
 camera_zoom = 6.0
 
@@ -582,7 +657,7 @@ offset_left = 1717.0
 offset_top = 421.0
 offset_right = 2197.0
 offset_bottom = 691.0
-border_color = Color(0.615689, 0.425371, 6.73831e-07, 1)
+border_color = Color(0.615689, 0.425372, 6.73831e-07, 1)
 script = ExtResource("2_4wyf3")
 camera_zoom = 4.0
 

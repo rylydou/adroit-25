@@ -41,6 +41,9 @@ func _process(delta: float) -> void:
 	pound_shake_power = lerpf(pound_shake_power, 0.0, Math.smooth(5.0, delta))
 	
 	zoom = Vector2.ONE * lerpf(zoom.x, target_zoom, Math.smooth(100 if target_zoom > zoom.x else 1, delta))
+	
+	if get_child_count() > 0:
+		$Glow.position = get_screen_center_position()
 
 
 func pound_shake() -> void:

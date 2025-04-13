@@ -1,11 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=23 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
-[ext_resource type="Texture2D" uid="uid://c4ciepabsspdt" path="res://content/art/head/sonnyheadjoy.png" id="4_pxja8"]
+[ext_resource type="Texture2D" uid="uid://l1bij7uh7xbr" path="res://content/art/head/sonnyheadangry.png" id="2_pxja8"]
+[ext_resource type="Texture2D" uid="uid://do7rmdla7n6b8" path="res://content/art/head/sonnyheadjoy.png" id="3_xb3ya"]
+[ext_resource type="Texture2D" uid="uid://c2fhuh0tbo7su" path="res://content/art/head/sonnyheadfear.png" id="4_herhr"]
 [ext_resource type="Texture2D" uid="uid://bmr303pro3d2x" path="res://content/art/grapple.png" id="5_2vmgx"]
 [ext_resource type="Texture2D" uid="uid://cj2jx64rjyk1r" path="res://content/art/player_body.png" id="5_iadup"]
 [ext_resource type="FontVariation" uid="uid://cpm6gyvng8xw3" path="res://resources/font_regular.tres" id="5_uj7mf"]
+[ext_resource type="Texture2D" uid="uid://bd7c0iimned04" path="res://content/art/head/sonnyheaddepression.png" id="5_xb3ya"]
 [ext_resource type="Texture2D" uid="uid://echonkqyp634" path="res://content/art/player_feet.png" id="6_herhr"]
+[ext_resource type="Texture2D" uid="uid://ys7so86wl7f" path="res://content/art/head/sonnyheadlove.png" id="6_s7f3b"]
+[ext_resource type="Texture2D" uid="uid://dyvc5fvn4nnwr" path="res://content/art/head/sonnyheadneutral.png" id="9_xb3ya"]
 
 [sub_resource type="Curve" id="Curve_6r27q"]
 _limits = [0.0, 128.0, 0.0, 15.0]
@@ -89,6 +94,11 @@ grapple_speed_curve = SubResource("Curve_4h0vy")
 grapple_min_distance = 8.0
 move_tilt = -15.0
 dash_tilt = 45.0
+face_anger = ExtResource("2_pxja8")
+face_joy = ExtResource("3_xb3ya")
+face_fear = ExtResource("4_herhr")
+face_depression = ExtResource("5_xb3ya")
+face_love = ExtResource("6_s7f3b")
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -111,8 +121,8 @@ texture = ExtResource("5_iadup")
 [node name="Head" type="Sprite2D" parent="Flip/Puppet/Pivot"]
 unique_name_in_owner = true
 position = Vector2(19.4074, -345.825)
-scale = Vector2(0.408329, 0.408329)
-texture = ExtResource("4_pxja8")
+scale = Vector2(1.61173, 1.61173)
+texture = ExtResource("9_xb3ya")
 
 [node name="Punch Area" type="Area2D" parent="Flip"]
 unique_name_in_owner = true

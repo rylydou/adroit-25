@@ -16,7 +16,7 @@ vec2 random(vec2 uv){
 
 void fragment() {
 	vec4 fin = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
-	
+
 	vec2 noise_res = 1.0 / (SCREEN_PIXEL_SIZE * noise_size);
 	float noies_seed = fract(floor(TIME * noise_fps) / noise_fps) + floor(TIME) / 100.;
 	float noise = clamp(random((floor(SCREEN_UV * noise_res) / noise_res) + noies_seed).x, 0., 1.);
@@ -24,7 +24,7 @@ void fragment() {
 	noise_a = max(noise_a, 0.0);
 	noise_a = 1.0;
 	fin.rgb += noise_color.rgb * noise * noise_color.a * noise_a;
-	
+
 	COLOR.rgb = mix(fin.rgb, COLOR.rgb, COLOR.a);
 	COLOR.a = 1.0;
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=46 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
@@ -18,6 +18,16 @@
 [ext_resource type="Shader" uid="uid://tfb2an4m7d5f" path="res://content/shaders/fog.gdshader" id="15_avbd1"]
 [ext_resource type="Shader" uid="uid://dpf1l4sq8nj3k" path="res://content/shaders/godray.gdshader" id="17_mb24a"]
 [ext_resource type="Script" uid="uid://bh5x1dl14crwh" path="res://scripts/sorting_layer.gd" id="18_l11sl"]
+[ext_resource type="Texture2D" uid="uid://du5yukcbhbktt" path="res://content/art/backwall.png" id="19_qcoof"]
+[ext_resource type="Shader" uid="uid://c3rp3xmxbnvo5" path="res://content/shaders/tile.gdshader" id="19_xo2pi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo2pi"]
+shader = ExtResource("19_xo2pi")
+shader_parameter/scale = 0.25
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_2vecm"]
+size = Vector2(10000, 10000)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_je3wl"]
 noise_type = 3
@@ -79,6 +89,22 @@ shader_parameter/noise_b_scroll = Vector2(0.025, 0)
 shader_parameter/noise_b = SubResource("NoiseTexture2D_l11sl")
 shader_parameter/noise_b_remap = SubResource("GradientTexture1D_qhnkk")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvnnv"]
+blend_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_qhnkk"]
+
+[sub_resource type="Gradient" id="Gradient_xo2pi"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_agno1"]
+gradient = SubResource("Gradient_xo2pi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
+
 [sub_resource type="QuadMesh" id="QuadMesh_lb5ot"]
 
 [sub_resource type="Gradient" id="Gradient_lb5ot"]
@@ -97,6 +123,7 @@ shader_parameter/tex = ExtResource("6_je3wl")
 shader_parameter/tiling = 4.0
 shader_parameter/ratio = 1.0
 shader_parameter/tex_size = Vector2(128, 128)
+shader_parameter/tint = Color(0, 0, 0, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qcoof"]
 texture = ExtResource("9_l11sl")
@@ -124,6 +151,20 @@ shader_parameter/seed = 5.0
 [sub_resource type="QuadMesh" id="QuadMesh_l11sl"]
 
 [node name="Test Ryly" type="Node2D"]
+
+[node name="Background" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0.160784, 0.152941, 1)
+z_index = -1500
+z_as_relative = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_xo2pi")
+mesh = SubResource("QuadMesh_2vecm")
+texture = ExtResource("19_qcoof")
+
+[node name="SortingLayer" type="Node" parent="Background"]
+script = ExtResource("18_l11sl")
+layer_name = &"background_far"
+metadata/_custom_type_script = "uid://bh5x1dl14crwh"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_l11sl")
@@ -156,6 +197,43 @@ unique_name_in_owner = true
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("1_g464p")
+
+[node name="FmodListener2D" type="FmodListener2D" parent="Camera"]
+
+[node name="Glow" type="Node2D" parent="Camera"]
+top_level = true
+
+[node name="MeshInstance2D 1" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(0, 1, 0, 0.125)
+material = SubResource("CanvasItemMaterial_lvnnv")
+position = Vector2(-241, -139)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_qhnkk")
+texture = SubResource("GradientTexture2D_agno1")
+
+[node name="MeshInstance2D 2" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(1, 0, 0, 0.125)
+material = SubResource("CanvasItemMaterial_lvnnv")
+position = Vector2(239, -136)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_qhnkk")
+texture = SubResource("GradientTexture2D_agno1")
+
+[node name="MeshInstance2D 3" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(0, 0, 1, 0.125)
+material = SubResource("CanvasItemMaterial_lvnnv")
+position = Vector2(-240, 133)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_qhnkk")
+texture = SubResource("GradientTexture2D_agno1")
+
+[node name="MeshInstance2D 4" type="MeshInstance2D" parent="Camera/Glow"]
+modulate = Color(1, 1, 0, 0.125)
+material = SubResource("CanvasItemMaterial_lvnnv")
+position = Vector2(244, 135)
+scale = Vector2(300, 300)
+mesh = SubResource("QuadMesh_qhnkk")
+texture = SubResource("GradientTexture2D_agno1")
 
 [node name="Player Character" parent="." instance=ExtResource("1_x5xhx")]
 position = Vector2(132, -20)
@@ -269,10 +347,10 @@ border_color = Color(0, 1, 0, 1)
 script = ExtResource("8_s1pwn")
 
 [node name="Killbox" type="ReferenceRect" parent="."]
-offset_left = 101.416
-offset_top = -13.8423
-offset_right = 109.416
-offset_bottom = 10.1577
+offset_left = -80.2508
+offset_top = 8.01291
+offset_right = -72.2508
+offset_bottom = 32.0129
 script = ExtResource("8_l5iec")
 
 [node name="CutsceneTrigger" type="ReferenceRect" parent="."]

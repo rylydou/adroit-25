@@ -2,10 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://c4wugwrbcfbko" path="res://resources/theme.tres" id="1_7vrkn"]
 [ext_resource type="FontFile" uid="uid://2w8qjxggdajc" path="res://content/fonts/ClashDisplay-Bold.otf" id="2_fu7sn"]
-[ext_resource type="Script" uid="uid://crd3veoumupd8" path="res://main_menu.gd" id="2_jix8l"]
-[ext_resource type="Shader" path="res://content/shaders/tilemap.gdshader" id="3_dy7ct"]
+[ext_resource type="Script" path="res://main_menu.gd" id="2_jix8l"]
+[ext_resource type="Shader" uid="uid://d0aqi3b8oi0t" path="res://content/shaders/tilemap.gdshader" id="3_dy7ct"]
 [ext_resource type="Texture2D" uid="uid://dbqdgvhmdp2sr" path="res://content/art/FINALTILE.png" id="4_0o4t1"]
-[ext_resource type="PackedScene" path="res://scenes/input_method_picker.tscn" id="4_glbon"]
+[ext_resource type="PackedScene" uid="uid://s8xhhsborks5" path="res://scenes/input_method_picker.tscn" id="4_glbon"]
 [ext_resource type="TileSet" uid="uid://b5xawhwgpk3x8" path="res://resources/tileset.tres" id="5_0k4wn"]
 [ext_resource type="Shader" uid="uid://dixd5ogvypvih" path="res://content/shaders/static_background.gdshader" id="5_glbon"]
 [ext_resource type="Script" uid="uid://bh5x1dl14crwh" path="res://scripts/sorting_layer.gd" id="6_j5v2v"]

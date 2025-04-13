@@ -13,6 +13,7 @@ func _physics_process(delta: float) -> void:
 func receive_interact() -> void:
 	if door_cooldown > 0.0: return
 	door_cooldown = 1.0
+	SFX.event(&"door")
 	Game.start_door_transition(target.global_position)
 
 

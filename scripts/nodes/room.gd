@@ -29,6 +29,7 @@ func _ready() -> void:
 		area.collision_mask = 0
 		area.set_collision_mask_value(9, true)
 		area.body_entered.connect(func(body):
+			if Global.current_room == self: return
 			if body is PlayerCharacter:
 				player_entered()
 		)

@@ -83,7 +83,7 @@ _data = {
 }
 
 [node name="Emotion Pickup" type="Area2D"]
-z_index = -300
+z_index = -500
 z_as_relative = false
 collision_layer = 0
 collision_mask = 256
@@ -105,7 +105,7 @@ shape = SubResource("CircleShape2D_5ekld")
 
 [node name="Anger" type="Sprite2D" parent="."]
 rotation = 0.261799
-scale = Vector2(0.0209344, 0.0209344)
+scale = Vector2(0.0601651, 0.0601651)
 texture = ExtResource("2_r5g7a")
 
 [node name="Animation Player" type="AnimationPlayer" parent="."]

@@ -57,6 +57,7 @@ func play_cutscene(text: String) -> void:
 	Global.player.gamepad.enabled = false
 	
 	for line in lines:
+		SFX.event("talk").play()
 		if line == "[clear]":
 			Util.queue_free_children(cutscene_text_container)
 			continue
@@ -78,6 +79,7 @@ func play_cutscene(text: String) -> void:
 		while true:
 			await get_tree().process_frame
 			if Input.is_anything_pressed():
+				SFX.event("tuah").play()
 				break
 	
 	cutscene_animation.play(&"out")

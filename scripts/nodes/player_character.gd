@@ -104,13 +104,11 @@ var can_double_jump := true
 
 @export_group("Dash", "dash_")
 @export var dash_distance_curve: Curve
-var dash_og_x := 0.0
 var dash_timer := 0.0
 var can_dash := true
 
 @export_group("Pound", "pound_")
 @export var pound_speed := 100.0
-var olddirection
 var can_pound := 0.0
 
 @export_group("Grapple", "grapple_")
@@ -126,11 +124,11 @@ var grapple_target_x := 0.0
 @export var dash_tilt := 10.0
 @export var wobble_friction := 0.0
 
-@export var face_anger: Sprite2D
-@export var face_joy: Sprite2D
-@export var face_fear: Sprite2D
-@export var face_depression: Sprite2D
-@export var face_love: Sprite2D
+@export var face_anger: Texture2D
+@export var face_joy: Texture2D
+@export var face_fear: Texture2D
+@export var face_depression: Texture2D
+@export var face_love: Texture2D
 
 
 @onready var head: Sprite2D = %"Head"
@@ -173,19 +171,26 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	for emotion in [
+	var emotions := [
 		&"fear",
 		&"depression",
 		&"anger",
 		&"joy",
 		&"love",
-	]:
+	]
+	for emotion in emotions:
 		DevTools.new_command("Give Emotion %s" % emotion)\
-			.describe("Gives the specified emotion upgrade")\
+			.describe("Gives the specified emotion upgrade.")\
 			.exec(func():
 			Global.emotions.erase(emotion) # ensure there are no duplicates
 			Global.emotions.append(emotion)
 			)
+	
+	DevTools.new_command("Give All Emotions")\
+		.describe("Gives all the emotions in the game.")\
+		.exec(func():
+		Global.emotions.append_array(emotions)
+		)
 	
 	grapple_gfx.hide()
 	talk_label.hide()
@@ -241,10 +246,6 @@ func _process_physics(delta: float) -> void:
 	if gamepad.jump.pressed:
 		jump_buffer_timer = jump_buffer_ticks / Global.TPS
 	
-	action_buffer_timer -= delta
-	if gamepad.punch.pressed:
-		action_buffer_timer = action_buffer_ticks / Global.TPS
-	var fliponce = false
 	if wallslide_norm != 0 and coyote_timer > 0.0:
 		direction = wallslide_norm
 	elif (is_on_floor() or allow_midair_flip) and not dash_timer > 0.0 and not is_zero_approx(gamepad.move.x):
@@ -271,6 +272,8 @@ func _process_physics(delta: float) -> void:
 	fallthrough_ignore_timer -= delta
 	
 	if gamepad.punch.pressed and Global.emotions.has(&"anger") and is_grounded:
+		SFX.event(&"punch").at(self).play()
+		head.texture = face_anger
 		var things := punch_area.get_overlapping_bodies()
 		things.append_array(punch_area.get_overlapping_areas())
 		
@@ -280,17 +283,20 @@ func _process_physics(delta: float) -> void:
 			thing.propagate_call(&"receive_punch", [0])
 	
 	if can_dash and gamepad.dash.pressed and Global.emotions.has(&"fear"):
+		SFX.event(&"dash").at(self).play()
+		head.texture = face_fear
 		state = State.Dash
 		can_dash = false
 		dash_timer = dash_distance_curve.max_domain / Global.TPS
-		dash_og_x = position.x
 
 
 func process_state_platformer(delta: float) -> void:
 	if is_on_floor() and state != State.Grapple and state != State.Dash:
 		if state == State.Pound:
 			Global.camera.pound_shake()
-		
+			SFX.event(&"ground_pound_impact").at(self).play()
+		elif last_vel.y > 0.0:
+			SFX.event(&"land").at(self).play()
 		state = State.Grounded
 		is_jumping = false
 		can_double_jump = true
@@ -302,7 +308,8 @@ func process_state_platformer(delta: float) -> void:
 		respawn_point = global_position
 	
 	if (
-		climb_area.get_overlapping_areas().size() + climb_area.get_overlapping_bodies().size() > 0
+		state != State.Grapple
+		and climb_area.get_overlapping_areas().size() + climb_area.get_overlapping_bodies().size() > 0
 		and gamepad.move.y < 0.0
 		and velocity.y > -climb_speed_vertical
 	):
@@ -331,6 +338,8 @@ func process_state_platformer(delta: float) -> void:
 			and state != State.Pound
 			and state != State.Dash
 	):
+		head.texture = face_depression
+		SFX.event(&"ground_pound_start").at(self).play()
 		state = State.Pound
 		velocity.y = pound_speed
 		vel_move = 0.0
@@ -349,23 +358,28 @@ func process_state_platformer(delta: float) -> void:
 		grappling_time += delta
 		var grapple_speed := grapple_speed_curve.sample_baked(grappling_time * Global.TPS)
 		
-		var hit := move_and_collide(Vector2(grapple_speed * delta * signf(grapple_target_x - position.x), 0.0), false, 0.08, true)
+		# var hit := move_and_collide(Vector2(grapple_speed * delta * signf(grapple_target_x - position.x), 0.0), false, 0.08, false)
+		
+		position.x = move_toward(position.x, grapple_target_x, grapple_speed * delta)
 		
 		# position.x = move_toward(position.x, grapple_target_x, )
 		grapple_line.points[1] = grapple_line.to_local(global_position + Vector2(0.0, -8.0))
 		if (
 				absf(position.x - grapple_target_x) < grapple_min_distance
 				or grappling_time > max_grapple_time
-				or hit
+				or is_on_wall()
 		):
+			SFX.event(&"grapple_end").at(self).play()
 			floor_snap_length = 4.0
 			state = State.Fall
 			grapple_gfx.hide()
 			airborne_refresh()
 	
-	if gamepad.grapple.pressed and Global.emotions.has(&"love"):
+	if gamepad.grapple.pressed and Global.emotions.has(&"love") and state != State.Grapple:
 		grapple_ray_cast.force_raycast_update()
 		if grapple_ray_cast.is_colliding():
+			SFX.event(&"grapple_start").at(self).play()
+			head.texture = face_love
 			velocity = Vector2.ZERO
 			last_vel = Vector2.ZERO
 			vel_move = 0.0
@@ -591,7 +605,7 @@ func process_jump(delta: float) -> void:
 	
 	if jump_buffer_timer > 0.0:
 		if coyote_timer > 0.0: # or else jump
-			#SoundBank.play("jump", position)
+			SFX.event(&"jump").at(self).play()
 			state = State.Jump
 			is_jumping = true
 			coyote_timer = 0.0
@@ -603,50 +617,14 @@ func process_jump(delta: float) -> void:
 				vel_extra = wallslide_norm * walljump_horizontal_speed
 				wallslide_norm = 0
 		elif can_double_jump and Global.emotions.has(&"joy"):
+			SFX.event(&"double_jump").at(self).play()
+			head.texture = face_joy
 			state = State.DoubleJump
 			can_double_jump = false
 			jump_buffer_timer = 0.0
 			vel_move = maxf(absf(vel_move), double_jump_move_speed) * direction
 			# vel_extra = double_jump_extra_speed * direction
 			velocity.y = -double_jump_velocity
-
-
-func process_wallslide(delta: float) -> void:
-	if (
-			in_water
-			or velocity.y <= 0.0
-			or is_on_floor()
-			or not test_move(
-				transform.translated(Vector2.UP),
-				Vector2(sign(gamepad.move.x),
-				1.0)
-			)
-			or not is_on_wall()
-	):
-		was_on_wall = false
-		return
-	
-	var input_norm := signi(gamepad.move.x)
-	var wall_norm := get_wall_normal()
-	if not (
-			abs(wall_norm.x) >= 0.95
-			and wall_norm.y <= 0.0
-	):
-		was_on_wall = false
-		return
-	
-	was_on_wall = true
-	wallslide_norm = signi(wall_norm.x)
-	
-	if (
-			not was_on_wall
-			or last_walljump_norm == wallslide_norm
-			or wallslide_norm != -input_norm
-		): return
-	
-	if velocity.y > wallslide_fall_speed:
-		velocity.y = wallslide_fall_speed
-	coyote_timer = walljump_coyote_time / Global.TPS
 
 
 func grounded_refresh() -> void:
@@ -679,8 +657,10 @@ func _draw() -> void:
 func die() -> void:
 	if is_dead: return
 	is_dead = true
+	grapple_gfx.hide()
+	state = State.Fall
 	
-	# SFX.event("death.player").at(self).play()
+	SFX.event("player_died").at(self).play()
 	
 	collision_normal.disabled = true
 	collision_dash.disabled = true
@@ -708,6 +688,8 @@ func respawn() -> void:
 	tween.kill()
 	
 	apply_floor_snap()
+	
+	SFX.event("respawn").at(self).play()
 	
 	collision_normal.disabled = false
 	collision_dash.disabled = true
@@ -740,6 +722,8 @@ func say(text: String) -> void:
 			label.visible_characters = 0
 			add_child(label)
 			label.show()
+			
+			SFX.event("talk").at(self).play()
 			
 			var tween := create_tween()
 			tween.tween_property(label, ^"visible_characters", line.length(), line.length() * 0.04)

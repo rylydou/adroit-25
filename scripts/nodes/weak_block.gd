@@ -33,6 +33,7 @@ func receive_punch(punch_strength: int) -> void:
 	if punch_strength < strength: return
 	if is_destroyed: return
 	
+	SFX.event(&"rock_break").at(self)
 	is_destroyed = true
 	collision_shape.disabled = true
 	# hide()

@@ -29,7 +29,7 @@ DSP/dsp_buffer_count=4
 [application]
 
 config/name="Adroit 25"
-run/main_scene="uid://c8devb684dvfo"
+run/main_scene="uid://dcaki6yce0pbk"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
 

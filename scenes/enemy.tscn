@@ -78,7 +78,7 @@ shape = SubResource("CircleShape2D_5uy6h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, -1)
-scale = Vector2(0.035, 0.035)
+scale = Vector2(0.0956233, 0.0956233)
 texture = ExtResource("3_5uy6h")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
