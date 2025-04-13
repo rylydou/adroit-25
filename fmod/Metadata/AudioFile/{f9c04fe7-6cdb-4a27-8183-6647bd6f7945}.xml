@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f9c04fe7-6cdb-4a27-8183-6647bd6f7945}">
+		<property name="assetPath">
+			<value>woop.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.72533333333333339</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f7899307-4d4c-4870-b921-79d872eb1c81}</destination>
+		</relationship>
+	</object>
+</objects>
