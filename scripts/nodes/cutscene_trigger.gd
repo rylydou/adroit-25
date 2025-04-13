@@ -2,6 +2,8 @@ class_name CutsceneTrigger extends ReferenceRect
 
 
 @export var oneshot := true
+@export var play_in_background := false
+
 @export_multiline var text = ""
 
 
