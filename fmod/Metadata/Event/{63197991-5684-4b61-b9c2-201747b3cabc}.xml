@@ -78,6 +78,9 @@
 		<property name="length">
 			<value>0.57999999999999996</value>
 		</property>
+		<property name="volume">
+			<value>-5</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{662dbf54-290b-4584-9332-8bd984ebe323}</destination>
 			<destination>{49341ff5-0806-4367-9b0d-b14bec205d8f}</destination>
@@ -116,11 +119,17 @@
 		</property>
 	</object>
 	<object class="SingleSound" id="{8059a7da-e6a0-4db3-b1be-b5710109c414}">
+		<property name="startOffset">
+			<value>20</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{c540f6ea-4d48-46ed-b20c-f3dfa3b8e794}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{3abc8cea-4f74-46fe-bfbb-0501503bd301}">
+		<property name="startOffset">
+			<value>7.5</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{eeaec879-e95f-42e3-ba3e-559407cc70c2}</destination>
 		</relationship>

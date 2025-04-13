@@ -1012,7 +1012,7 @@ offset_bottom = 360.0
 script = ExtResource("9_w7kh3")
 
 [node name="UnsafeBox4" type="ReferenceRect" parent="Spawn Boxes"]
-offset_left = -127.0
+offset_left = -112.0
 offset_top = 233.0
 offset_right = -65.0
 offset_bottom = 288.0
