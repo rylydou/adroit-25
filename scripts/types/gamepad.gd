@@ -181,22 +181,21 @@ func poll_wasd(delta: float) -> void:
 	move.y = down - up
 	
 	jump.track((
-			Input.is_physical_key_pressed(KEY_Z)
-			# or Input.is_physical_key_pressed(KEY_SPACE)
+			Input.is_physical_key_pressed(KEY_SPACE)
 	), delta)
 	crouch.track((
 			Input.is_physical_key_pressed(KEY_S)
 	), delta)
 	
 	punch.track(
-			Input.is_physical_key_pressed(KEY_SPACE)
+			Input.is_physical_key_pressed(KEY_F)
 	, delta)
 	dash.track(
 			Input.is_physical_key_pressed(KEY_E)
 			or Input.is_physical_key_pressed(KEY_SHIFT)
 	, delta)
 	grapple.track(
-			Input.is_physical_key_pressed(KEY_F)
+			Input.is_physical_key_pressed(KEY_Q)
 			or Input.is_physical_key_pressed(KEY_CTRL)
 			or Input.is_physical_key_pressed(KEY_META)
 			or Input.is_physical_key_pressed(KEY_ALT)
