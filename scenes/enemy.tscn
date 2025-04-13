@@ -46,15 +46,23 @@ _data = {
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5uy6h"]
+resource_local_to_scene = true
 animation = &"Bat flap"
 advance_on_start = true
+use_custom_timeline = true
+timeline_length = 1.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
 
-[node name="Enemy" type="PathFollow2D" node_paths=PackedStringArray("sprite")]
+[node name="Enemy" type="PathFollow2D" node_paths=PackedStringArray("sprite", "anim_tree")]
 z_index = 1
 rotates = false
 script = ExtResource("1_md0e3")
 speed = 50.0
 sprite = NodePath("Sprite2D")
+anim_tree = NodePath("AnimationTree")
+variability = 0.2
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_5uy6h")

@@ -2,7 +2,14 @@ extends PathFollow2D
 
 @export var speed:float
 @export var sprite: Sprite2D
+@export var anim_tree: AnimationTree
+@export var variability: float
 var oldpos
+
+func _ready():
+	anim_tree.tree_root.start_offset = randf()
+	anim_tree.tree_root.timeline_length = (1 - variability/2) + randf() * variability
+
 func _process(delta: float) -> void:
 	oldpos = global_position
 	progress += speed * delta
