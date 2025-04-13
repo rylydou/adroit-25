@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ecf5f02e-9108-4003-af12-eb83950e073e}">
+		<property name="assetPath">
+			<value>Computer Death.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.0217006802721089</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f7899307-4d4c-4870-b921-79d872eb1c81}</destination>
+		</relationship>
+	</object>
+</objects>

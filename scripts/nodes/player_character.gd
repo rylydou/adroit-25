@@ -662,8 +662,8 @@ func die() -> void:
 	
 	SFX.event("player_died").at(self).play()
 	
-	collision_normal.disabled = true
-	collision_dash.disabled = true
+	collision_normal.set_deferred("disabled", true)
+	collision_dash.set_deferred("disabled", true)
 	respawn()
 
 

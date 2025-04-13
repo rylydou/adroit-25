@@ -22,6 +22,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if triggered: return
 	triggered = true
 	
+	SFX.event(&"emotion_pickup").at(self).play()
+	
 	Global.emotions.append(emotion)
 	await Game.play_cutscene(cutscene_text)
 	
