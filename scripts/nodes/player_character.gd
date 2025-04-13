@@ -117,10 +117,11 @@ var can_pound := 0.0
 
 
 @export_group("Grapple", "grapple_")
-@export var grapple_start_speed := 80.0
-@export var grapple_acceleration := 80.0
+@export var grapple_speed_curve: Curve
 @export var grapple_min_distance := 16.0
-var grapple_speed := 0.0
+@export var grapple_max_distance := 8.0 * 30.0
+@export var max_grapple_time := 10.0
+var grappling_time := 0.0
 var grapple_target_x := 0.0
 
 
@@ -133,6 +134,9 @@ var grapple_target_x := 0.0
 @onready var collision_normal: CollisionShape2D = %"Normal Collision"
 @onready var collision_dash: CollisionShape2D = %"Dash Collision"
 @onready var grapple_ray_cast: RayCast2D = %"Grapple Raycast"
+@onready var grapple_gfx: Node2D = %"Grapple GFX"
+@onready var grapple_line: Line2D = %"Grapple Line"
+@onready var talk_label: RichTextLabel = %"Talk"
 
 @onready var respawn_point := global_position
 
@@ -172,6 +176,9 @@ func _ready() -> void:
 			Global.emotions.erase(emotion) # ensure there are no duplicates
 			Global.emotions.append(emotion)
 			)
+	
+	grapple_gfx.hide()
+	talk_label.hide()
 
 
 func calculate_physics() -> void:
@@ -310,7 +317,6 @@ func process_state_platformer(delta: float) -> void:
 	
 	if (
 			gamepad.move.y > 0.9
-			and absf(gamepad.move.x) < 0.1
 			and not is_grounded
 			and velocity.y != 0.0
 			and Global.emotions.has(&"depression")
@@ -334,11 +340,14 @@ func process_state_platformer(delta: float) -> void:
 		#process_wallslide(delta)
 	
 	if state == State.Grapple:
-		grapple_speed += grapple_acceleration * delta
+		grappling_time += delta
+		var grapple_speed := grapple_speed_curve.sample_baked(grappling_time * Global.TPS)
 		position.x = move_toward(position.x, grapple_target_x, grapple_speed * delta)
-		if absf(position.x - grapple_target_x) < grapple_min_distance:
+		grapple_line.points[1] = grapple_line.to_local(global_position + Vector2(0.0, -8.0))
+		if absf(position.x - grapple_target_x) < grapple_min_distance or grappling_time > max_grapple_time:
 			state = State.Fall
-		airborne_refresh()
+			grapple_gfx.hide()
+			airborne_refresh()
 	
 	if gamepad.grapple.pressed and Global.emotions.has(&"love"):
 		grapple_ray_cast.force_raycast_update()
@@ -349,7 +358,10 @@ func process_state_platformer(delta: float) -> void:
 			vel_extra = 0.0
 			state = State.Grapple
 			grapple_target_x = grapple_ray_cast.get_collision_point().x
-			grapple_speed = grapple_start_speed
+			grappling_time = 0.0
+			grapple_gfx.show()
+			grapple_gfx.position.x = grapple_target_x
+			grapple_gfx.position.y = position.y - 8.0
 	
 	move(delta)
 
@@ -685,3 +697,23 @@ func respawn() -> void:
 	velocity = Vector2.ZERO
 	last_vel = Vector2.ZERO
 	is_dead = false
+
+
+func say(text: String) -> void:
+	var lines := text.split("\n\n", false)
+	
+	for line in lines:
+		var label := talk_label.duplicate()
+		label.text = "[wave][center]" + line
+		label.visible_characters = 0
+		add_child(label)
+		label.show()
+		
+		var tween := create_tween()
+		tween.tween_property(label, ^"visible_characters", line.length(), line.length() * 0.04)
+		tween.tween_callback(Util.noop).set_delay(3.0)
+		await tween.finished
+		tween = create_tween()
+		tween.tween_property(label, ^"position:y", -8.0, 1.0).as_relative().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(label, ^"modulate:a", 0.0, 0.5)
+		tween.tween_callback(label.queue_free)

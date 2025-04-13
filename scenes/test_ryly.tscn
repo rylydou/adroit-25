@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://6bsbnqv60qi8"]
+[gd_scene load_steps=35 format=4 uid="uid://6bsbnqv60qi8"]
 
 [ext_resource type="Script" uid="uid://bc2nas7ycgh3g" path="res://scripts/nodes/camera.gd" id="1_g464p"]
 [ext_resource type="PackedScene" uid="uid://d0yc6mwq24ne8" path="res://scenes/player_character.tscn" id="1_x5xhx"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cm40cgtaxuo6m" path="res://scripts/nodes/killbox.gd" id="8_l5iec"]
 [ext_resource type="Script" uid="uid://c1t5eskekkkqt" path="res://scripts/nodes/checkpoint.gd" id="8_s1pwn"]
 [ext_resource type="PackedScene" uid="uid://clp3bddavnurl" path="res://scenes/gimmicks/emotion_pickup.tscn" id="10_pn3xg"]
+[ext_resource type="Script" uid="uid://dw08f1a28p7t0" path="res://scripts/nodes/cutscene_trigger.gd" id="11_uql75"]
 [ext_resource type="Shader" uid="uid://tfb2an4m7d5f" path="res://content/shaders/fog.gdshader" id="15_avbd1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_je3wl"]
@@ -215,3 +216,17 @@ It feels as if you need to run away and hide...
 FEAR!
 
 You can now dash by pressing {dash}!"
+
+[node name="CutsceneTrigger" type="ReferenceRect" parent="."]
+offset_left = 152.0
+offset_top = -36.0
+offset_right = 192.0
+offset_bottom = 4.0
+script = ExtResource("11_uql75")
+play_in_background = true
+text = "What the fuck is this?
+
+Is this some sort of walki talking?
+
+I better be careful this place is super duper dangerous"
+metadata/_custom_type_script = "uid://dw08f1a28p7t0"

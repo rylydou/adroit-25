@@ -10,12 +10,17 @@ extends Area2D
 @export_multiline var cutscene_text := ""
 
 
+var triggered := false
+
+
 func _ready() -> void:
 	$Particles.modulate = color
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not PlayerCharacter: return
+	if triggered: return
+	triggered = true
 	
 	Global.emotions.append(emotion)
 	await Game.play_cutscene(cutscene_text)

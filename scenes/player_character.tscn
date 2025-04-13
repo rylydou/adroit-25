@@ -1,13 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0yc6mwq24ne8"]
+[gd_scene load_steps=15 format=3 uid="uid://d0yc6mwq24ne8"]
 
 [ext_resource type="Script" uid="uid://b10oqiirha8s7" path="res://scripts/nodes/player_character.gd" id="1_6r27q"]
 [ext_resource type="Texture2D" uid="uid://btoj4n7mqm4e1" path="res://content/art/chicken.png" id="1_56udc"]
 [ext_resource type="Texture2D" uid="uid://hqae87ixrjec" path="res://content/art/placeholder.png" id="4_4h0vy"]
 [ext_resource type="PackedScene" uid="uid://dduvy2freqdbj" path="res://scenes/sub_viewport_container.tscn" id="4_uj7mf"]
+[ext_resource type="FontVariation" uid="uid://cpm6gyvng8xw3" path="res://resources/font_regular.tres" id="5_uj7mf"]
 
 [sub_resource type="Curve" id="Curve_6r27q"]
 _limits = [0.0, 128.0, 0.0, 15.0]
 _data = [Vector2(0, 0), 0.0, 4.3916, 0, 1, Vector2(14.9908, 65.8335), -0.758198, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4h0vy"]
+_limits = [0.0, 200.0, 0.0, 30.0]
+_data = [Vector2(0, 0), 0.0, 6.66667, 0, 1, Vector2(30, 200), 6.66667, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4h0vy"]
@@ -68,8 +74,7 @@ extra_air_smooth = 2.0
 double_jump_move_speed = 70.0
 dash_distance_curve = SubResource("Curve_6r27q")
 pound_speed = 500.0
-grapple_start_speed = 200.0
-grapple_acceleration = 1000.0
+grapple_speed_curve = SubResource("Curve_4h0vy")
 grapple_min_distance = 8.0
 
 [node name="Flip" type="Node2D" parent="."]
@@ -157,12 +162,47 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6unfe")
 debug_color = Color(1, 1, 0, 0)
 
-[node name="Grapple Target" type="Node2D" parent="."]
+[node name="Grapple GFX" type="Node2D" parent="."]
 unique_name_in_owner = true
 top_level = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Grapple Target"]
+[node name="Sprite2D" type="Sprite2D" parent="Grapple GFX"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_4h0vy")
 
-[node name="Grapple Line" type="Line2D" parent="Grapple Target"]
+[node name="Grapple Line" type="Line2D" parent="Grapple GFX"]
+unique_name_in_owner = true
+z_index = -1
+points = PackedVector2Array(0, 0, 0, 0)
+width = 2.0
+
+[node name="Talk" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+z_index = 4096
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(200, 100)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/normal_font = ExtResource("5_uj7mf")
+bbcode_enabled = true
+text = "[wave]Hello world!"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 2

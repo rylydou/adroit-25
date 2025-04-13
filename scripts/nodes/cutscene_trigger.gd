@@ -23,6 +23,10 @@ func _ready() -> void:
 
 
 func trigger() -> void:
-	Game.play_cutscene(text)
+	if play_in_background:
+		Global.player.say(text)
+	else:
+		Game.play_cutscene(text)
+	
 	if oneshot:
 		queue_free()
