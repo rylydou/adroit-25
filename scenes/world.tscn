@@ -778,7 +778,14 @@ cutscene_text = "I'm confused...
 
 I'm all alone...
 
-I'm scared"
+I'm scared
+
+[clear]
+
+[b] You discovered
+FEAR!
+
+You can now dash by pressing {dash}!"
 
 [node name="Depression" parent="Emotion Pickups" instance=ExtResource("11_e3hyu")]
 position = Vector2(1155, 1480)
@@ -788,7 +795,14 @@ cutscene_text = "This is too much...
 
 I can't deal with it all...
 
-I wish I could just stay in this ditch forever."
+I wish I could just stay in this ditch forever.
+
+[clear]
+
+[b] You discovered
+DEPRESSION!
+
+You can now groundpound by pressing {pound}!"
 
 [node name="Anger" parent="Emotion Pickups" instance=ExtResource("11_e3hyu")]
 position = Vector2(-1268, 833)
@@ -798,7 +812,14 @@ cutscene_text = "I hate these stupid bats
 
 I hate this stupid cave
 
-I hate everything"
+I hate everything
+
+[clear]
+
+[b] You discovered
+FEAR!
+
+You can now dash by pressing {dash}!"
 
 [node name="Joy" parent="Emotion Pickups" instance=ExtResource("11_e3hyu")]
 position = Vector2(-2228, 1192)
