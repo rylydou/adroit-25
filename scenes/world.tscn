@@ -2110,6 +2110,7 @@ scale = Vector2(0.362658, 0.362658)
 texture = ExtResource("32_fh13f")
 
 [node name="Caveart" type="Sprite2D" parent="Art"]
+z_index = -1100
 position = Vector2(-1789, 1167)
 scale = Vector2(0.377976, 0.377976)
 texture = ExtResource("33_rup4s")
